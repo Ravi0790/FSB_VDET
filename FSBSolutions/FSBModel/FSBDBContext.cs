@@ -28,5 +28,11 @@ namespace FSBModel
         public DbSet<UserType> UserTypes { get; set; }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Machine> Machines { get; set; }
+        public DbSet<Module> Modules { get; set; }
+        public DbSet<Component> Components { get; set; }
+        public DbSet<Part> Parts { get; set; }
+
     }
 }

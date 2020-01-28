@@ -14,6 +14,7 @@ namespace FSBModel
 
         public bool Status { get; set; }
 
+        public IList<Machine> Machines { get; set; }
         public int LineId { get; set; }
 
         public virtual Line Line { get; set; }
