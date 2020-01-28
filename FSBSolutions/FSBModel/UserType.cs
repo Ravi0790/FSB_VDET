@@ -17,7 +17,7 @@ namespace FSBModel
         public Plant Plant { get; set; }
 
         public IList<User> Users { get; set; }
-
+        public IList<Location> Locations { get; set; }
         public bool Status { get; set; }
     }
 }

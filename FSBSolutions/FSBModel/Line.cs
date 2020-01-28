@@ -16,6 +16,8 @@ namespace FSBModel
 
         public virtual Plant Plant { get; set; }
 
+        public IList<Location> Locations { get; set; }
+
         public bool Status { get; set; }
     }
 }
