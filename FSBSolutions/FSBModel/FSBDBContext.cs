@@ -33,6 +33,7 @@ namespace FSBModel
         public DbSet<Module> Modules { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<Part> Parts { get; set; }
+        public DbSet<Product> Products { get; set; }
 
     }
 }

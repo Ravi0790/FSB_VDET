@@ -9,15 +9,11 @@ namespace FSBModel
     public class Line
     {
         public int LineId { get; set; }
-
         public string LineName { get; set; }
-
         public int PlantId { get; set; }
-
         public virtual Plant Plant { get; set; }
-
         public IList<Location> Locations { get; set; }
-
+        public IList<Product> Products { get; set; }
         public bool Status { get; set; }
     }
 }
