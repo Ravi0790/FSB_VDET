@@ -59,6 +59,7 @@
     <Compile Include="Company.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="DailyShiftProduction.cs" />
     <Compile Include="FSBDBContext.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Location.cs" />
