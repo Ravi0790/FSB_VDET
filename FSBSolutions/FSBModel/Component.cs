@@ -13,6 +13,7 @@ namespace FSBModel
         public bool Status { get; set; }
         public IList<Part> Parts { get; set; }
         public int ModuleId { get; set; }
-        public virtual Machine Module { get; set; }
+        public Module Module { get; set; }
+
     }
 }

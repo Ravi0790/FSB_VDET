@@ -59,11 +59,33 @@
     <Compile Include="Company.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Country.cs" />
-    <Compile Include="DailyShiftProduction.cs" />
+    <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.cs" />
+    <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.Designer.cs">
+      <DependentUpon>202001310057201_AddOrderandWasteDetailTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001310108216_DeleteModuleIdfromComponent.cs" />
+    <Compile Include="Migrations\202001310108216_DeleteModuleIdfromComponent.Designer.cs">
+      <DependentUpon>202001310108216_DeleteModuleIdfromComponent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001310109171_AddModuleIdinComponent.cs" />
+    <Compile Include="Migrations\202001310109171_AddModuleIdinComponent.Designer.cs">
+      <DependentUpon>202001310109171_AddModuleIdinComponent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001310134113_ChangeInProductTable.cs" />
+    <Compile Include="Migrations\202001310134113_ChangeInProductTable.Designer.cs">
+      <DependentUpon>202001310134113_ChangeInProductTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001310157329_AddMasterDataInfoTable.cs" />
+    <Compile Include="Migrations\202001310157329_AddMasterDataInfoTable.Designer.cs">
+      <DependentUpon>202001310157329_AddMasterDataInfoTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order.cs" />
+    <Compile Include="Waste.cs" />
     <Compile Include="FSBDBContext.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Machine.cs" />
+    <Compile Include="MasterDataInfo.cs" />
     <Compile Include="Migrations\202001280126479_InitialModel.cs" />
     <Compile Include="Migrations\202001280126479_InitialModel.designer.cs">
       <DependentUpon>202001280126479_InitialModel.cs</DependentUpon>
@@ -92,15 +114,35 @@
     <Compile Include="Migrations\202001281354166_AddProductTable.Designer.cs">
       <DependentUpon>202001281354166_AddProductTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001301642507_AddVerlustartReasonWastetypeWasteCatTable.cs" />
+    <Compile Include="Migrations\202001301642507_AddVerlustartReasonWastetypeWasteCatTable.Designer.cs">
+      <DependentUpon>202001301642507_AddVerlustartReasonWastetypeWasteCatTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001301743016_AddVerlustTable.cs" />
+    <Compile Include="Migrations\202001301743016_AddVerlustTable.Designer.cs">
+      <DependentUpon>202001301743016_AddVerlustTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001301838127_ChangeinVerlustartRelationsDropWasteCategory.cs" />
+    <Compile Include="Migrations\202001301838127_ChangeinVerlustartRelationsDropWasteCategory.Designer.cs">
+      <DependentUpon>202001301838127_ChangeinVerlustartRelationsDropWasteCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001301844215_ChangeVerlustartIdinReason.cs" />
+    <Compile Include="Migrations\202001301844215_ChangeVerlustartIdinReason.Designer.cs">
+      <DependentUpon>202001301844215_ChangeVerlustartIdinReason.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Part.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reason.cs" />
     <Compile Include="Shift.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserType.cs" />
+    <Compile Include="Verlust.cs" />
+    <Compile Include="Verlustart.cs" />
+    <Compile Include="WasteType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -129,6 +171,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001281354166_AddProductTable.resx">
       <DependentUpon>202001281354166_AddProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301642507_AddVerlustartReasonWastetypeWasteCatTable.resx">
+      <DependentUpon>202001301642507_AddVerlustartReasonWastetypeWasteCatTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301743016_AddVerlustTable.resx">
+      <DependentUpon>202001301743016_AddVerlustTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301838127_ChangeinVerlustartRelationsDropWasteCategory.resx">
+      <DependentUpon>202001301838127_ChangeinVerlustartRelationsDropWasteCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001301844215_ChangeVerlustartIdinReason.resx">
+      <DependentUpon>202001301844215_ChangeVerlustartIdinReason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001310057201_AddOrderandWasteDetailTable.resx">
+      <DependentUpon>202001310057201_AddOrderandWasteDetailTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001310108216_DeleteModuleIdfromComponent.resx">
+      <DependentUpon>202001310108216_DeleteModuleIdfromComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001310109171_AddModuleIdinComponent.resx">
+      <DependentUpon>202001310109171_AddModuleIdinComponent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001310134113_ChangeInProductTable.resx">
+      <DependentUpon>202001310134113_ChangeInProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001310157329_AddMasterDataInfoTable.resx">
+      <DependentUpon>202001310157329_AddMasterDataInfoTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

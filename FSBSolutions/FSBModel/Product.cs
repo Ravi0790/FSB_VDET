@@ -15,11 +15,12 @@ namespace FSBModel
         public string ProductPocket { get; set; }
         public string ProductSize { get; set; }
         public string CutPerMinute { get; set; }
-        public string BakintTime { get; set; }
+        public string BakingTime { get; set; }
         public string DoughWeight { get; set; }
         public string BunWeight { get; set; }
         public string BunPerDough { get; set; }
-        public string Dollies { get; set; }
+        public string BunPerTray { get; set; }
+        public string BunPerDolly { get; set; }//Dollies
         public string Flour { get; set; }
         public string Oil { get; set; }
         public string Sugar { get; set; }

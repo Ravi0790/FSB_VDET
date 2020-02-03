@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 text-center login-logo p-5 p-sm-2"><a href="index.html"><img src="img/logo-large.png" alt="FSB"></a></div>
+</div>
+
+<div class="row no-gutters">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mx-auto">
+        <div class="bg-white login-form-box shadow-lg">
+            <div class="login-header"><div class="text-center"><span class="fs-regular-20 fs-sm-regular-16 d-block text-uppercase text-white font-weight-bold">Department - Bakery Login</span></div></div>
+
+            <div class="p-5 p-sm-4">
+                <form action="http://rkjconsult.com/fsb-vdet-tool/html/order-pending.html">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" alt="User Name">Benutzer Name</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Passwort</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chooseLine">Choose Linie</label>
+                        <select class="form-control" id="chooseLine">
+                            <option>Select Linie</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Login</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<p class="small login-footer text-center mt-4">Powered by <strong><a href="http://www.rkjsolutions.com/" target="_blank">RKJ Solutions</a></strong></p>
+

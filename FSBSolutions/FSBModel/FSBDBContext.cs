@@ -37,6 +37,14 @@ namespace FSBModel
         public DbSet<Component> Components { get; set; }
         public DbSet<Part> Parts { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Verlust> Verlusts { get; set; }
+        public DbSet<Verlustart> Verlustarts { get; set; }        
+        public DbSet<WasteType> WasteTypes { get; set; }
+        public DbSet<Reason> Reasons { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<WasteDetail> WasteDetails { get; set; }
+        public DbSet<MasterDataInfo> MasterDataInfos { get; set; }
+
 
     }
 }
