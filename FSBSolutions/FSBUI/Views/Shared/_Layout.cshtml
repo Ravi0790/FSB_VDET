@@ -10,27 +10,16 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 </head>
 <body>
+   @RenderSection("MobileMenu", false)
     <header class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-6 col-6"><div class="float-left hide show-sm mt-4 p-1 mobileMenuIcon"><a href="javascript:void(0)"><img src="img/hamburger-menu.svg" alt="menu"></a></div><div class="float-left"><a href="index.html"><img src="img/logo.png" alt="Logo" class="logo"></a></div></div>
-            <div class="col-lg-10 col-md-10 col-sm-6 col-6">
-                <div class="topNav float-right">
-                    <ul class="float-left hide-sm">
-                        <li><a href="javascript:void(0);"><p class="float-left">Schichtbericht</p></a></li>
-                        <li><a href="javascript:void(0);"><p class="float-left">Auftrag Freigabe</p></a></li>
-                        <li><a href="javascript:void(0);" class="active"><p class="float-left">Auftragsselektion</p></a></li>
-                    </ul>
-                    <ul class="float-left">
-                        <li class="infoPortal"><a href="javascript:void(0);"><span class="icon float-left"></span><p class="float-left hide-sm">Info Portal</p></a></li>
-                        <li class="logOut"><a href="javascript:void(0);"><span class="icon float-left"></span><p class="float-left hide-sm">Logout</p></a></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-6"><div class="float-left hide show-sm mt-4 p-1 mobileMenuIcon"><a href="javascript:void(0)"><img src="img/hamburger-menu.svg" alt="menu"></a></div><div class="float-left"><a href="index.html"><img src="~/img/logo.png" alt="Logo" class="logo"></a></div></div>
+            @Html.Partial("_NavBar");
         </div>
     </header>
     <div class="container-fluid">
         @RenderBody()
-        
+
     </div>
 
     <footer>

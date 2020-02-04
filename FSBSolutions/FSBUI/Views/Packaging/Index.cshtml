@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Bakery";
+    ViewBag.Title = "Packaging";
 }
 
 @section MobileMenu
@@ -20,9 +20,7 @@
     <!--end mobile menu-->
 
 }
-
-
-<div class="minHeight400 pt-4 pb-4">
+<div class="minHeight600 pt-4 pb-4">
     <div class="row">
         <div class="col-12">
             <div class="bg-white shadow rounded">
@@ -74,34 +72,35 @@
                 <div class="bakeryAccordionData">
                     <form action="">
                         <div class="row pl-4 pr-4 mt-3 sm-mt-0">
-                            <div class="col-lg-2 col-md-2 col-sm-12 col-12 sm-mt-15px"><strong class="fs-regular-14 lh-40">Product</strong></div>
+                            <!--<div class="col-lg-2 col-md-2 col-sm-12 col-12 sm-mt-15px"><strong class="fs-regular-14 lh-40">Product</strong></div>
                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                <select class="form-control">
-                                    <option>Hamburger</option>
-                                    <option>Jeera Brot</option>
-                                    <option>Mc Rib</option>
-                                    <option>Steak Bun</option>
-                                    <option>Chillie Brot</option>
-                                </select>
+                                <span class="lh-40 fc-1 font-weight-bold">Hamburger</span>
+                            </div>-->
+
+                            <div class="col-lg-3 col-md-3 col-sm-7 col-7 sm-mt-0">
+                                <p><strong class="fs-regular-14">Product</strong><br><span class="fc-1 font-weight-bold">Hamburger</span></p>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-7 col-7 sm-mt-3">
-                                <p><strong class="fs-regular-14">Product</strong><br><span>Hamburger</span></p>
+                            <div class="col-lg-3 col-md-3 col-sm-5 col-5 pl-small-0 sm-mt-0">
+                                <p><strong class="fs-regular-14">Weight</strong><br><span>52.5kg</span></p>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3 col-sm-7 col-7 sm-mt-0">
                                 <p><strong class="fs-regular-14">Charge (Dough Weight)</strong><br><span>100</span></p>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-5 col-5 pl-5 pl-small-0 sm-mt-3">
-                                <p><strong class="fs-regular-14">Weight</strong><br><span>52.5kg</span></p>
+                            <div class="col-lg-3 col-md-3 col-sm-5 col-5 pl-5 pl-small-0 sm-mt-0">
                                 <p><strong class="fs-regular-14">Speed</strong><br><span>120</span></p>
                             </div>
+
                         </div>
 
                         <div class="border-bottom"></div>
 
                         <div class="row p-3 pt-sm-1 pb-sm-1">
                             <div class="col-lg-3 col-md-3 col-sm-12 col-12"><strong class="fs-regular-14 ">SAP Reference Number</strong></div>
-                            <div class="col-lg-8 col-md-8 col-sm-12 col-12">
-                                <input type="text" class="form-control sm-mt-1">
+                            <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+                                <span class="fc-1 font-weight-bold">SAP23455</span>
                             </div>
                         </div>
                         <div class="border-bottom"></div>
@@ -127,19 +126,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-6 col-6 sm-mt-1"><span class="float-left d-block lh-40 pr-3 w-sm-100">Aushilfen</span><input type="text" class="form-control float-left w-100px w-sm-100"></div>
                         </div>
 
-                        <div class="border-bottom"></div>
-
-                        <div class="row p-3 pt-sm-1 pb-sm-1">
-                            <div class="col-12 mb-3 sm-mb-1"><strong>Teigteileruhr</strong></div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span class="float-left d-block lh-40 pr-3 w-sm-100">Start Time</span><input type="text" class="form-control float-left w-50 w-sm-100"></div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6"><span class="float-left d-block lh-40 pr-3 w-sm-100">End Time</span><input type="text" class="form-control float-left w-50 w-sm-100"></div>
-                        </div>
-
-                        <div class="border-bottom"></div>
-
-                        <div class="text-center pt-3 pl-3 pr-3"><button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 mr-4 startIcon">Start</button> <button type="submit" class="btn btn-primary btn-disabled ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4" disabled>Finish</button> </div>
-
-                        <div class="qualityDataWrap mt-4">
+                        <div class="qualityDataWrap">
                             <div class="row justify-content-between p-3">
                                 <div class="col-auto">Planned Quantity <span class="font-weight-bold ml-2">292,320</span></div>
                                 <div class="col-auto">Produced Quantity <span class="font-weight-bold  ml-2">210,000</span></div>
@@ -167,64 +154,89 @@
                         <p class="clearfix fc-grey mt-4">Hourly shift update will come here</p>
                     </div>
 
-                    <div class="">
+                    <div class="mobileXscroll">
                         <table class="table tableType1">
                             <thead>
                                 <tr>
-                                    <th scope="col" class="text-left pl-4 w-25">Timeslot</th>
-                                    <th scope="col" class="text-right w-25">Dollies</th>
-                                    <th scope="col" class="text-right w-25">Korbe</th>
-                                    <th scope="col" class="text-right pr-4 w-25">Pcs</th>
+                                    <th scope="col" class="text-left pl-4 w-20">Timeslot</th>
+                                    <th scope="col" class="text-center w-20">Dollies</th>
+                                    <th scope="col" class="text-right w-20">Korbe</th>
+                                    <th scope="col" class="text-right pr-4 w-20">Pcs</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">7:00</td>
-                                    <td class="text-right">110</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,500</td>
-                                    <td class="text-right pr-4">55,000</td>
+                                    <td class="text-right">55,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">8:00</td>
-                                    <td class="text-right">100</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,000</td>
-                                    <td class="text-right pr-4">50,000</td>
+                                    <td class="text-right">50,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">9:00</td>
-                                    <td class="text-right">110</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,500</td>
-                                    <td class="text-right pr-4">55,000</td>
+                                    <td class="text-right">55,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">10:00</td>
-                                    <td class="text-right">110</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,500</td>
-                                    <td class="text-right pr-4">55,000</td>
+                                    <td class="text-right">55,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">11:00</td>
-                                    <td class="text-right">100</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,000</td>
-                                    <td class="text-right pr-4">50,000</td>
+                                    <td class="text-right">50,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">12:00</td>
-                                    <td class="text-right">110</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,500</td>
-                                    <td class="text-right pr-4">55,000</td>
+                                    <td class="text-right">55,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">13:00</td>
-                                    <td class="text-right">110</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">5,500</td>
-                                    <td class="text-right pr-4">55,000</td>
+                                    <td class="text-right">55,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                                 <tr>
                                     <td class="text-left font-weight-bold pl-4">14:00</td>
-                                    <td class="text-right">120</td>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm">
+                                    </td>
                                     <td class="text-right">6,000</td>
-                                    <td class="text-right pr-4">60,000</td>
+                                    <td class="text-right">60,000</td>
+                                    <td class="text-right pr-4"><button class="btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold">Add</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -283,7 +295,6 @@
                         <div class="clear-sm"></div>
                         <div class="col-lg-10 col-md10 col-sm-12 col-12 sm-mt-2">
                             <a href="javascript:void(0);" class="tabBox active">Ausschuss</a>
-                            <a href="javascript:void(0);" class="tabBox">Stillstand</a>
                             <a href="javascript:void(0);" class="tabBox">Recept/Parameter</a>
                             <div class="clearfix"></div>
                             <div class="border">
@@ -433,9 +444,9 @@
                                 <div class="border-bottom"></div>
 
                                 <div class="row p-3 pb-sm-1 pt-sm-1">
-                                    <div class="col-lg-2 col-md-2 col-sm-12 col-12"><strong>Ausschussmenge(Kg)</strong></div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-12"><strong>Ausschussmenge(KG)</strong></div>
                                     <div class="col-lg-3 col-md-3 col-sm-12 col-12 sm-mt-1">
-                                        <input type="text" class="form-control sm-mt-1">
+                                        <input type="text" class="form-control">
                                     </div>
                                     <div class="col-lg-2 col-md-2 col-sm-12 col-12"></div>
                                     <div class="col-lg-2 col-md-2 col-sm-12 col-12 sm-mt-3"><strong>Verlustgrund</strong></div>
@@ -572,9 +583,10 @@
     </div>
     <!--end of Table-->
 </div>
+
 @section scripts
 {
-<script>$(document).ready(function() {
+    <script>$( document ).ready(function() {
 
 	 $('.mobileMenuIcon').click(function(){
 	   $('div.mobileMenuBg').attr('style', 'display: block !important');
@@ -593,6 +605,7 @@ $('.upperArrow').click(function(){
 		   $(this).parent('p').parent('div').siblings('.bakeryAccordionData').slideDown();
 		   $(this).removeClass('downArrow');
 		   $(this).parent('p').siblings('.collapseOrder').addClass('hide');
+
 		   }
 
 		else{
@@ -615,8 +628,7 @@ $('.upperArrow').click(function(){
 		   $('.wasteTab').show();
 		   $(this).addClass('.downArrow');
 		   }
-    });
+        });
 
     </script>
-
 }

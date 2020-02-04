@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace FSBUI.Controllers
 {
-    public class PackageController : Controller
+    public class PackagingController : Controller
     {
         // GET: Package
         public ActionResult Index()
