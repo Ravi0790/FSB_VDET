@@ -588,21 +588,32 @@
 
 	});
 
-$('.upperArrow').click(function(){
-		   if ($( this ).hasClass('downArrow')) {
-		   $(this).parent('p').parent('div').siblings('.bakeryAccordionData').slideDown();
-		   $(this).removeClass('downArrow');
-		   $(this).parent('p').siblings('.collapseOrder').addClass('hide');
-		   }
+//$('.upperArrow').click(function(){
+//		   if ($(this).hasClass('downArrow')) {
+//		   $(this).parent('p').parent('div').siblings('.bakeryAccordionData').slideDown();
+//		   $(this).removeClass('downArrow');
+//		   $(this).parent('p').siblings('.collapseOrder').addClass('hide');
+//		   }
 
-		else{
-		   $(this).parent('p').parent('div').siblings('.bakeryAccordionData').slideUp();
-		   $(this).addClass('downArrow');
-		   $(this).parent('p').siblings('.collapseOrder').removeClass('hide');
-		   $('#orderform,#packagingmaster').removeClass('d-flex');
-		   }
-	  });
+//		else{
+//		   $(this).parent('p').parent('div').siblings('.bakeryAccordionData').slideUp();
+//		   $(this).addClass('downArrow');
+//		   $(this).parent('p').siblings('.collapseOrder').removeClass('hide');
+//		   $('#orderform,#packagingmaster').removeClass('d-flex');
+//		   }
+//	  });
 
+    $('.upperArrow').each(function(index, obj){
+    //you can use this to access the current item
+        $(this).click(function () {
+            //console.log(index)
+            $(this).hasClass('downArrow') ? $('.bakeryAccordionData').eq(index).slideDown() : $('.bakeryAccordionData').eq(index).slideUp();
+            $(this).hasClass('downArrow') ? $(this).removeClass('downArrow') : $(this).addClass('downArrow');
+
+            (index == 1 || index == 2) ? $(this).hasClass('downArrow') ? $('#orderform,#packagingmaster').removeClass('d-flex') : $('#orderform,#packagingmaster').addClass('d-flex') : "";
+
+        });
+    });
 
 
 	 $('.wasteAnchor').click(function(){
