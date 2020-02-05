@@ -11,7 +11,7 @@ namespace FSBModel
     {
         public int CountryId { get; set; }
 
-        [Required(ErrorMessage ="Please enter Country Name")]
+        [Required]
         [StringLength(100)]
         [Display(Name = "Ländernamen",Description ="Country Name")]
         public string CountryName { get; set; }        
