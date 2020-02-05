@@ -14,14 +14,26 @@ namespace FSBModel
         [Key]
         public int OrderId { get; set; }
         public string SAPReferenceNumber { get; set; }
+
         public int UserTypeId { get; set; }
+        public UserType UserType { get; set; }
+
         public int UserId { get; set; }
+        public User User { get; set; }
+
         public int ShiftId { get; set; }
+        public Shift Shift { get; set; }
+
         public int LineId { get; set; }
+        public Line Line { get; set; }
+
         public int ProductId { get; set; }
+        public Product Product { get; set; }
+
         public DateTime OrderStartTime { get; set; }
         public DateTime OrderEndTime { get; set; }
         public int OrderDurationMin { get; set; }
+
         public int PlannedQuantity { get; set; }
         public int ProducedQuantity { get; set; }
         public int PremanentEmp { get; set; }

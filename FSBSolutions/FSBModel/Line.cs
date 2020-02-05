@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,13 @@ namespace FSBModel
     public class Line
     {
         public int LineId { get; set; }
+
+        [Required]
+        [StringLength(200)]
+        [Display(Name = "Zeilenname", Description = "Line Name")]
         public string LineName { get; set; }
+
+        [Display(Name = "Buchungskreis", Description = "Plant Name")]
         public int PlantId { get; set; }
         public virtual Plant Plant { get; set; }
         public IList<Location> Locations { get; set; }

@@ -92,6 +92,22 @@
     <Compile Include="Migrations\202002041120504_ValidatingCountryTable.Designer.cs">
       <DependentUpon>202002041120504_ValidatingCountryTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002050710173_ChangesinPlantTable.cs" />
+    <Compile Include="Migrations\202002050710173_ChangesinPlantTable.Designer.cs">
+      <DependentUpon>202002050710173_ChangesinPlantTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002050746404_AppliyingAttributesinShiftandLine.cs" />
+    <Compile Include="Migrations\202002050746404_AppliyingAttributesinShiftandLine.Designer.cs">
+      <DependentUpon>202002050746404_AppliyingAttributesinShiftandLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051030113_applyingattributespart2.cs" />
+    <Compile Include="Migrations\202002051030113_applyingattributespart2.Designer.cs">
+      <DependentUpon>202002051030113_applyingattributespart2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002051106572_changesinproducttable.cs" />
+    <Compile Include="Migrations\202002051106572_changesinproducttable.Designer.cs">
+      <DependentUpon>202002051106572_changesinproducttable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="Waste.cs" />
     <Compile Include="FSBDBContext.cs" />
@@ -214,6 +230,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002041120504_ValidatingCountryTable.resx">
       <DependentUpon>202002041120504_ValidatingCountryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002050710173_ChangesinPlantTable.resx">
+      <DependentUpon>202002050710173_ChangesinPlantTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002050746404_AppliyingAttributesinShiftandLine.resx">
+      <DependentUpon>202002050746404_AppliyingAttributesinShiftandLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051030113_applyingattributespart2.resx">
+      <DependentUpon>202002051030113_applyingattributespart2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002051106572_changesinproducttable.resx">
+      <DependentUpon>202002051106572_changesinproducttable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

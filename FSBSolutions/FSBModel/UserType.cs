@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,12 @@ namespace FSBModel
     {
         public int UserTypeId { get; set; }
 
+        [Required]
+        [StringLength(200)]
+        [Display(Name = "Benutzername", Description = "UserType Name")]
         public string UserTypeName { get; set; }
 
+        [Display(Name = "Buchungskreis", Description = "Plant Name")]
         public int PlantId { get; set; }
 
         public Plant Plant { get; set; }
