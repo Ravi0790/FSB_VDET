@@ -88,6 +88,10 @@
     <Compile Include="Migrations\202001310157329_AddMasterDataInfoTable.Designer.cs">
       <DependentUpon>202001310157329_AddMasterDataInfoTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002041120504_ValidatingCountryTable.cs" />
+    <Compile Include="Migrations\202002041120504_ValidatingCountryTable.Designer.cs">
+      <DependentUpon>202002041120504_ValidatingCountryTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="Waste.cs" />
     <Compile Include="FSBDBContext.cs" />
@@ -207,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202001310157329_AddMasterDataInfoTable.resx">
       <DependentUpon>202001310157329_AddMasterDataInfoTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002041120504_ValidatingCountryTable.resx">
+      <DependentUpon>202002041120504_ValidatingCountryTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
