@@ -45,6 +45,9 @@ namespace FSBModel
         public DbSet<WasteDetail> WasteDetails { get; set; }
         public DbSet<MasterDataInfo> MasterDataInfos { get; set; }
 
+        public DbSet<OrderInfo> OrderInfos { get; set; }
+        public DbSet<OrderProducedVolume> OrderProducedVolumes { get; set; }
+
 
     }
 }

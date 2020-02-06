@@ -68,6 +68,7 @@
     <Compile Include="Company.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.cs" />
     <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.Designer.cs">
       <DependentUpon>202001310057201_AddOrderandWasteDetailTable.cs</DependentUpon>
@@ -108,8 +109,26 @@
     <Compile Include="Migrations\202002051106572_changesinproducttable.Designer.cs">
       <DependentUpon>202002051106572_changesinproducttable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Order.cs" />
-    <Compile Include="Waste.cs" />
+    <Compile Include="Migrations\202002060835278_changeinorderdetailtable.cs" />
+    <Compile Include="Migrations\202002060835278_changeinorderdetailtable.Designer.cs">
+      <DependentUpon>202002060835278_changeinorderdetailtable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002060845146_changeinwastedetailtable.cs" />
+    <Compile Include="Migrations\202002060845146_changeinwastedetailtable.Designer.cs">
+      <DependentUpon>202002060845146_changeinwastedetailtable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002061033127_AddOrderInfoTable.cs" />
+    <Compile Include="Migrations\202002061033127_AddOrderInfoTable.Designer.cs">
+      <DependentUpon>202002061033127_AddOrderInfoTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002061040237_AddProducedVolumeTable.cs" />
+    <Compile Include="Migrations\202002061040237_AddProducedVolumeTable.Designer.cs">
+      <DependentUpon>202002061040237_AddProducedVolumeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrderDetail.cs" />
+    <Compile Include="OrderInfo.cs" />
+    <Compile Include="OrderProducedVolume.cs" />
+    <Compile Include="WasteDetail.cs" />
     <Compile Include="FSBDBContext.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Location.cs" />
@@ -242,6 +261,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002051106572_changesinproducttable.resx">
       <DependentUpon>202002051106572_changesinproducttable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002060835278_changeinorderdetailtable.resx">
+      <DependentUpon>202002060835278_changeinorderdetailtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002060845146_changeinwastedetailtable.resx">
+      <DependentUpon>202002060845146_changeinwastedetailtable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002061033127_AddOrderInfoTable.resx">
+      <DependentUpon>202002061033127_AddOrderInfoTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002061040237_AddProducedVolumeTable.resx">
+      <DependentUpon>202002061040237_AddProducedVolumeTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
