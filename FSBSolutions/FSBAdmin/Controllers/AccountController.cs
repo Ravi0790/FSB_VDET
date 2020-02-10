@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FSBAdmin.Models;
+using FSBModel;
 
 namespace FSBAdmin.Controllers
 {
@@ -17,9 +18,11 @@ namespace FSBAdmin.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private FSBDBContext objconn = null;
 
         public AccountController()
         {
+            objconn = new FSBDBContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -139,6 +142,10 @@ namespace FSBAdmin.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+
+            ViewBag.RoleName = new SelectList(objconn.AspNetRoles, "Name", "Name");
+
+
             return View();
         }
 
@@ -152,9 +159,11 @@ namespace FSBAdmin.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.RoleName);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

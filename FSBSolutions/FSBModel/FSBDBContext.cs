@@ -48,6 +48,7 @@ namespace FSBModel
         public DbSet<OrderInfo> OrderInfos { get; set; }
         public DbSet<OrderProducedVolume> OrderProducedVolumes { get; set; }
 
+        public DbSet<AspNetRoles> AspNetRoles { get; set; }
 
     }
 }

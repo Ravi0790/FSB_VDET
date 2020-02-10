@@ -3,7 +3,7 @@ namespace FSBModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddingRolesinAspNetRoles : DbMigration
+    public partial class AddRoles : DbMigration
     {
         public override void Up()
         {

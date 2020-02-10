@@ -2,7 +2,7 @@ namespace FSBModel.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class InitialIdentityModel : DbMigration
     {
         public override void Up()
@@ -97,3 +97,8 @@ namespace FSBModel.Migrations
         }
     }
 }
+
+
+
+
+

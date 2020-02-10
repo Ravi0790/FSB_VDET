@@ -7,13 +7,13 @@ namespace FSBModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialIdentityModel : IMigrationMetadata
+    public sealed partial class AddRoles : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialIdentityModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRoles));
         
         string IMigrationMetadata.Id
         {
-            get { return "202002081421251_InitialIdentityModel"; }
+            get { return "202002101047422_AddRoles"; }
         }
         
         string IMigrationMetadata.Source
