@@ -125,6 +125,14 @@
     <Compile Include="Migrations\202002061040237_AddProducedVolumeTable.Designer.cs">
       <DependentUpon>202002061040237_AddProducedVolumeTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002081421251_InitialIdentityModel.cs" />
+    <Compile Include="Migrations\202002081421251_InitialIdentityModel.Designer.cs">
+      <DependentUpon>202002081421251_InitialIdentityModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002091401203_AddingRolesinAspNetRoles.cs" />
+    <Compile Include="Migrations\202002091401203_AddingRolesinAspNetRoles.Designer.cs">
+      <DependentUpon>202002091401203_AddingRolesinAspNetRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -273,6 +281,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002061040237_AddProducedVolumeTable.resx">
       <DependentUpon>202002061040237_AddProducedVolumeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002081421251_InitialIdentityModel.resx">
+      <DependentUpon>202002081421251_InitialIdentityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002091401203_AddingRolesinAspNetRoles.resx">
+      <DependentUpon>202002091401203_AddingRolesinAspNetRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
