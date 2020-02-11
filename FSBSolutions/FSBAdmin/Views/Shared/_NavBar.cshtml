@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    var controller = ViewContext.RouteData.GetRequiredString("controller");
+    var action = ViewContext.RouteData.GetRequiredString("action");
+
+
+}
+
+
+
+    <div class="col-lg-10 col-md-10 col-sm-6 col-6">
+        <div class="topNav float-right">
+            @if (Request.IsAuthenticated)
+            {
+                <ul class="float-left hide-sm">
+                    <li><a href="javascript:void(0);"><p class="float-left">Add/Edit</p></a></li>
+
+                </ul>
+
+                
+                    
+
+
+                <ul class="float-left">
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        if (User.IsInRole("superadmin"))
+                        {
+                        <li class="infoPortal"><a href="javascript:void(0);"><span class="icon float-left"></span><p class="float-left hide-sm">Register</p></a></li>
+                        }
+                        <li class="logOut"><a href="javascript:document.getElementById('logoutForm').submit()"><span class="icon float-left"></span><p class="float-left hide-sm">Logout</p></a></li>
+                    }
+                </ul>
+                
+            }
+        </div>
+    </div>
+

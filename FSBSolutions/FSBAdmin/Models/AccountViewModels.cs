@@ -48,14 +48,14 @@ namespace FSBAdmin.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Required(ErrorMessage = "Bitte den  Benutzernamen eingeben")]
+        [Display(Name = "Benutzername")]
+        [EmailAddress(ErrorMessage = "Invalid Benutzername")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte das Passwort eingeben")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Passwort")]
         public string Password { get; set; }
 
         [Display(Name = "Remember me?")]
