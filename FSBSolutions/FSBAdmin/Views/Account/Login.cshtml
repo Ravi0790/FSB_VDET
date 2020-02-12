@@ -6,7 +6,7 @@
 
 <div class="row no-gutters">
     <div class="col-lg-4 col-md-6 col-sm-12 col-12 mx-auto">
-        <div class="bg-white login-form-box shadow-lg">
+        <div class="bg-white login-form-box shadow-lg mt-5 mb-5">
             <div class="login-header"><div class="text-center"><span class="fs-regular-20 fs-sm-regular-16 d-block text-uppercase text-white font-weight-bold">Login</span></div></div>
 
             <div class="p-5 p-sm-4">
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(m => m.Password)
 
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })

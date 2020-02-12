@@ -4,36 +4,51 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CountryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+<div class="minHeight400">
+    <div class="row pt-4 pb-4">
+        <div class="col-12">
+            
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CountryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CountryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CountryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CountryId })
-        </td>
-    </tr>
-}
+            <h2>Index</h2>
 
-</table>
+            <p>
+                @Html.ActionLink("Create New", "Create","",new { @class = "redLink" })
+            </p>
+
+            <table class="table tableType1 table-bordered shadow w-sm-100">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CountryName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CountryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CountryId },new { @class = "redLink" }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.CountryId },new { @class = "redLink" }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CountryId },new { @class = "redLink" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+
+</div>
+
+

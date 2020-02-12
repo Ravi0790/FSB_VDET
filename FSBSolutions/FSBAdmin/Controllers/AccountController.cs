@@ -139,7 +139,7 @@ namespace FSBAdmin.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize(Roles ="superadmin")]
+        //[Authorize(Roles ="superadmin")]
         public ActionResult Register()
         {
 
@@ -152,7 +152,7 @@ namespace FSBAdmin.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = "superadmin")]
+        //[Authorize(Roles = "superadmin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
