@@ -1,3 +1,17 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    var controller = ViewContext.RouteData.GetRequiredString("controller");
+    var action = ViewContext.RouteData.GetRequiredString("action");
+
+
+    if(action.ToLower()=="index" || action.ToLower() == "delete")
+    {
+        Layout = "~/Views/Shared/_LayoutView.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    
 }

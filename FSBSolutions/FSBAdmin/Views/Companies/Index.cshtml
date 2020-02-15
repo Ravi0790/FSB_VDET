@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FSBModel.Company>
+
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+    
+    <p>
+        @Html.ActionLink("Create New", "Create", "", new { @class = "redLink" })
+    </p>
+
+    <table class="table tableType1 table-bordered shadow w-sm-100">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Country.CountryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.CountryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CompanyId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CompanyId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CompanyId })
+                </td>
+            </tr>
+        }
+
+    </table>
+           
+
+

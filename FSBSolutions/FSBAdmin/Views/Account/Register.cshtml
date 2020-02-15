@@ -1,57 +1,49 @@
 ﻿@model FSBAdmin.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+    ViewBag.Heading = "Register";
 }
 
 
-<div class="row no-gutters">
-    <div class="col-lg-4 col-md-6 col-sm-12 col-12 mx-auto">
-        <div class="bg-white login-form-box shadow-lg mt-5 mb-5">
-            <div class="login-header"><div class="text-center"><span class="fs-regular-20 fs-sm-regular-16 d-block text-uppercase text-white font-weight-bold">Register</span></div></div>
 
-            <div class="p-5 p-sm-4">
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <h4>Create a new account.</h4>
-                    <hr />
-                    @Html.ValidationSummary("", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email)
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
 
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
 
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
 
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
 
-                    </div>
+    </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ConfirmPassword)
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword)
 
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
 
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.RoleName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.RoleName)
 
-                        @Html.DropDownList("RoleName", null, htmlAttributes: new { @class = "form-control" })
+        @Html.DropDownList("RoleName", null, htmlAttributes: new { @class = "form-control" })
 
-                    </div>
-                    <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Register</button>
+    </div>
+    <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Register</button>
 
-                }
+}
 
               
 
-            </div>
-
-        </div>
-    </div>
-</div>
+            
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
