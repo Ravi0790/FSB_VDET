@@ -19,12 +19,12 @@ namespace FSBModel
         [Required]
         [Display(Name = "Schichtstartzeit", Description = "Shift Start Time")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}")]
-        public DateTime ShiftStartTime { get; set; }
+        public string ShiftStartTime { get; set; }
 
         [Required]
         [Display(Name = "Schichtendezeit", Description = "Shift End Time")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}")]
-        public DateTime ShiftEndTime { get; set; }
+        public string ShiftEndTime { get; set; }
 
         [Display(Name = "Buchungskreis", Description = "Plant Name")]
         public int PlantId { get; set; }

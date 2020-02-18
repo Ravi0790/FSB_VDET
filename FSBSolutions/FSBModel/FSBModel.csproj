@@ -137,6 +137,14 @@
     <Compile Include="Migrations\202002101047422_AddRoles.Designer.cs">
       <DependentUpon>202002101047422_AddRoles.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002161359184_ChangeinPlantId.cs" />
+    <Compile Include="Migrations\202002161359184_ChangeinPlantId.Designer.cs">
+      <DependentUpon>202002161359184_ChangeinPlantId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002180821559_ChangeindatatypeShiftTable.cs" />
+    <Compile Include="Migrations\202002180821559_ChangeindatatypeShiftTable.Designer.cs">
+      <DependentUpon>202002180821559_ChangeindatatypeShiftTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -291,6 +299,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002101047422_AddRoles.resx">
       <DependentUpon>202002101047422_AddRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002161359184_ChangeinPlantId.resx">
+      <DependentUpon>202002161359184_ChangeinPlantId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002180821559_ChangeindatatypeShiftTable.resx">
+      <DependentUpon>202002180821559_ChangeindatatypeShiftTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,10 +13,19 @@
         <div class="topNav float-right">
             @if (Request.IsAuthenticated)
             {
-                <ul class="float-left hide-sm">
-                    <li><a href="javascript:void(0);"><p class="float-left">Add/Edit</p></a></li>
-
-                </ul>
+            <ul class="float-left hide-sm">
+                <li class="multiOptions">
+                    <a href="javascript:void(0);"><p class="float-left">Add/Edit</p></a>
+                    <ul class="subNav shadow">
+                        <li>@Html.ActionLink("Country", "Index", "Countries")</li>
+                        <li>@Html.ActionLink("Company", "Index", "Companies")</li>
+                        <li>@Html.ActionLink("Plant", "Index", "Plants")</li>
+                        <li>@Html.ActionLink("Shift", "Index", "Shifts")</li>
+                        <li>@Html.ActionLink("Line", "Index", "Lines")</li>
+                        <li>@Html.ActionLink("UserType", "Index", "UserTypes")</li>
+                    </ul>
+                </li>
+            </ul>
 
                 
                     

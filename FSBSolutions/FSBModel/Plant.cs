@@ -9,7 +9,7 @@ namespace FSBModel
 {
     public class Plant
     {
-        public int Id { get; set; }
+        public int PlantId { get; set; }
 
         [Required]
         [StringLength(20)]

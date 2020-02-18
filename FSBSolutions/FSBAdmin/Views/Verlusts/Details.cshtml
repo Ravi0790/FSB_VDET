@@ -1,0 +1,42 @@
+﻿@model FSBModel.Verlust
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Verlust</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserType.UserTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserType.UserTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VerlustName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VerlustName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VerlustId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FSBModel.UserType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Plant.PlantCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Plant.PlantCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UserTypeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UserTypeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UserTypeId })
+        </td>
+    </tr>
+}
+
+</table>

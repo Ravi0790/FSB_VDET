@@ -1,0 +1,50 @@
+﻿@model FSBModel.Location
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Line.LineName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Line.LineName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserType.UserTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserType.UserTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocationName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocationName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LocationId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

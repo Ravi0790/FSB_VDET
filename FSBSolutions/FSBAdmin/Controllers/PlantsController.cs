@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Plants
         public ActionResult Index()
         {
-            var plants = db.Plants.Include(p => p.Company);
+            var plants = db.Plants.Include(p => p.Company).Include(c=>c.Company.Country);
             return View(plants.ToList());
         }
 
@@ -39,7 +39,8 @@ namespace FSBAdmin.Controllers
         // GET: Plants/Create
         public ActionResult Create()
         {
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyCode");
+            //ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,PlantCode,PlantName,CompanyId,Status")] Plant plant)
+        public ActionResult Create([Bind(Include = "PlantId,PlantCode,PlantName,CompanyId,Status")] Plant plant)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +58,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyCode", plant.CompanyId);
+            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", plant.CompanyId);
             return View(plant);
         }
 
@@ -68,12 +69,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Plant plant = db.Plants.Find(id);
+            Plant plant = db.Plants.Include(p=>p.Company).SingleOrDefault(x=>x.PlantId==id);
             if (plant == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyCode", plant.CompanyId);
+            //ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyName", plant.CompanyId);
             return View(plant);
         }
 
@@ -82,7 +83,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PlantCode,PlantName,CompanyId,Status")] Plant plant)
+        public ActionResult Edit([Bind(Include = "PlantId,PlantCode,PlantName,CompanyId,Status")] Plant plant)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +91,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyCode", plant.CompanyId);
+            //ViewBag.CompanyId = new SelectList(db.Companies, "CompanyId", "CompanyCode", plant.CompanyId);
             return View(plant);
         }
 
@@ -101,7 +102,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Plant plant = db.Plants.Find(id);
+            Plant plant = db.Plants.Include(p => p.Company).SingleOrDefault(x => x.PlantId == id);
             if (plant == null)
             {
                 return HttpNotFound();

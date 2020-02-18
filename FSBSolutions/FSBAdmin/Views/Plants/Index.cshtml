@@ -8,10 +8,14 @@
 <p>
     @Html.ActionLink("Create New", "Create","",new { @class = "redLink" })
 </p>
-<table class="table">
+<table class="table tableType1 table-bordered shadow w-sm-100">
+<thead>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Company.CompanyCode)
+            @Html.DisplayNameFor(model => model.Company.Country.CountryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.CompanyName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PlantCode)
@@ -24,11 +28,17 @@
         </th>
         <th></th>
     </tr>
+</thead>
 
+<tbody>
 @foreach (var item in Model) {
+
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Company.CompanyCode)
+            @Html.DisplayFor(modelItem => item.Company.Country.CountryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.CompanyName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PlantCode)
@@ -40,11 +50,11 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.PlantId }, new { @class = "redLink" }) |
+
+            @Html.ActionLink("Delete", "Delete", new { id = item.PlantId }, new { @class = "redLink" })
         </td>
     </tr>
 }
-
+</tbody>
 </table>
