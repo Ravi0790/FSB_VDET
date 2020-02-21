@@ -145,6 +145,14 @@
     <Compile Include="Migrations\202002180821559_ChangeindatatypeShiftTable.Designer.cs">
       <DependentUpon>202002180821559_ChangeindatatypeShiftTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002191820343_makingsomecolumns_floatint_nullable_inproducttable.cs" />
+    <Compile Include="Migrations\202002191820343_makingsomecolumns_floatint_nullable_inproducttable.Designer.cs">
+      <DependentUpon>202002191820343_makingsomecolumns_floatint_nullable_inproducttable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002191833474_ChangeinStatusColDatatypeinProductTable.cs" />
+    <Compile Include="Migrations\202002191833474_ChangeinStatusColDatatypeinProductTable.Designer.cs">
+      <DependentUpon>202002191833474_ChangeinStatusColDatatypeinProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -305,6 +313,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002180821559_ChangeindatatypeShiftTable.resx">
       <DependentUpon>202002180821559_ChangeindatatypeShiftTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191820343_makingsomecolumns_floatint_nullable_inproducttable.resx">
+      <DependentUpon>202002191820343_makingsomecolumns_floatint_nullable_inproducttable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002191833474_ChangeinStatusColDatatypeinProductTable.resx">
+      <DependentUpon>202002191833474_ChangeinStatusColDatatypeinProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
 using FSBModel;
 
 namespace FSBAPI.Controllers
 {
-    public class UserTypesController : Controller
+    public class UserTypesController : ApiController
     {
         private FSBDBContext db = new FSBDBContext();
 
-        // GET: UserTypes
-        public ActionResult Index()
+        // GET: api/UserTypes
+        public IQueryable<UserType> GetUserTypes()
         {
-            var userTypes = db.UserTypes.Include(u => u.Plant);
-            return View(userTypes.ToList());
+            return db.UserTypes;
         }
 
 
@@ -28,103 +29,83 @@ namespace FSBAPI.Controllers
             return db.UserTypes.Where(p => p.PlantId == id);
         }
 
-        // GET: UserTypes/Details/5
-        public ActionResult Details(int? id)
+        // GET: api/UserTypes/5
+        [ResponseType(typeof(UserType))]
+        public IHttpActionResult GetUserType(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             UserType userType = db.UserTypes.Find(id);
             if (userType == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            return View(userType);
+
+            return Ok(userType);
         }
 
-        // GET: UserTypes/Create
-        public ActionResult Create()
+        // PUT: api/UserTypes/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutUserType(int id, UserType userType)
         {
-            ViewBag.PlantId = new SelectList(db.Plants, "PlantId", "PlantCode");
-            return View();
-        }
-
-        // POST: UserTypes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserTypeId,UserTypeName,PlantId,Status")] UserType userType)
-        {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.UserTypes.Add(userType);
+                return BadRequest(ModelState);
+            }
+
+            if (id != userType.UserTypeId)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(userType).State = EntityState.Modified;
+
+            try
+            {
                 db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserTypeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            ViewBag.PlantId = new SelectList(db.Plants, "PlantId", "PlantCode", userType.PlantId);
-            return View(userType);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // GET: UserTypes/Edit/5
-        public ActionResult Edit(int? id)
+        // POST: api/UserTypes
+        [ResponseType(typeof(UserType))]
+        public IHttpActionResult PostUserType(UserType userType)
         {
-            if (id == null)
+            if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return BadRequest(ModelState);
             }
+
+            db.UserTypes.Add(userType);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = userType.UserTypeId }, userType);
+        }
+
+        // DELETE: api/UserTypes/5
+        [ResponseType(typeof(UserType))]
+        public IHttpActionResult DeleteUserType(int id)
+        {
             UserType userType = db.UserTypes.Find(id);
             if (userType == null)
             {
-                return HttpNotFound();
+                return NotFound();
             }
-            ViewBag.PlantId = new SelectList(db.Plants, "PlantId", "PlantCode", userType.PlantId);
-            return View(userType);
-        }
 
-        // POST: UserTypes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserTypeId,UserTypeName,PlantId,Status")] UserType userType)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(userType).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.PlantId = new SelectList(db.Plants, "PlantId", "PlantCode", userType.PlantId);
-            return View(userType);
-        }
-
-        // GET: UserTypes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserType userType = db.UserTypes.Find(id);
-            if (userType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(userType);
-        }
-
-        // POST: UserTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            UserType userType = db.UserTypes.Find(id);
             db.UserTypes.Remove(userType);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return Ok(userType);
         }
 
         protected override void Dispose(bool disposing)
@@ -134,6 +115,11 @@ namespace FSBAPI.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool UserTypeExists(int id)
+        {
+            return db.UserTypes.Count(e => e.UserTypeId == id) > 0;
         }
     }
 }

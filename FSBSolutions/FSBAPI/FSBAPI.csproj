@@ -190,7 +190,6 @@
     <Compile Include="Controllers\ShiftsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UserTypesController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VerlustartsController.cs" />
     <Compile Include="Controllers\VerlustsController.cs" />
     <Compile Include="Controllers\WasteDetailsController.cs" />

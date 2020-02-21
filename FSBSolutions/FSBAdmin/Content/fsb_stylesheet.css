@@ -310,7 +310,7 @@ header {
     padding-left: 2rem;
 }
 
-input[type='text'], input[type='email'], input[type='password'], select, textarea {
+input[type='text'], input[type='email'], input[type='password'], input[type='number'], select, textarea {
     border: 1px solid #E5D51C !important;
     background: #FFFEF6 !important;
     height: 50px !important;

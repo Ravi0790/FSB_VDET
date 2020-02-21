@@ -11,50 +11,67 @@
     @Html.AntiForgeryToken()
     
     <div>
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.UserTypeId)
+        
+
 
         <div class="form-group">
-				@Html.LabelFor(model => model.UserName)
-
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.UserType.Plant.Company.Country.CountryName)
+            @Html.DisplayFor(model => model.UserType.Plant.Company.Country.CountryName)
         </div>
 
         <div class="form-group">
-				@Html.LabelFor(model => model.UserLoginId)
-
-                @Html.EditorFor(model => model.UserLoginId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserLoginId, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.UserType.Plant.Company.CompanyName)
+            @Html.DisplayFor(model => model.UserType.Plant.Company.CompanyName)
         </div>
 
         <div class="form-group">
-				@Html.LabelFor(model => model.UserPassword)
-
-                @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.UserType.Plant.PlantName)
+            @Html.DisplayFor(model => model.UserType.Plant.PlantName)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserTypeId, "UserTypeId")
-
-                @Html.DropDownList("UserTypeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.UserType.UserTypeName)
+            @Html.DisplayFor(model => model.UserType.UserTypeName)
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName)
+
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLoginId)
+
+            @Html.EditorFor(model => model.UserLoginId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserLoginId, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserPassword)
+
+            @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+
+        </div>
+
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Status, new { @class = "float-left" })
 
-                <div class="checkbox float-left ml-3">
-                    @Html.EditorFor(model => model.Status)
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                </div>
-            
+            <div class="checkbox float-left ml-3">
+                @Html.EditorFor(model => model.Status)
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+
         </div>
 
         <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Save</button>

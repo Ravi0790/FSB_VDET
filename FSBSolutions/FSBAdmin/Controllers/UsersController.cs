@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.UserType);
+            var users = db.Users.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country); 
             return View(users.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", user.UserTypeId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", user.UserTypeId);
             return View(user);
         }
 
@@ -68,12 +68,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x=>x.UserId==id);
             if (user == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", user.UserTypeId);
+           // ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", user.UserTypeId);
             return View(user);
         }
 
@@ -90,7 +90,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", user.UserTypeId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", user.UserTypeId);
             return View(user);
         }
 
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = db.Users.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.UserId == id);
             if (user == null)
             {
                 return HttpNotFound();

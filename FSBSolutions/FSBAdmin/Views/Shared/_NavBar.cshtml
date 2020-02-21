@@ -14,6 +14,11 @@
             @if (Request.IsAuthenticated)
             {
             <ul class="float-left hide-sm">
+
+                @if (User.IsInRole("superadmin"))
+                        {
+                        <li class="infoPortal"><a href="~/account/register"><p class="float-left">Register</p></a></li>
+                        }
                 <li class="multiOptions">
                     <a href="javascript:void(0);"><p class="float-left">Add/Edit</p></a>
                     <ul class="subNav shadow">
@@ -36,10 +41,7 @@
                     {
                         @Html.AntiForgeryToken()
 
-                        if (User.IsInRole("superadmin"))
-                        {
-                        <li class="infoPortal"><a href="~/account/register"><span class="icon float-left"></span><p class="float-left hide-sm">Register</p></a></li>
-                        }
+                        
                         <li class="logOut"><a href="javascript:document.getElementById('logoutForm').submit()"><span class="icon float-left"></span><p class="float-left hide-sm">Logout</p></a></li>
                     }
                 </ul>

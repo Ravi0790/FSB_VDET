@@ -1,0 +1,266 @@
+﻿@model FSBModel.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Line.LineName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Line.LineName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserType.UserTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserType.UserTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductCountry)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductCountry)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductPocket)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductPocket)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CutPerMinute)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CutPerMinute)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BakingTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BakingTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoughWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoughWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BunWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BunWeight)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BunPerDough)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BunPerDough)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BunPerTray)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BunPerTray)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BunPerDolly)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BunPerDolly)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Flour)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Flour)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Oil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Oil)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sugar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sugar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Yeast)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Yeast)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PackagingUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PackagingUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PackagingUnitColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PackagingUnitColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MasterPackUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MasterPackUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Misc1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Misc1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Misc2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Misc2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Misc3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Misc3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Misc4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Misc4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Misc5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Misc5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

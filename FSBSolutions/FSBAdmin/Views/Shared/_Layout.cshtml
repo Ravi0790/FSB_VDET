@@ -10,16 +10,39 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 </head>
 <body>
-    @RenderSection("MobileMenu", false)
+    <!--mobile menu-->
+    <div class="mobileMenuBg hide p-3">
+        <div class="text-white">
+            <strong>Menu</strong> <span class="float-right closeIcon"><img src="~/img/close-icon.svg" alt="close" /></span>
+            <div class="clearfix"></div>
+        </div>
+        <ul>
+            <li><a href="javascript:void(0);"><p>Register</p></a></li>
+
+            <li class="multiOptions"><a href="javascript:void(0);" class="active"><p>Add/Edit</p></a>
+                <ul class="subNav shadow">
+                    <li>@Html.ActionLink("Country", "Index", "Countries")</li>
+                    <li>@Html.ActionLink("Company", "Index", "Companies")</li>
+                    <li>@Html.ActionLink("Plant", "Index", "Plants")</li>
+                    <li>@Html.ActionLink("Shift", "Index", "Shifts")</li>
+                    <li>@Html.ActionLink("Line", "Index", "Lines")</li>
+                    <li>@Html.ActionLink("UserType", "Index", "UserTypes")</li>
+                </ul>
+
+            </li>
+
+        </ul>
+    </div>
+    <!--end mobile menu-->
     <header class="container-fluid">
         <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-6 col-6"><div class="float-left hide show-sm mt-4 p-1 mobileMenuIcon"><a href="javascript:void(0)"><img src="img/hamburger-menu.svg" alt="menu"></a></div><div class="float-left"><a href="/"><img src="~/img/logo.png" alt="Logo" class="logo"></a></div></div>
+            <div class="col-lg-2 col-md-2 col-sm-6 col-6"><div class="float-left hide show-sm mt-4 p-1 mobileMenuIcon"><a href="javascript:void(0)"><img src="~/img/hamburger-menu.svg" alt="menu"></a></div><div class="float-left"><a href="/"><img src="~/img/logo.png" alt="Logo" class="logo"></a></div></div>
             @Html.Partial("_NavBar")
         </div>
     </header>
     <div class="container-fluid">
         <div class="row no-gutters">
-            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mx-auto">
+            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mx-auto" id="dvwidth">
                 <div class="bg-white login-form-box shadow-lg mt-5 mb-5">
                     <div class="login-header"><div class="text-center"><span class="fs-regular-20 fs-sm-regular-16 d-block text-uppercase text-white font-weight-bold">@ViewBag.Heading</span></div></div>
 
@@ -32,12 +55,26 @@
         </div>
     </div>
 
-                    <footer>
-                        <p class="small text-center p-2 mb-0 text-white">Powered by <strong><a href="http://www.rkjsolutions.com/" target="_blank">RKJ Solutions</a></strong></p>
-                    </footer>
+    <footer>
+        <p class="small text-center p-2 mb-0 text-white">Powered by <strong><a href="http://www.rkjsolutions.com/" target="_blank">RKJ Solutions</a></strong></p>
+    </footer>
 
-                    @Scripts.Render("~/bundles/jquery")
-                    @Scripts.Render("~/bundles/bootstrap")
-                    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+<script>
+     $('.mobileMenuIcon').click(function(){
+	   $('div.mobileMenuBg').attr('style', 'display: block !important');
+	 });
+
+	 $('.closeIcon').click(function(){
+		$('div.mobileMenuBg').slideUp();
+	 });
+
+	 //$('.producedVolume').height($('.orderSection').height());
+
+	
+</script>
 </body>
 </html>
