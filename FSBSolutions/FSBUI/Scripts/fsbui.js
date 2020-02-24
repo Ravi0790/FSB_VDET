@@ -1,6 +1,7 @@
 ﻿var prodstartdatetime = "";
 var prodenddatetime = "";
 var starthour = "";
+var selectedproductinfo = null;
 
 function checktime() {
 
@@ -35,12 +36,20 @@ function checktime() {
         ss = '0' + ss;
     }
 
-    console.log("Time Diff- " + hh + ":" + mm + ":" + ss);
+    //console.log("Time Diff- " + hh + ":" + mm + ":" + ss);
+
+
 
     $("#endtime").text(endtime);
     $("#duration").text(hh + ":" + mm);
     var durationinmin = parseInt(hh) * 60 + parseInt(mm);
-    $("#durationmin").text("(" + durationinmin+" mins)")
+    $("#durationmin").text("(" + durationinmin + " mins)")
+
+    var cutpermin = selectedproductinfo[0].CutPerMinute;
+    var pockets = selectedproductinfo[0].ProductPocket;
+
+    var plannedquantity = parseInt(durationinmin) * parseInt(cutpermin) * parseInt(pockets);
+    $("#plannedquantity").text(plannedquantity);
 
 }
 
@@ -85,15 +94,21 @@ $(document).ready(function () {
         //    return product.ProductId == productid;
         //});
 
-        var productinfo = bakerydetail.ProductInfo.filter((product) => product.ProductId == productid);
+        selectedproductinfo = bakerydetail.ProductInfo.filter((product) => product.ProductId == productid);
 
-        console.log(productinfo);
+        console.log(selectedproductinfo);
 
-        $("#proddesc").text(productinfo[0].ProductDesc);
-        $("#doughtweight").text(productinfo[0].DoughWeight);
+        $("#proddesc").text(selectedproductinfo[0].ProductDesc);
+        $("#doughtweight").text(selectedproductinfo[0].DoughWeight);
 
-        $("#bunweight").text(productinfo[0].BunWeight);
+        $("#bunweight").text(selectedproductinfo[0].BunWeight);
+
+        
+
         $("#cutperminute").text(productinfo[0].CutPerMinute);
+
+
+
 
         
     })
@@ -102,6 +117,9 @@ $(document).ready(function () {
     function ValidateOrder(){
         var product = $("#product");
         var sapnumber = $("#sapnumber");
+        var empperm = $("#empperm");
+        var emptemp = $("#emptemp")
+        var empexternal = $("#empexternal")
 
         if (product.val() == "0") {
             //toastr.error("Please select Product");
@@ -114,6 +132,13 @@ $(document).ready(function () {
             //toastr.error("Please enter SAP Number");
             bootbox.alert("Bitte geben Sie die SAP-Referenznummer ein")
             sapnumber.focus();
+            return false;
+        }
+
+
+        if (empperm.val() == "" || emptemp.val() == "" || empexternal.val() == "") {
+            bootbox.alert("Bitte geben Sie die Anzahl der Mitarbeiter ein")
+            empperm.focus();
             return false;
         }
 

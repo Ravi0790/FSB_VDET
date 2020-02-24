@@ -135,6 +135,12 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
                     console.log("orderdetail");
                     console.log(data);
 
+                    bootbox.alert({
+                        size: "small",
+                        title: "Auftragserstellung",
+                        message: "Ihre Auftragsnummer : " + data.OrderId
+                    })
+
                     $("#orderid").text(data.OrderId);
 
                     

@@ -51,5 +51,12 @@ namespace FSBUI.Controllers
 
             return View(userinfo);
         }
+
+
+        public ActionResult LogOut()
+        {
+            Session.RemoveAll();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
