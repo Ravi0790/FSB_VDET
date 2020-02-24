@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,9 +18,13 @@
             <div class="clearfix"></div>
         </div>
         <ul>
-            <li><a href="javascript:void(0);"><p>Register</p></a></li>
+            @if (User.IsInRole("superadmin"))
+            {
+                <li class="infoPortal"><a href="~/account/register"><p class="float-left">Register</p></a></li>
+            }
 
-            <li class="multiOptions"><a href="javascript:void(0);" class="active"><p>Add/Edit</p></a>
+            <li class="multiOptions">
+                <a href="javascript:void(0);" class="active"><p>Add/Edit</p></a>
                 <ul class="subNav shadow">
                     <li>@Html.ActionLink("Country", "Index", "Countries")</li>
                     <li>@Html.ActionLink("Company", "Index", "Companies")</li>
@@ -27,6 +32,17 @@
                     <li>@Html.ActionLink("Shift", "Index", "Shifts")</li>
                     <li>@Html.ActionLink("Line", "Index", "Lines")</li>
                     <li>@Html.ActionLink("UserType", "Index", "UserTypes")</li>
+                    <li>@Html.ActionLink("User", "Index", "Users")</li>
+                    <li>@Html.ActionLink("Product", "Index", "Products")</li>
+                    <li>@Html.ActionLink("Location", "Index", "Locations")</li>
+                    <li>@Html.ActionLink("Machine", "Index", "Machines")</li>
+                    <li>@Html.ActionLink("Module", "Index", "Modules")</li>
+                    <li>@Html.ActionLink("Component", "Index", "Components")</li>
+                    <li>@Html.ActionLink("Part", "Index", "Parts")</li>
+                    <li>@Html.ActionLink("Efficiency (Verlust)", "Index", "Verlusts")</li>
+                    <li>@Html.ActionLink("Waste Category (Verlustart)", "Index", "Verlustarts")</li>
+                    <li>@Html.ActionLink("Reason", "Index", "Reasons")</li>
+                    <li>@Html.ActionLink("Waste Type", "Index", "WasteTypes")</li>
                 </ul>
 
             </li>
@@ -63,18 +79,18 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-<script>
-     $('.mobileMenuIcon').click(function(){
-	   $('div.mobileMenuBg').attr('style', 'display: block !important');
-	 });
+    <script>
+        $('.mobileMenuIcon').click(function () {
+            $('div.mobileMenuBg').attr('style', 'display: block !important');
+        });
 
-	 $('.closeIcon').click(function(){
-		$('div.mobileMenuBg').slideUp();
-	 });
+        $('.closeIcon').click(function () {
+            $('div.mobileMenuBg').slideUp();
+        });
 
-	 //$('.producedVolume').height($('.orderSection').height());
+         //$('.producedVolume').height($('.orderSection').height());
 
-	
-</script>
+
+    </script>
 </body>
 </html>

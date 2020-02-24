@@ -35,6 +35,12 @@ namespace FSBAPI.Controllers
             return db.Products.Where(p => p.LineId == id);
         }
 
+        [Route("api/Products/Line/UserType/{lineid}/{usertypeid}")]
+        public IQueryable<Product> GetProductsByLineUserId(int lineid, int usertypeid)
+        {
+            return db.Products.Where(p => p.LineId == lineid && p.UserTypeId==usertypeid);
+        }
+
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public IHttpActionResult GetProduct(int id)

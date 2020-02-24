@@ -14,11 +14,20 @@ namespace FSBModel
         [Required]
         [StringLength(200)]
         [Display(Name = "Teilname", Description = "Part Name")]
-        public string PartName { get; set; }      
+        public string PartName { get; set; }
 
-        public int ComponentId { get; set; }
+
+        //[Display(Name = "Benutzername", Description = "UserType")]
+        //public int UserTypeId { get; set; }
+        //public virtual UserType UserType { get; set; }
+
+        //[Display(Name = "Zeilenname", Description = "Line Name")]
+        //public int LineId { get; set; }
+        //public virtual Line Line { get; set; }
+
 
         [Display(Name = "Komponentenname", Description = "Component Name")]
+        public int ComponentId { get; set; }        
         public virtual Component Component { get; set; }
 
         public bool Status { get; set; }

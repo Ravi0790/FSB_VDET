@@ -8,41 +8,78 @@
 <p>
     @Html.ActionLink("Create New", "Create","",new { @class = "redLink" })
 </p>
-<table class="table tableType1 table-bordered shadow w-sm-100">
-<thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Location.LocationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MachineName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-</thead>
 
-<tbody>
-@foreach (var item in Model) {
+<div class="d-block tableFixedWidth">
+    <table class="table tableType1 table-bordered shadow w-sm-100">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location.UserType.Plant.Company.Country.CountryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location.UserType.Plant.Company.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location.UserType.Plant.PlantName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location.UserType.UserTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location.Line.LineName)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.Location.LocationName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MachineName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Location.LocationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MachineName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MachineId },new { @class = "redLink" }) |
-            
-            @Html.ActionLink("Delete", "Delete", new { id=item.MachineId },new { @class = "redLink" })
-        </td>
-    </tr>
-}
-</tbody>
-</table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.UserType.Plant.Company.Country.CountryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.UserType.Plant.Company.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.UserType.Plant.PlantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.UserType.UserTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.Line.LineName)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location.LocationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MachineName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MachineId }, new { @class = "redLink" }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MachineId }, new { @class = "redLink" })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

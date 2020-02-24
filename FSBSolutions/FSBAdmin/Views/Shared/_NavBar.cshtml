@@ -15,7 +15,7 @@
             {
             <ul class="float-left hide-sm">
 
-                @if (User.IsInRole("superadmin"))
+                        @if (User.IsInRole("superadmin"))
                         {
                         <li class="infoPortal"><a href="~/account/register"><p class="float-left">Register</p></a></li>
                         }
@@ -28,6 +28,18 @@
                         <li>@Html.ActionLink("Shift", "Index", "Shifts")</li>
                         <li>@Html.ActionLink("Line", "Index", "Lines")</li>
                         <li>@Html.ActionLink("UserType", "Index", "UserTypes")</li>
+                        <li>@Html.ActionLink("User", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Product", "Index", "Products")</li>
+                        <li>@Html.ActionLink("Location", "Index", "Locations")</li>
+                        <li>@Html.ActionLink("Machine", "Index", "Machines")</li>
+                        <li>@Html.ActionLink("Module", "Index", "Modules")</li>
+                        <li>@Html.ActionLink("Component", "Index", "Components")</li>
+                        <li>@Html.ActionLink("Part", "Index", "Parts")</li>
+                        <li>@Html.ActionLink("Efficiency (Verlust)", "Index", "Verlusts")</li>
+                        <li>@Html.ActionLink("Waste Category (Verlustart)", "Index", "Verlustarts")</li>
+                        <li>@Html.ActionLink("Reason", "Index", "Reasons")</li>
+                        <li>@Html.ActionLink("Waste Type", "Index", "WasteTypes")</li>
+
                     </ul>
                 </li>
             </ul>

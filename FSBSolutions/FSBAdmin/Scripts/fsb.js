@@ -1,5 +1,6 @@
-﻿var usertypeArray = ["users", "verlusts", "verlustarts", "wastetypes", "wastecategories", "users", "products"]
-var lineArray = ["products", "locations", "lines", "machines", "modules", "components", "parts"]
+﻿var plantusertypeArray = ["users", "products", "locations", "lines", "machines", "modules", "components", "parts", "verlusts", "verlustarts", "wastetypes", "wastecategories", "users","reasons"]
+var plantlineArray = ["products", "locations", "lines", "machines", "modules", "components", "parts"]
+var lineusertypeArray = ["locations", "lines", "machines", "modules", "components", "parts"]
 
 
 $(document).ready(function () {
@@ -52,9 +53,9 @@ $(document).ready(function () {
     $("#plantid").change(function () {
         var plantid = $(this).val();
         console.log("hi plant")
-        for (var i = 0; i < usertypeArray.length; i++) {
+        for (var i = 0; i < plantusertypeArray.length; i++) {
 
-            var controlaction = usertypeArray[i] + "/create";
+            var controlaction = plantusertypeArray[i].toLowerCase() + "/create";
 
             console.log("controlaction",controlaction)
 
@@ -65,9 +66,11 @@ $(document).ready(function () {
         }
 
 
-        for (var i = 0; i < lineArray.length; i++) {
+        for (var i = 0; i < plantlineArray.length; i++) {
 
-            var controlaction = lineArray[i] + "/create";
+            var controlaction = plantlineArray[i].toLowerCase() + "/create";
+
+            console.log("controlaction", controlaction)
 
             if (urlpathname.toLowerCase().indexOf(controlaction) > -1) {
                 ajaxrequest.URL = apiurl.linesbyplant + plantid;
@@ -76,13 +79,52 @@ $(document).ready(function () {
         }
     });
 
-    $("#lineid").change(function () {
+    $("#lineid,#usertypeid").change(function () {
         var lineid = $(this).val();
+        var usertypeid = $("#usertypeid").val();
 
-       
-        if (urlpathname.toLowerCase().indexOf("locations/create") > -1) {
-            ajaxrequest.URL = apiurl.locationsbyline + lineid;
-            SendAjaxRequest(ajaxrequest, "dropdownfill", $("#locationid"), "LocationName", "LocationId", "Location", "", hitapi.line);
+        console.log("hi line")
+        for (var i = 0; i < lineusertypeArray.length; i++) {
+            var controlaction = lineusertypeArray[i].toLowerCase() + "/create";
+            console.log("controlaction", controlaction)
+
+            if (controlaction.indexOf("modules") > -1) {
+                $("#machineid").empty();
+                $("#machineid").append("<option>--Select Machine--</option>");
+            }
+
+            if (controlaction.indexOf("components") > -1) {
+                $("#moduleid").empty();
+                $("#moduleid").append("<option>--Select Module--</option>");
+            }
+
+            if (controlaction.indexOf("parts") > -1) {
+                $("#componentid").empty();
+                $("#componentid").append("<option>--Select Component--</option>");
+            }
+            
+            if (urlpathname.toLowerCase().indexOf(controlaction) > -1) {
+                ajaxrequest.URL = apiurl.locationsbylineusertype + lineid + "/" + usertypeid;
+                SendAjaxRequest(ajaxrequest, "dropdownfill", $("#locationid"), "LocationName", "LocationId", "Location", "", hitapi.location);
+            }
+        }
+
+
+        if (urlpathname.toLowerCase().indexOf("reasons/create") > -1) {
+            ajaxrequest.URL = apiurl.verlustartsbyusertype + usertypeid;
+            SendAjaxRequest(ajaxrequest, "dropdownfill", $("#verlustartid"), "VerlustartName", "VerlustartId", "Verlustart", "", hitapi.usertype);
+        }
+
+    })
+
+    $("#lineid,#usertypeid").change(function () {
+        var lineid = $(this).val();
+        
+
+
+        if (urlpathname.toLowerCase().indexOf("reasons/create") > -1) {
+            ajaxrequest.URL = apiurl.verlustartsbyusertype + usertypeid;
+            SendAjaxRequest(ajaxrequest, "dropdownfill", $("#verlustartid"), "VerlustartName", "VerlustartId", "Verlustart", "", hitapi.usertype);
         }
 
     })
@@ -120,25 +162,25 @@ $(document).ready(function () {
     $("#locationid").change(function () {
         var locationid = $(this).val();
         ajaxrequest.URL = apiurl.machinesbylocation + locationid;
-        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#machineid"), "MachineName", "MachineId", "Machine", "", hitapi.location);
+        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#machineid"), "MachineName", "MachineId", "Machine", "", hitapi.machine);
     })
 
     $("#machineid").change(function () {
         var machineid = $(this).val();
         ajaxrequest.URL = apiurl.modulesbymachine + machineid;
-        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#moduleid"), "ModuleName", "ModuleId", "Module", "", hitapi.machine);
+        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#moduleid"), "ModuleName", "ModuleId", "Module", "", hitapi.module);
     })
 
     $("#moduleid").change(function () {
         var modleid = $(this).val();
         ajaxrequest.URL = apiurl.componentsbymodule + modleid;
-        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#componentid"), "ComponentName", "ComponentId", "Component", "", hitapi.module);
+        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#componentid"), "ComponentName", "ComponentId", "Component", "", hitapi.component);
     })
 
     $("#componentid").change(function () {
         var componentid = $(this).val();
         ajaxrequest.URL = apiurl.partsbycomponent + componentid;
-        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#partid"), "PartName", "PartId", "Part", "", hitapi.component);
+        SendAjaxRequest(ajaxrequest, "dropdownfill", $("#partid"), "PartName", "PartId", "Part", "", hitapi.part);
     })
 
     $("#verlustartid").change(function () {

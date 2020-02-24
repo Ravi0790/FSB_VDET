@@ -29,10 +29,14 @@ namespace FSBAPI.Controllers
         }
 
         // GET: api/Lines/5
-        [ResponseType(typeof(Line))]
+        //[ResponseType(typeof(Line))]
+        [HttpGet]
+        [Route("api/Lines/{id}")]
         public IHttpActionResult GetLine(int id)
         {
-            Line line = db.Lines.Find(id);
+            Line line = db.Lines.Include(l => l.Plant).SingleOrDefault(x => x.LineId == id);
+
+            //Line line = db.Lines.SingleOrDefault(x => x.LineId == id);
             if (line == null)
             {
                 return NotFound();

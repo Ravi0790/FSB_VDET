@@ -7,7 +7,7 @@ apiurl.usertypesbyplant = "/services/api/usertypes/plant/";
 apiurl.usersbyusertype = "/services/api/users/usertype/";
 apiurl.productsbyusertype = "/services/api/products/usertype/";
 apiurl.productsbyline = "/services/api/products/line/";
-apiurl.locationsbyline = "/services/api/locations/line/";
+apiurl.locationsbylineusertype = "/services/api/locations/line/usertype/";
 apiurl.machinesbylocation = "/services/api/machines/location/";
 apiurl.modulesbymachine = "/services/api/modules/machine/";
 apiurl.componentsbymodule = "/services/api/components/module/";
@@ -68,7 +68,7 @@ function FillDropDown(controlobj, objdata, dropdowntext, dropdownval, dropdownna
 function SendAjaxRequest(arequest, step,controlobj,controltext,controlval,controlname,defaultvalue,isapihit) {
     //alert("step" + step + "\n url=" + arequest.URL);
     //console.log("SendAjaxRequest");
-    console.log("Request: " + arequest + " Step: " + step);
+    console.log("Request: " + arequest + " isapihit: " + isapihit);
 
     var gtype = arequest.Type;
     var gurl = arequest.URL;

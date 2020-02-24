@@ -15,12 +15,23 @@ namespace FSBModel
         [StringLength(200)]
         [Display(Name = "Komponentenname", Description = "Component Name")]
         public string ComponentName { get; set; }
-        public bool Status { get; set; }
+
+        //[Display(Name = "Benutzername", Description = "UserType")]
+        //public int UserTypeId { get; set; }
+        //public virtual UserType UserType { get; set; }
+
+        //[Display(Name = "Zeilenname", Description = "Line Name")]
+        //public int LineId { get; set; }
+        //public virtual Line Line { get; set; }
+        
 
         [Display(Name = "Modulname", Description = "Module Name")]
         public int ModuleId { get; set; }
         public Module Module { get; set; }
+
         public IList<Part> Parts { get; set; }
+
+        public bool Status { get; set; }
 
     }
 }

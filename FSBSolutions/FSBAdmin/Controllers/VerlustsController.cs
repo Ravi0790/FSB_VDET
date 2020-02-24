@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Verlusts
         public ActionResult Index()
         {
-            var verlusts = db.Verlusts.Include(v => v.UserType);
+            var verlusts = db.Verlusts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country); ;
             return View(verlusts.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Verlusts/Create
         public ActionResult Create()
         {
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlust.UserTypeId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlust.UserTypeId);
             return View(verlust);
         }
 
@@ -68,12 +68,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Verlust verlust = db.Verlusts.Find(id);
+            Verlust verlust = db.Verlusts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.VerlustId == id);
             if (verlust == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlust.UserTypeId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlust.UserTypeId);
             return View(verlust);
         }
 
@@ -90,7 +90,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlust.UserTypeId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlust.UserTypeId);
             return View(verlust);
         }
 
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Verlust verlust = db.Verlusts.Find(id);
+            Verlust verlust = db.Verlusts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.VerlustId == id);
             if (verlust == null)
             {
                 return HttpNotFound();

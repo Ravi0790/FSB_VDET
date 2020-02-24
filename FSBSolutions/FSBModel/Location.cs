@@ -24,6 +24,7 @@ namespace FSBModel
         [Display(Name = "Benutzername", Description = "UserType Name")]
         public int UserTypeId { get; set; }
         public virtual UserType UserType { get; set; }
+
         public IList<Machine> Machines { get; set; }
     }
 }

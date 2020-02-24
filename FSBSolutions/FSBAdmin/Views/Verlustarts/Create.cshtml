@@ -1,53 +1,93 @@
-﻿@model FSBModel.Verlustart
+﻿@model FSBAdmin.Models.VerlustartViewModel
 
 @{
     ViewBag.Title = "Create";
+    ViewBag.Heading = "Verlustart - Create";
 }
 
 
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div>
-        
+
+    <div id="dvstart">
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
-				@Html.LabelFor(model => model.VerlustartName)
-			
-                @Html.EditorFor(model => model.VerlustartName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VerlustartName, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.CountryId)
+
+            @Html.DropDownListFor(model => model.CountryId, null, "--Select Country--", htmlAttributes: new { @class = "form-control", id = "countryid" })
+            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyId)
+
+            @Html.DropDownListFor(model => model.CompanyId, Enumerable.Empty<SelectListItem>(), "--Select Company--", htmlAttributes: new { @class = "form-control", id = "companyid" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserTypeId, "UserTypeId", htmlAttributes: new { @class = "control-label col-md-2" })
-			
-                @Html.DropDownList("UserTypeId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.PlantId)
+
+            @Html.DropDownListFor(model => model.PlantId, Enumerable.Empty<SelectListItem>(), "--Select Plant--", htmlAttributes: new { @class = "form-control", id = "plantid" })
+            @Html.ValidationMessageFor(model => model.PlantId, "", new { @class = "text-danger" })
+
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, new { @class = "float-left" })
-			
-                <div class="checkbox float-left ml-3">
-                    @Html.EditorFor(model => model.Status)
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                </div>
-            
+            @Html.LabelFor(model => model.Verlustart.UserTypeId)
+
+            @Html.DropDownListFor(model => model.Verlustart.UserTypeId, Enumerable.Empty<SelectListItem>(), "--Select UserType--", htmlAttributes: new { @class = "form-control", id = "usertypeid" })
+            @Html.ValidationMessageFor(model => model.Verlustart.UserTypeId, "", new { @class = "text-danger" })
+
         </div>
 
-        <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Create</button>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Verlustart.VerlustartName)
+
+            @Html.EditorFor(model => model.Verlustart.VerlustartName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Verlustart.VerlustartName, "", new { @class = "text-danger" })
+
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Verlustart.Status, new { @class = "float-left" })
+
+            <div class="checkbox float-left ml-3">
+                @Html.EditorFor(model => model.Verlustart.Status)
+                @Html.ValidationMessageFor(model => model.Verlustart.Status, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="mt-3 text-center">
+        <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold mt-2 mr-5">Create</button> @Html.ActionLink("Back to List", "Index", "", new { @class = "redLink" })
     </div>
 }
 
-<div class="mt-3">
-    @Html.ActionLink("Back to List", "Index", "", new { @class = "redLink" })
-</div>
 
 @section Scripts {
+    <script>
+        hitapi.usertype = false;
+
+        $("#dvwidth").removeClass()
+        $("#dvwidth").addClass("col-lg-8 col-md-8 col-sm-12 col-12 mx-auto")
+        $("#dvstart").addClass("row");
+        $(".form-group").addClass("col-lg-4 col-md-4 col-sm-12 col-12")
+
+    </script>
+
     @Scripts.Render("~/bundles/jqueryval")
 }

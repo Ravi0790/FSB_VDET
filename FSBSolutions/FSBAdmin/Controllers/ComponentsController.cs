@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Components
         public ActionResult Index()
         {
-            var components = db.Components.Include(c => c.Module);
+            var components = db.Components.Include(c => c.Module).Include(m => m.Module.Machine).Include(m => m.Module.Machine.Location).Include(p => p.Module.Machine.Location.Line).Include(p => p.Module.Machine.Location.UserType).Include(u => u.Module.Machine.Location.UserType.Plant).Include(u => u.Module.Machine.Location.UserType.Plant.Company).Include(u => u.Module.Machine.Location.UserType.Plant.Company.Country);
             return View(components.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Components/Create
         public ActionResult Create()
         {
-            ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ComponentId,ComponentName,Status,ModuleId")] Component component)
+        public ActionResult Create([Bind(Include = "ComponentId,ComponentName,ModuleId,Status")] Component component)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName", component.ModuleId);
+            //ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName", component.ModuleId);
             return View(component);
         }
 
@@ -68,12 +68,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
+            Component component = db.Components.Include(c => c.Module).Include(m => m.Module.Machine).Include(m => m.Module.Machine.Location).Include(p => p.Module.Machine.Location.Line).Include(p => p.Module.Machine.Location.UserType).Include(u => u.Module.Machine.Location.UserType.Plant).Include(u => u.Module.Machine.Location.UserType.Plant.Company).Include(u => u.Module.Machine.Location.UserType.Plant.Company.Country).SingleOrDefault(x => x.ComponentId == id);
             if (component == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName", component.ModuleId);
+            //ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName", component.ModuleId);
             return View(component);
         }
 
@@ -82,7 +82,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ComponentId,ComponentName,Status,ModuleId")] Component component)
+        public ActionResult Edit([Bind(Include = "ComponentId,ComponentName,ModuleId,Status")] Component component)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName", component.ModuleId);
+            //ViewBag.ModuleId = new SelectList(db.Modules, "ModuleId", "ModuleName", component.ModuleId);
             return View(component);
         }
 
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
+            Component component = db.Components.Include(c => c.Module).Include(m => m.Module.Machine).Include(m => m.Module.Machine.Location).Include(p => p.Module.Machine.Location.Line).Include(p => p.Module.Machine.Location.UserType).Include(u => u.Module.Machine.Location.UserType.Plant).Include(u => u.Module.Machine.Location.UserType.Plant.Company).Include(u => u.Module.Machine.Location.UserType.Plant.Company.Country).SingleOrDefault(x => x.ComponentId == id);
             if (component == null)
             {
                 return HttpNotFound();

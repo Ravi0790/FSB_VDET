@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Modules
         public ActionResult Index()
         {
-            var modules = db.Modules.Include(m => m.Machine);
+            var modules = db.Modules.Include(m => m.Machine).Include(m => m.Machine.Location).Include(p => p.Machine.Location.Line).Include(p => p.Machine.Location.UserType).Include(u => u.Machine.Location.UserType.Plant).Include(u => u.Machine.Location.UserType.Plant.Company).Include(u => u.Machine.Location.UserType.Plant.Company.Country); 
             return View(modules.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Modules/Create
         public ActionResult Create()
         {
-            ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName", module.MachineId);
+            //ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName", module.MachineId);
             return View(module);
         }
 
@@ -68,12 +68,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Module module = db.Modules.Find(id);
+            Module module = db.Modules.Include(m => m.Machine).Include(m => m.Machine.Location).Include(p => p.Machine.Location.Line).Include(p => p.Machine.Location.UserType).Include(u => u.Machine.Location.UserType.Plant).Include(u => u.Machine.Location.UserType.Plant.Company).Include(u => u.Machine.Location.UserType.Plant.Company.Country).SingleOrDefault(x => x.ModuleId == id);
             if (module == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName", module.MachineId);
+            //ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName", module.MachineId);
             return View(module);
         }
 
@@ -90,7 +90,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName", module.MachineId);
+            //ViewBag.MachineId = new SelectList(db.Machines, "MachineId", "MachineName", module.MachineId);
             return View(module);
         }
 
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Module module = db.Modules.Find(id);
+            Module module = db.Modules.Include(m => m.Machine).Include(m => m.Machine.Location).Include(p => p.Machine.Location.Line).Include(p => p.Machine.Location.UserType).Include(u => u.Machine.Location.UserType.Plant).Include(u => u.Machine.Location.UserType.Plant.Company).Include(u => u.Machine.Location.UserType.Plant.Company.Country).SingleOrDefault(x => x.ModuleId == id);
             if (module == null)
             {
                 return HttpNotFound();

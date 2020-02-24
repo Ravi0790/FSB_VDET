@@ -2,47 +2,101 @@
 
 @{
     ViewBag.Title = "Index";
+    
 }
 
 
 <p>
     @Html.ActionLink("Create New", "Create","",new { @class = "redLink" })
 </p>
-<table class="table tableType1 table-bordered shadow w-sm-100">
-<thead>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Module.ModuleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ComponentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-</thead>
+<div class="d-block tableFixedWidth">
+    <table class="table tableType1 table-bordered shadow w-sm-100">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.Location.UserType.Plant.Company.Country.CountryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.Location.UserType.Plant.Company.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.Location.UserType.Plant.PlantName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.Location.UserType.UserTypeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.Location.Line.LineName)
+                </th>
 
-<tbody>
-@foreach (var item in Model) {
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.Location.LocationName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.Machine.MachineName)
+                </th>
 
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Module.ModuleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ComponentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ComponentId },new { @class = "redLink" }) |
-            
-            @Html.ActionLink("Delete", "Delete", new { id=item.ComponentId },new { @class = "redLink" })
-        </td>
-    </tr>
-}
-</tbody>
-</table>
+                <th>
+                    @Html.DisplayNameFor(model => model.Module.ModuleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ComponentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.Location.UserType.Plant.Company.Country.CountryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.Location.UserType.Plant.Company.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.Location.UserType.Plant.PlantName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.Location.UserType.UserTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.Location.Line.LineName)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.Location.LocationName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.Machine.MachineName)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Module.ModuleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ComponentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ComponentId }, new { @class = "redLink" }) |
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ComponentId }, new { @class = "redLink" })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

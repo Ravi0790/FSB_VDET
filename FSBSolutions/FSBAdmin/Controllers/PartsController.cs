@@ -17,7 +17,15 @@ namespace FSBAdmin.Controllers
         // GET: Parts
         public ActionResult Index()
         {
-            var parts = db.Parts.Include(p => p.Component);
+            var parts = db.Parts.Include(p => p.Component)
+                .Include(c => c.Component.Module)
+                .Include(m => m.Component.Module.Machine)
+                .Include(m => m.Component.Module.Machine.Location)
+                .Include(p => p.Component.Module.Machine.Location.Line)
+                .Include(p => p.Component.Module.Machine.Location.UserType)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant.Company)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant.Company.Country);
             return View(parts.ToList());
         }
 
@@ -39,7 +47,7 @@ namespace FSBAdmin.Controllers
         // GET: Parts/Create
         public ActionResult Create()
         {
-            ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -68,12 +76,21 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Part part = db.Parts.Find(id);
+            Part part = db.Parts.Include(p => p.Component)
+                .Include(c => c.Component.Module)
+                .Include(m => m.Component.Module.Machine)
+                .Include(m => m.Component.Module.Machine.Location)
+                .Include(p => p.Component.Module.Machine.Location.Line)
+                .Include(p => p.Component.Module.Machine.Location.UserType)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant.Company)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant.Company.Country)
+                .SingleOrDefault(x => x.PartId == id);
             if (part == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName", part.ComponentId);
+           // ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName", part.ComponentId);
             return View(part);
         }
 
@@ -90,7 +107,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName", part.ComponentId);
+            //ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName", part.ComponentId);
             return View(part);
         }
 
@@ -101,7 +118,16 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Part part = db.Parts.Find(id);
+            Part part = db.Parts.Include(p => p.Component)
+                .Include(c => c.Component.Module)
+                .Include(m => m.Component.Module.Machine)
+                .Include(m => m.Component.Module.Machine.Location)
+                .Include(p => p.Component.Module.Machine.Location.Line)
+                .Include(p => p.Component.Module.Machine.Location.UserType)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant.Company)
+                .Include(u => u.Component.Module.Machine.Location.UserType.Plant.Company.Country)
+                .SingleOrDefault(x => x.PartId == id);
             if (part == null)
             {
                 return HttpNotFound();

@@ -1,53 +1,128 @@
-﻿@model FSBModel.Component
+﻿@model FSBAdmin.Models.ComponentViewModel
 
 @{
     ViewBag.Title = "Create";
+    ViewBag.Heading = "Component - Create";
 }
 
 
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div>
-        
+
+    <div id="dvstart">
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-				@Html.LabelFor(model => model.ComponentName)
-			
-                @Html.EditorFor(model => model.ComponentName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ComponentName, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.CountryId)
+
+            @Html.DropDownListFor(model => model.CountryId, null, "--Select Country--", htmlAttributes: new { @class = "form-control", id = "countryid" })
+            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CompanyId)
+
+            @Html.DropDownListFor(model => model.CompanyId, Enumerable.Empty<SelectListItem>(), "--Select Company--", htmlAttributes: new { @class = "form-control", id = "companyid" })
+            @Html.ValidationMessageFor(model => model.CompanyId, "", new { @class = "text-danger" })
+
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, new { @class = "float-left" })
-			
-                <div class="checkbox float-left ml-3">
-                    @Html.EditorFor(model => model.Status)
-                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                </div>
-            
+            @Html.LabelFor(model => model.PlantId)
+
+            @Html.DropDownListFor(model => model.PlantId, Enumerable.Empty<SelectListItem>(), "--Select Plant--", htmlAttributes: new { @class = "form-control", id = "plantid" })
+            @Html.ValidationMessageFor(model => model.PlantId, "", new { @class = "text-danger" })
+
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ModuleId, "ModuleId", htmlAttributes: new { @class = "control-label col-md-2" })
-			
-                @Html.DropDownList("ModuleId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ModuleId, "", new { @class = "text-danger" })
-            
+            @Html.LabelFor(model => model.UserTypeId)
+
+            @Html.DropDownListFor(model => model.UserTypeId, Enumerable.Empty<SelectListItem>(), "--Select UserType--", htmlAttributes: new { @class = "form-control", id = "usertypeid" })
+            @Html.ValidationMessageFor(model => model.UserTypeId, "", new { @class = "text-danger" })
+
         </div>
 
-        <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Create</button>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LineId)
+
+            @Html.DropDownListFor(model => model.LineId, Enumerable.Empty<SelectListItem>(), "--Select Line--", htmlAttributes: new { @class = "form-control", id = "lineid" })
+            @Html.ValidationMessageFor(model => model.LineId, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LocationId)
+
+            @Html.DropDownListFor(model => model.LocationId, Enumerable.Empty<SelectListItem>(), "--Select Location--", htmlAttributes: new { @class = "form-control", id = "locationid" })
+            @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MachineId)
+
+            @Html.DropDownListFor(model => model.MachineId, Enumerable.Empty<SelectListItem>(), "--Select Machine--", htmlAttributes: new { @class = "form-control", id = "machineid" })
+            @Html.ValidationMessageFor(model => model.MachineId, "", new { @class = "text-danger" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Component.ModuleId)
+
+            @Html.DropDownListFor(model => model.Component.ModuleId, Enumerable.Empty<SelectListItem>(), "--Select Location--", htmlAttributes: new { @class = "form-control", id = "moduleid" })
+            @Html.ValidationMessageFor(model => model.Component.ModuleId, "", new { @class = "text-danger" })
+
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Component.ComponentName)
+
+            @Html.EditorFor(model => model.Component.ComponentName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Component.ComponentName, "", new { @class = "text-danger" })
+
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Component.Status, new { @class = "float-left" })
+
+            <div class="checkbox float-left ml-3">
+                @Html.EditorFor(model => model.Component.Status)
+                @Html.ValidationMessageFor(model => model.Component.Status, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mt-3 text-center">
+        <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold mt-2 mr-5">Create</button> @Html.ActionLink("Back to List", "Index", "", new { @class = "redLink" })
     </div>
 }
 
-<div class="mt-3">
-    @Html.ActionLink("Back to List", "Index", "", new { @class = "redLink" })
-</div>
+
 
 @section Scripts {
+    <script>
+
+        hitapi.component = false;
+
+        $("#dvwidth").removeClass()
+        $("#dvwidth").addClass("col-lg-8 col-md-8 col-sm-12 col-12 mx-auto")
+        $("#dvstart").addClass("row");
+        $(".form-group").addClass("col-lg-4 col-md-4 col-sm-12 col-12")
+
+    </script>
+
     @Scripts.Render("~/bundles/jqueryval")
 }

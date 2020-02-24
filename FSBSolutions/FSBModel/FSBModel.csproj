@@ -153,6 +153,22 @@
     <Compile Include="Migrations\202002191833474_ChangeinStatusColDatatypeinProductTable.Designer.cs">
       <DependentUpon>202002191833474_ChangeinStatusColDatatypeinProductTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002210730006_AddingUserIdinMachineModuleCompParts.cs" />
+    <Compile Include="Migrations\202002210730006_AddingUserIdinMachineModuleCompParts.Designer.cs">
+      <DependentUpon>202002210730006_AddingUserIdinMachineModuleCompParts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002220218550_RemovingUserIdMachineIdFromMachineModuleCompPart.cs" />
+    <Compile Include="Migrations\202002220218550_RemovingUserIdMachineIdFromMachineModuleCompPart.Designer.cs">
+      <DependentUpon>202002220218550_RemovingUserIdMachineIdFromMachineModuleCompPart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002231627097_AddActionControllerURLinUserType.cs" />
+    <Compile Include="Migrations\202002231627097_AddActionControllerURLinUserType.Designer.cs">
+      <DependentUpon>202002231627097_AddActionControllerURLinUserType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002240924382_changeinorderdetail.cs" />
+    <Compile Include="Migrations\202002240924382_changeinorderdetail.Designer.cs">
+      <DependentUpon>202002240924382_changeinorderdetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -319,6 +335,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002191833474_ChangeinStatusColDatatypeinProductTable.resx">
       <DependentUpon>202002191833474_ChangeinStatusColDatatypeinProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002210730006_AddingUserIdinMachineModuleCompParts.resx">
+      <DependentUpon>202002210730006_AddingUserIdinMachineModuleCompParts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002220218550_RemovingUserIdMachineIdFromMachineModuleCompPart.resx">
+      <DependentUpon>202002220218550_RemovingUserIdMachineIdFromMachineModuleCompPart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002231627097_AddActionControllerURLinUserType.resx">
+      <DependentUpon>202002231627097_AddActionControllerURLinUserType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002240924382_changeinorderdetail.resx">
+      <DependentUpon>202002240924382_changeinorderdetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Machines
         public ActionResult Index()
         {
-            var machines = db.Machines.Include(m => m.Location);
+            var machines = db.Machines.Include(m => m.Location).Include(p => p.Location.Line).Include(p => p.Location.UserType).Include(u => u.Location.UserType.Plant).Include(u => u.Location.UserType.Plant.Company).Include(u => u.Location.UserType.Plant.Company.Country);
             return View(machines.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Machines/Create
         public ActionResult Create()
         {
-            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName", machine.LocationId);
+            //ViewBag.LocationId = new SelectList(db.Locations, "LocationId", "LocationName", machine.LocationId);
             return View(machine);
         }
 
@@ -68,7 +68,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Machine machine = db.Machines.Find(id);
+            Machine machine = db.Machines.Include(m => m.Location).Include(p => p.Location.Line).Include(p => p.Location.UserType).Include(u => u.Location.UserType.Plant).Include(u => u.Location.UserType.Plant.Company).Include(u => u.Location.UserType.Plant.Company.Country).SingleOrDefault(x => x.MachineId == id);
             if (machine == null)
             {
                 return HttpNotFound();
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Machine machine = db.Machines.Find(id);
+            Machine machine = db.Machines.Include(m => m.Location).Include(p => p.Location.Line).Include(p => p.Location.UserType).Include(u => u.Location.UserType.Plant).Include(u => u.Location.UserType.Plant.Company).Include(u => u.Location.UserType.Plant.Company.Country).SingleOrDefault(x => x.MachineId == id);
             if (machine == null)
             {
                 return HttpNotFound();

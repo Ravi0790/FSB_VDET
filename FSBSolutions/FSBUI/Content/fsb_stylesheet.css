@@ -1,10 +1,14 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /* CSS Document */
 
 html{font-size:16px}
 body,h1,h2,h3,h4,h5,h6,h7,p,div,ul,li,input,button{font-family:'Lato', serif !important; color: #333;}
 body{background: url('../img/bakery-pattern.jpg');}
 
+
+.text-danger > ul > li {
+    color: #dc3545 !important
+}
 .hide{display: none !important}
 
 
@@ -26,6 +30,8 @@ body{background: url('../img/bakery-pattern.jpg');}
 
 .redLink{color: #A90C1F;text-decoration: underline}
 .redLink:hover{color: #A90C1F;text-decoration: none}
+
+.blackLink,.blackLink:hover{color:#333;text-decoration: none}
 
 .align-center{align-items: center;}
 
@@ -92,6 +98,7 @@ header{background: #A17E69 url("../img/header-bg.jpg"); height: 100px;}
 
 .btn-disabled,.btn-disabled:hover{background-color: #CECECE !important;border:1px solid #E6E5E5 !important;box-shadow: 0 4px 0 0 #989898 !important;}
 
+.height-auto{height: auto}
 
 .btn-orange{background-color: #F19D68 !important; border:1px solid #EEB99A;box-shadow: 0 4px 0 0 #D18C63;}
 
@@ -101,6 +108,29 @@ header{background: #A17E69 url("../img/header-bg.jpg"); height: 100px;}
 .tabBox:hover,.tabBox.active{color:#fff;border:1px solid #D4906C;text-decoration: none;background: #D4906C url('../img/select-tab.svg') 10% 50% no-repeat;}
 
 .login-form-box{border-radius: 8px !important}
+
+.fixedLoaderWrap {
+    position: fixed;
+    background: rgba(255,255,255,.8);
+    width: 100%;
+    height: 100%;
+    z-index: 9999999;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -60px;
+}
 
 /* Grow Shadow */
 .hvr-grow-shadow {
@@ -141,7 +171,7 @@ header{background: #A17E69 url("../img/header-bg.jpg"); height: 100px;}
 
 .side-padding{padding-right: 2rem; padding-left: 2rem;}
 
-input[type='text'],input[type='email'], input[type='password'],select, textarea{border:1px solid #E5D51C !important;background: #FFFEF6 !important;height: 50px !important;}
+input[type='text'],input[type='email'], input[type='number'], input[type='password'],select, textarea{border:1px solid #E5D51C !important;background: #FFFEF6 !important;height: 50px !important;}
  label{font-size: .875rem;font-weight: bold}
 
 input.form-control-sm{height:36px !important;}
@@ -170,6 +200,14 @@ button.btn-small{height: 36px !important;font-size: 12px}
 .logOut .icon{background:url("../img/logout.svg") no-repeat;}
 
 
+/**sub menu**/
+.multiOptions{position: relative}
+.multiOptions ul{position:absolute;z-index: 9999;min-width: 200px;display: none;margin-top:-6px}
+.multiOptions ul li{display: block;float: none;}
+.multiOptions ul li a{background: #D4906C;padding: 10px 20px !important;height: auto;display: block;width: 100%;border-bottom: 1px solid #B7724D}
+.multiOptions ul li a:hover{background: #B7724D;border-bottom: 1px solid #B7724D;text-decoration: none}
+.multiOptions:hover ul{display: block}
+
 /**Table**/
 .tableType1 thead{background: #F9F3EF;}
 .tableType1 tbody{background: #fff;}
@@ -196,6 +234,25 @@ button.btn-small{height: 36px !important;font-size: 12px}
 
 /*.startIcon{background-image: url("../img/play.svg"); background-repeat: no-repeat;background-position: 18% 50%;}*/
 .qualityDataWrap{background: #EAEAEA}
+
+
+.infoTabView a{color:#666666;padding: 16px 22px;text-decoration: none;}
+.infoTabView a.active{color:#614536;font-weight: bold;border-bottom: 3px solid #614536}
+.infoTabView a:hover{background: #f7f7f7}
+
+.commentBox{border: 1px solid #E5D51C;background: #FDFDFC;padding: 16px;border-radius: 8px;}
+.commentBox  .commentHeading{color: #614536;font-size: 14px;font-weight: bold;}
+
+.image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{
+    
+    cursor: pointer;
+}
 
 /**footer**/
 footer{background: #614536;}
@@ -256,6 +313,7 @@ html{font-size:14px}
 	
 .show-sm{display: block !important}
 	
+.w-sm-15{width: 15% !important}
 .w-sm-100{width: 100% !important}	
 .w-sm-65{width: 65% !important}
 .w-sm-70{width: 70% !important}		
@@ -280,7 +338,9 @@ html{font-size:14px}
 	
 .sm-mb-1{margin-bottom: .5rem !important}	
 	
-.sm-ml-3{margin-left: 1.5rem}	
+.sm-ml-3{margin-left: 1.5rem}
+	
+.sm-mr-0{margin-right: 0rem !important}	
 	
 /**padding**/
 .pt-sm-0{padding-top: 0rem !important;}	
@@ -299,8 +359,10 @@ html{font-size:14px}
 .pr-sm-3{padding-right: 1.5rem !important}
 	
 .pl-small-0{padding-left: 0rem !important}	
-.pl-sm-1{padding-left: .5rem !important}	
+.pl-sm-1,.pl-small-1{padding-left: .5rem !important}	
 .pl-sm-3{padding-left: 1.5rem !important}	
+
+.pr-small-1{padding-right: .5rem !important}	
 	
 .pb-sm-0{padding-bottom: 0rem !important}	
 .pb-small-0{padding-bottom: 0rem !important}	
@@ -315,13 +377,17 @@ header .logo{width: 80%}
 .topNav ul li a{color:#fff;display:inline-block;height: 80px;padding: 28px 10px;}
 .topNav ul li a .icon{padding:14px;padding-right: 20px;padding-left:20px}	
 
-.mobileMenuBg{background: #9F7E6B;position: absolute;z-index: 999;width:100%;height:100%;float: none;left: 0;top:0;right: 0}
+.mobileMenuBg{background: #9F7E6B;position: fixed;z-index: 999;width:100%;height:100%;float: none;left: 0;top:0;right: 0}
 .mobileMenuBg ul{margin:0;padding: 0;margin-top:30px}	
 .mobileMenuBg ul li{display: block;width:100%;list-style: none;margin-bottom: 8px;}
 .mobileMenuBg ul li a{cursor: pointer}	
 .mobileMenuBg ul li p{background-color: rgba(255,255,255,.7);color: #9F7E6B;padding: 16px 0;margin-bottom:0;width: 100%;display: block;text-align: center;cursor: pointer;}	
 .mobileMenuBg ul li a.active p{font-weight: bold;background-color: rgba(255,255,255,.9);border-bottom: 4px solid #FFDE8C}
 .mobileMenuBg ul li a:hover p,.mobileMenuBg ul li a:active p,.mobileMenuBg ul li a:focus p{text-decoration: none}
+
+.mobileMenuBg .multiOptions{background-color: rgba(255,255,255,.7);}	
+.mobileMenuBg .multiOptions .subNav {display: block;position: relative;margin-top:0px}
+.mobileMenuBg .multiOptions .subNav li a{background-color: rgba(255,255,255,.7);color: #9F7E6B;padding: 16px 0;margin-bottom:0;width: 100%;display: block;text-align: center;cursor: pointer;border-bottom: 1px solid #ccc}	
 	
 .bakeryAccordionData{width:100% !important}	
 .orderHeading{color:#fff;padding: 1rem 1rem;}
@@ -331,6 +397,8 @@ header .logo{width: 80%}
 .tabBox:nth-child(2),.tabBox:nth-child(3){margin-left: -1px}
 .tabBox:hover,.tabBox.active{background: #D4906C;}
 	
-.mobileXscroll{overflow-x: scroll}	
+.mobileXscroll{overflow-x: scroll}
+
+
 	
 }

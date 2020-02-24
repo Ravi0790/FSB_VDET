@@ -1,4 +1,5 @@
-﻿
+﻿@model FSBUI.ViewModels.UserLineViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Login.cshtml";
@@ -14,28 +15,31 @@
             <div class="login-header"><div class="text-center"><span class="fs-regular-20 fs-sm-regular-16 d-block text-uppercase text-white font-weight-bold">Login</span></div></div>
 
             <div class="p-5 p-sm-4">
-                <form action="http://rkjconsult.com/fsb-vdet-tool/html/order-pending.html">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model=>model.User.UserName, "test");
+
                     <div class="form-group">
-                        <label for="exampleInputEmail1" alt="User Name">Benutzer Name</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        @Html.LabelFor(model => model.User.UserLoginId)
+                        @Html.EditorFor(model => model.User.UserLoginId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User.UserLoginId, "", new { @class = "text-danger" })
+
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Passwort</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        @Html.LabelFor(model => model.User.UserPassword)
+                        @Html.EditorFor(model => model.User.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User.UserPassword, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
-                        <label for="chooseLine">Choose Linie</label>
-                        <select class="form-control" id="chooseLine">
-                            <option>Select Linie</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
+                        @Html.Label("Choose Linie")
+
+                        @Html.DropDownListFor(model => model.LineId, null, htmlAttributes: new { @class = "form-control", id = "lineid" })
                     </div>
 
                     <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold w-100 mt-2">Login</button>
-                </form>
+                }
             </div>
 
         </div>
@@ -44,3 +48,8 @@
 
 <p class="small login-footer text-center mt-4">Powered by <strong><a href="http://www.rkjsolutions.com/" target="_blank">RKJ Solutions</a></strong></p>
 
+@section Scripts {
+    
+
+    @Scripts.Render("~/bundles/jqueryval")
+}

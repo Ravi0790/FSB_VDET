@@ -16,13 +16,14 @@ namespace FSBModel
         [Display(Name = "Nutzername", Description = "User Name")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte den  Benutzernamen eingeben")]
         [StringLength(100)]
-        [Display(Name = "Benutzeridentifikation", Description = "User Id")]
+        [Display(Name = "Benutzename", Description = "User Id")]
         public string UserLoginId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte das Passwort eingeben")]
         [StringLength(100)]
+        [DataType(DataType.Password)]
         [Display(Name = "Passwort", Description = "Password")]
         public string UserPassword { get; set; }
 

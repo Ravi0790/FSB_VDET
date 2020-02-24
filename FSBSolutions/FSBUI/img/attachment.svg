@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="38px" height="38px" viewBox="0 0 38 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="08-infor-portal" transform="translate(-205.000000, -580.000000)">
+            <g id="Group" transform="translate(205.000000, 580.000000)">
+                <rect id="Rectangle-2" stroke="#E5D51C" fill="#FFFFFF" x="0.5" y="0.5" width="37" height="37" rx="4"></rect>
+                <path d="M22.5,13 L22.5,24.5 C22.5,26.71 20.71,28.5 18.5,28.5 C16.29,28.5 14.5,26.71 14.5,24.5 L14.5,12 C14.5,10.62 15.62,9.5 17,9.5 C18.38,9.5 19.5,10.62 19.5,12 L19.5,22.5 C19.5,23.05 19.05,23.5 18.5,23.5 C17.95,23.5 17.5,23.05 17.5,22.5 L17.5,13 L16,13 L16,22.5 C16,23.88 17.12,25 18.5,25 C19.88,25 21,23.88 21,22.5 L21,12 C21,9.79 19.21,8 17,8 C14.79,8 13,9.79 13,12 L13,24.5 C13,27.54 15.46,30 18.5,30 C21.54,30 24,27.54 24,24.5 L24,13 L22.5,13 Z" id="Shape" fill="#E5D51C" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

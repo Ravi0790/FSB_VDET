@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Verlustarts
         public ActionResult Index()
         {
-            var verlustarts = db.Verlustarts.Include(v => v.UserType);
+            var verlustarts = db.Verlustarts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country);
             return View(verlustarts.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Verlustarts/Create
         public ActionResult Create()
         {
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlustart.UserTypeId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlustart.UserTypeId);
             return View(verlustart);
         }
 
@@ -68,7 +68,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Verlustart verlustart = db.Verlustarts.Find(id);
+            Verlustart verlustart = db.Verlustarts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.VerlustartId == id);
             if (verlustart == null)
             {
                 return HttpNotFound();
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Verlustart verlustart = db.Verlustarts.Find(id);
+            Verlustart verlustart = db.Verlustarts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.VerlustartId == id);
             if (verlustart == null)
             {
                 return HttpNotFound();

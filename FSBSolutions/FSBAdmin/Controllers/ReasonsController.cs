@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Reasons
         public ActionResult Index()
         {
-            var reasons = db.Reasons.Include(r => r.Verlustart);
+            var reasons = db.Reasons.Include(r => r.Verlustart).Include(u => u.Verlustart.UserType).Include(u => u.Verlustart.UserType.Plant).Include(u => u.Verlustart.UserType.Plant.Company).Include(u => u.Verlustart.UserType.Plant.Company.Country);
             return View(reasons.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Reasons/Create
         public ActionResult Create()
         {
-            ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -68,12 +68,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reason reason = db.Reasons.Find(id);
+            Reason reason = db.Reasons.Include(r => r.Verlustart).Include(u => u.Verlustart.UserType).Include(u => u.Verlustart.UserType.Plant).Include(u => u.Verlustart.UserType.Plant.Company).Include(u => u.Verlustart.UserType.Plant.Company.Country).SingleOrDefault(x => x.ReasonId == id);
             if (reason == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName", reason.VerlustartId);
+            //ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName", reason.VerlustartId);
             return View(reason);
         }
 
@@ -90,7 +90,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName", reason.VerlustartId);
+            //ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName", reason.VerlustartId);
             return View(reason);
         }
 
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reason reason = db.Reasons.Find(id);
+            Reason reason = db.Reasons.Include(r => r.Verlustart).Include(u => u.Verlustart.UserType).Include(u => u.Verlustart.UserType.Plant).Include(u => u.Verlustart.UserType.Plant.Company).Include(u => u.Verlustart.UserType.Plant.Company.Country).SingleOrDefault(x => x.ReasonId == id);
             if (reason == null)
             {
                 return HttpNotFound();

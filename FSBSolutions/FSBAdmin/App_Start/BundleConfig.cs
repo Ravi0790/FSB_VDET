@@ -18,6 +18,12 @@ namespace FSBAdmin
                         "~/Scripts/fsb.js"
                         ));
 
+
+            bundles.Add(new ScriptBundle("~/bundles/fsbscript").Include(
+                        "~/Scripts/common.js",
+                        "~/Scripts/fsbui.js"
+                        ));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

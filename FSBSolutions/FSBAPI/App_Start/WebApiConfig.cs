@@ -20,6 +20,10 @@ namespace FSBAPI
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            //config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            var json = config.Formatters.JsonFormatter;
+            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }

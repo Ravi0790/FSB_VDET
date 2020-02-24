@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Locations
         public ActionResult Index()
         {
-            var locations = db.Locations.Include(l => l.Line).Include(l => l.UserType);
+            var locations = db.Locations.Include(p => p.Line).Include(p => p.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country);
             return View(locations.ToList());
         }
 
@@ -39,8 +39,7 @@ namespace FSBAdmin.Controllers
         // GET: Locations/Create
         public ActionResult Create()
         {
-            ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName");
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName");
+            ViewBag.CountryId = new SelectList(db.Countries, "CountryId", "CountryName");
             return View();
         }
 
@@ -58,8 +57,8 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName", location.LineId);
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", location.UserTypeId);
+            //ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName", location.LineId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", location.UserTypeId);
             return View(location);
         }
 
@@ -70,13 +69,13 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Location location = db.Locations.Find(id);
+            Location location = db.Locations.Include(p => p.Line).Include(p => p.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.LocationId == id); 
             if (location == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName", location.LineId);
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", location.UserTypeId);
+            //ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName", location.LineId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", location.UserTypeId);
             return View(location);
         }
 
@@ -93,8 +92,8 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName", location.LineId);
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", location.UserTypeId);
+            //ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName", location.LineId);
+            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", location.UserTypeId);
             return View(location);
         }
 
@@ -105,7 +104,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Location location = db.Locations.Find(id);
+            Location location = db.Locations.Include(p => p.Line).Include(p => p.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.LocationId == id);
             if (location == null)
             {
                 return HttpNotFound();

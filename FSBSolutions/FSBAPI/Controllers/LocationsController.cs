@@ -23,10 +23,10 @@ namespace FSBAPI.Controllers
         }
 
 
-        [Route("api/Locations/Line/{id}")]
-        public IQueryable<Location> GetLocationsByLine(int id)
+        [Route("api/Locations/Line/UserType/{lineid}/{usertypeid}")]
+        public IQueryable<Location> GetLocationsByLineUserType(int lineid,int usertypeid)
         {
-            return db.Locations.Where(p => p.LineId == id);
+            return db.Locations.Where(p => p.LineId == lineid && p.UserTypeId == usertypeid);
         }
 
         // GET: api/Locations/5

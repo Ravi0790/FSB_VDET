@@ -16,9 +16,17 @@ namespace FSBModel
         [Display(Name = "Modulname", Description = "Module Name")]
         public string ModuleName { get; set; }
 
+
+        //[Display(Name = "Benutzername", Description = "UserType")]
+        //public int UserTypeId { get; set; }
+        //public virtual UserType UserType { get; set; }
+
+        //[Display(Name = "Zeilenname", Description = "Line Name")]
+        //public int LineId { get; set; }
+        //public virtual Line Line { get; set; }
+
         [Display(Name = "Maschinenname", Description = "Machine Name")]
         public int MachineId { get; set; }
-
         public virtual Machine Machine { get; set; }
 
         public bool Status { get; set; }

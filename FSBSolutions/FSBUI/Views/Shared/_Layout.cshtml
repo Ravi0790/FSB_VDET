@@ -10,7 +10,10 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 </head>
 <body>
-   @RenderSection("MobileMenu", false)
+    <div class="fixedLoaderWrap" style="display:none">
+        <div class="loader"></div>
+    </div>
+    @RenderSection("MobileMenu", false)
     <header class="container-fluid">
         <div class="row">
             <div class="col-lg-2 col-md-2 col-sm-6 col-6"><div class="float-left hide show-sm mt-4 p-1 mobileMenuIcon"><a href="javascript:void(0)"><img src="img/hamburger-menu.svg" alt="menu"></a></div><div class="float-left"><a href="/"><img src="~/img/logo.png" alt="Logo" class="logo"></a></div></div>
