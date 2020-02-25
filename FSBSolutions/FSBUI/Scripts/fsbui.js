@@ -1,25 +1,15 @@
-﻿var prodstartdatetime = "";
-var prodenddatetime = "";
+﻿var startstoptimeArray = [];
+
 var starthour = "";
 var selectedproductinfo = null;
 
-function checktime() {
 
-    console.log("checktime started")
-    var d = new Date();
-    var endhour = d.getHours()
-    var endmin = d.getMinutes();
-    var endyear = d.getFullYear();
-    var endmonth = d.getMonth();
-    var enddate = d.getDate();
+function GetTimeInfo(timetype) {
+    return startstoptimeArray.filter(x => x.Type == timetype);
+}
 
-    var endtime = endhour + ":" + endmin;
-
-    var enddatetime = new Date(endyear, endmonth, enddate, endhour, endmin);
-
-    console.log("prodendtime", enddatetime);
-
-    var timeDiff = Math.abs(prodstartdatetime - enddatetime);
+function GetTimeDuration(startime, endtime) {
+    var timeDiff = Math.abs(startime - endtime);
 
     var hh = Math.floor(timeDiff / 1000 / 60 / 60);
     if (hh < 10) {
@@ -36,7 +26,92 @@ function checktime() {
         ss = '0' + ss;
     }
 
+    return hh + ":" + mm;
     //console.log("Time Diff- " + hh + ":" + mm + ":" + ss);
+}
+
+function InitiateStartTime(timetype,callback) {
+
+    var d = new Date();
+    var starthour = d.getHours()
+    var startmin = d.getMinutes();
+    var startyear = d.getFullYear();
+    var startmonth = d.getMonth();
+    var rightmonth = parseInt(startmonth) + 1;
+    var startdate = d.getDate();
+
+    var startdatetime =rightmonth + "/" + startdate + "/" + startyear + " " + starthour + ":" + startmin;
+
+    var starttimedisplay = starthour + ":" + startmin;
+
+    var timeobj = new Object();
+
+    timeobj.StartHour = starthour;
+    timeobj.StartMinute = startmin;
+    timeobj.StartYear = startyear;
+    timeobj.StartMonth = rightmonth;
+    timeobj.StartDate = startdate;
+    timeobj.StartDateTime = startdatetime;
+    timeobj.StartTimeDisplay = starttimedisplay;
+    timeobj.EndDateTime = startdatetime;
+    timeobj.Type = timetype;
+
+    startstoptimeArray.push(timeobj);
+
+    callback();
+    //timeobject.val(starttimedisplay);
+}
+
+
+function InitiateEndTime(timetype, callback) {
+
+    var d = new Date();
+    var endhour = d.getHours()
+    var endmin = d.getMinutes();
+    var endyear = d.getFullYear();
+    var endmonth = d.getMonth();
+    var rightmonth = parseInt(endmonth) + 1;
+    var enddate = d.getDate();
+
+    var enddatetime = rightmonth + "/" + enddate + "/" + endyear + " " + endhour + ":" + endmin;
+
+    var endtimedisplay = endhour + ":" + endmin;
+
+    var timeobj = new Object();
+
+    timeobj.StartHour = starthour;
+    timeobj.StartMinute = startmin;
+    timeobj.StartYear = startyear;
+    timeobj.StartMonth = rightmonth;
+    timeobj.StartDate = startdate;
+    timeobj.StartDateTime = startdatetime;
+    timeobj.StartTimeDisplay = starttimedisplay;
+    timeobj.EndDateTime = startdatetime;
+    timeobj.Type = timetype;
+
+    startstoptimeArray.push(timeobj);
+
+    callback();
+    //timeobject.val(starttimedisplay);
+}
+
+function CheckTime() {
+
+    console.log("checktime started")
+    var d = new Date();
+    var endhour = d.getHours()
+    var endmin = d.getMinutes();
+    var endyear = d.getFullYear();
+    var endmonth = d.getMonth();
+    var enddate = d.getDate();
+
+    var endtime = endhour + ":" + endmin;
+
+    var enddatetime = new Date(endyear, endmonth, enddate, endhour, endmin);
+
+    console.log("prodendtime", enddatetime);
+
+    
 
 
 
@@ -53,6 +128,108 @@ function checktime() {
 
 }
 
+function ValidateOrder() {
+    var product = $("#product");
+    var sapnumber = $("#sapnumber");
+    var empperm = $("#empperm");
+    var emptemp = $("#emptemp")
+    var empexternal = $("#empexternal")
+
+    if (product.val() == "0") {
+        //toastr.error("Please select Product");
+        bootbox.alert("Bitte Produkt auswählen")
+        product.focus();
+        return false;
+    }
+
+    if (sapnumber.val() == "") {
+        //toastr.error("Please enter SAP Number");
+        bootbox.alert("Bitte geben Sie die SAP-Referenznummer ein")
+        sapnumber.focus();
+        return false;
+    }
+
+
+    if (empperm.val() == "" || emptemp.val() == "" || empexternal.val() == "") {
+        bootbox.alert("Bitte geben Sie die Anzahl der Mitarbeiter ein")
+        empperm.focus();
+        return false;
+    }
+
+    return true;
+
+}
+
+
+function ShowVolumes() {
+    var strvoltr = "";
+    var currenthour = parseInt(starthour);
+
+    //var i = 1;
+    for (var i = 1; i <= 8; i++) {
+
+
+
+        var nexthour = currenthour + i;
+
+        //currenthour = nexthour == 24 ? 0 : currenthour;
+
+        nexthour = nexthour > 24 ? nexthour - 24 : nexthour;
+
+        //console.log("nexthour",nexthour)
+        //console.log("currenthour", currenthour);
+        strvoltr += "<tr>"
+        strvoltr += "<td class='text-left font-weight-bold pl-4' > " + nexthour + ": 00</td>"
+        strvoltr += "<td class='text-right'>-</td> "
+        strvoltr += "<td class='text-right'>-</td> "
+        strvoltr += "<td class='text-right pr-4'>-</td> "
+        strvoltr += "</tr>"
+
+        //i++;
+    }
+
+    $("#tblvolume > tbody").empty();
+
+    $("#tblvolume > tbody").append(strvoltr);
+}
+
+function CreateOrder() {
+    var orderrequest = new Object();
+    var userid = $("#userid").val();
+    var usertypeid = $("#usertypeid").val();
+    var lineid = $("#lineid").val();
+    var productid = $("#product").val();
+    var orderstartime = $("#prodstarttime").val();
+    var plannedquantity = 0;
+    var saprefnumber = $("#sapnumber").val();
+    var createddate = $("#prodstarttime").val();
+
+    orderrequest.SAPReferenceNumber = saprefnumber;
+    orderrequest.UserTypeId = usertypeid;
+    orderrequest.UserId = userid;
+    orderrequest.ShiftId = 1;
+    orderrequest.LineId = lineid;
+    orderrequest.ProductId = productid;
+    orderrequest.OrderStartTime = orderstartime;
+    orderrequest.PlannedQuantity = 0;
+    orderrequest.PremanentEmp = 0;
+    orderrequest.TemporaryEmp = 0;
+    orderrequest.ExternalEmp = 0;
+    orderrequest.CreatedDate = orderstartime;
+
+    console.log("orderrequest")
+    console.log(orderrequest)
+
+    ajaxrequest.URL = apiurl.ordercreate;
+    ajaxrequest.Type = "POST";
+    ajaxrequest.PData = orderrequest;
+
+    SendAjaxRequest(ajaxrequest, "ordercreate", hitapi.order);
+
+}
+
+
+
 
 $(document).ready(function () {
 
@@ -67,11 +244,16 @@ $(document).ready(function () {
 
 
 
+    /************Get Lines by LineID -- Start */
     var lineid = $("#lineid").val();
     var usertypeid = $("#usertypeid").val();
     ajaxrequest.URL = apiurl.lines + lineid;
     SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines);
 
+    /************Get Lines by LineID -- End */
+
+
+    /************Get Products by Line and UserType -- Start */
     var dropdowninfo = new Object();
 
     dropdowninfo.controlobj = $("#product");
@@ -85,8 +267,12 @@ $(document).ready(function () {
 
     SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.lines, dropdowninfo);
 
+    /************Get Products by Line and UserType -- End */
 
-    $("#product").change(function () {
+
+    //Calling product change event
+
+    $("#product").change(function () { 
         var bakerydetail = JSON.parse(localStorage.getItem("bakeryinfo"));
         var productid = $(this).val();
 
@@ -99,165 +285,82 @@ $(document).ready(function () {
         console.log(selectedproductinfo);
 
         $("#proddesc").text(selectedproductinfo[0].ProductDesc);
-        $("#doughtweight").text(selectedproductinfo[0].DoughWeight);
+        $("#doughtweight").text(selectedproductinfo[0].ProductPocket);
 
         $("#bunweight").text(selectedproductinfo[0].BunWeight);
 
         
 
-        $("#cutperminute").text(productinfo[0].CutPerMinute);
-
-
-
+        $("#cutperminute").text(selectedproductinfo[0].CutPerMinute);
 
         
     })
 
     
-    function ValidateOrder(){
-        var product = $("#product");
-        var sapnumber = $("#sapnumber");
-        var empperm = $("#empperm");
-        var emptemp = $("#emptemp")
-        var empexternal = $("#empexternal")
-
-        if (product.val() == "0") {
-            //toastr.error("Please select Product");
-            bootbox.alert("Bitte Produkt auswählen")
-            product.focus();
-            return false;
-        }
-
-        if (sapnumber.val() == "") {
-            //toastr.error("Please enter SAP Number");
-            bootbox.alert("Bitte geben Sie die SAP-Referenznummer ein")
-            sapnumber.focus();
-            return false;
-        }
-
-
-        if (empperm.val() == "" || emptemp.val() == "" || empexternal.val() == "") {
-            bootbox.alert("Bitte geben Sie die Anzahl der Mitarbeiter ein")
-            empperm.focus();
-            return false;
-        }
-
-        return true;
-
-    }
     
-
-    function ShowVolumes() {
-        var strvoltr = "";
-        var currenthour = parseInt(starthour);
-
-        for (var i = 1; i <= 8; i++) {
-
-            var nexthour = currenthour + i;
-
-            currenthour = nexthour == 24 ? 0 : currenthour;
-
-            console.log("nexthour",nexthour)
-            console.log("currenthour", currenthour);
-            strvoltr += "<tr>"
-            strvoltr += "<td class='text-left font-weight-bold pl-4' > "+nexthour+": 00</td>"
-            strvoltr += "<td class='text-right'>-</td> "
-            strvoltr += "<td class='text-right'>-</td> "
-            strvoltr += "<td class='text-right pr-4'>-</td> "
-            strvoltr += "</tr>"
-        }
-
-        $("#tblvolume > tbody").empty();
-
-        $("#tblvolume > tbody").append(strvoltr);
-    }
-
-    function CreateOrder() {
-        var orderrequest = new Object();
-        var userid = $("#userid").val();
-        var usertypeid = $("#usertypeid").val();
-        var lineid = $("#lineid").val();
-        var productid = $("#product").val();
-        var orderstartime = $("#prodstarttime").val();
-        var plannedquantity = 0;
-        var saprefnumber = $("#sapnumber").val();
-        var createddate = $("#prodstarttime").val();
-
-        orderrequest.SAPReferenceNumber = saprefnumber;
-        orderrequest.UserTypeId = usertypeid;
-        orderrequest.UserId = userid;
-        orderrequest.ShiftId = 1;
-        orderrequest.LineId = lineid;
-        orderrequest.ProductId = productid;
-        orderrequest.OrderStartTime = orderstartime;
-        orderrequest.PlannedQuantity = 0;
-        orderrequest.PremanentEmp = 0;
-        orderrequest.TemporaryEmp = 0;
-        orderrequest.ExternalEmp = 0;
-        orderrequest.CreatedDate = orderstartime;
-
-        console.log("orderrequest")
-        console.log(orderrequest)
-
-        ajaxrequest.URL = apiurl.ordercreate;
-        ajaxrequest.Type = "POST";
-        ajaxrequest.PData = orderrequest;
-
-        SendAjaxRequest(ajaxrequest, "ordercreate", hitapi.order);
-
-    }
-
+    //Calling starttime event
 
     $("#btnstart").click(function () {
 
-        var ordervalid = ValidateOrder();
+        var ordervalid = ValidateOrder(); //Validate Order Fields
 
         if (ordervalid) {
 
-            var d = new Date();
-            starthour = d.getHours()
-            var startmin = d.getMinutes();
-            var startyear = d.getFullYear();
-            var startmonth = d.getMonth();
-            var rightmonth = parseInt(startmonth) + 1;
-            var startdate = d.getDate();
+            
+            
+            InitiateStartTime("production", function () {
+                var timeinfo = GetTimeInfo("Production")
 
 
-            prodstarttime = rightmonth + "/" + startdate + "/" + startyear + " " + starthour + ":" + startmin;
-            $("#prodstarttime").val(prodstarttime);
+                $("#starttime").text(timeinfo[0].StartTimeDisplay);
+                $("#endtime").text(timeinfo[0].StartTimeDisplay);
+                $("#duration").text("00:00");
+                $("#durationmin").text("(0 mins)")
 
-            prodstartdatetime = prodstartdatetime != "" ? prodstartdatetime : new Date(startyear, startmonth, startdate, starthour, startmin);
-            console.log("prodstartdatetime")
-            console.log(prodstartdatetime);
+            })
 
-            var curtime = starthour + ":" + startmin;
-            //var durationinhours = parseInt(curhour) * 60 + parseInt(curmin);
+            
 
-
-
-            $("#starttime").text(curtime);
-            $("#endtime").text(curtime);
-            $("#duration").text("00:00");
-            $("#durationmin").text("(0 mins)")
-
-            setInterval(checktime, 3000);
+            
             
             $(this).addClass("btn-disabled");
+            $(this).attr("disabled", true);
 
             $("#btnend").removeClass("btn-disabled");        
-
+            $("#btnend").attr("disabled", false);
             
             
-            $(this).attr("disabled", true);
+            
             $("#product").attr("disabled", true);
             $("#sapnumber").attr("disabled", true);
-            $("#btnend").attr("disabled", false);
+
+            setInterval(CheckTime, 30000);
 
             ShowVolumes();
-            CreateOrder();
+            //CreateOrder();
         }
     })
 
 
+    //Calling Product Status event
+
+    $("#chkprodstatus").click(function () {
+
+        console.log("prodstatus clicked")
+        console.log($(this).prop("checked"))
+
+        if ($(this).prop("checked")) {//if prodstatus checked then disable all fields
+
+            $("#dvverlust").find(".form-control").attr("disabled", true);
+
+        }
+        else {
+            $("#dvverlust").find(".form-control").attr("disabled", false);
+        }
+    })
+
+    $("#btnmachinestop").click(function () {
+
+    });
     
 })

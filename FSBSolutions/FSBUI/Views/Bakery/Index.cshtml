@@ -90,7 +90,7 @@
 
                             <div class="col-lg-3 col-md-3 col-sm-7 col-7 sm-mt-3">
                                 <p><strong class="fs-regular-14">Product</strong><br><span id="proddesc"></span></p>
-                                <p><strong class="fs-regular-14">Charge (Dough Weight)</strong><br><span id="doughtweight"></span></p>
+                                <p><strong class="fs-regular-14">Pocket</strong><br><span id="doughtweight"></span></p>
                             </div>
 
                             <div class="col-lg-3 col-md-3 col-sm-5 col-5 pl-5 pl-small-0 sm-mt-3">
@@ -206,8 +206,8 @@
                     <div class="col-lg-8 col-md-8 col-sm-5 col-5">
                         <div class="form-group sm-ml-3">
                             <div class="form-check">
-                                <input class="form-check-input " type="checkbox" value="" id="invalidCheck2" required>
-                                <label class="form-check-label fc-grey" for="invalidCheck2">
+                                <input class="form-check-input " type="checkbox"  id="chkprodstatus" required>
+                                <label class="form-check-label fc-grey" for="chkprodstatus">
                                     Storungsfrei
                                 </label>
                             </div>
@@ -218,25 +218,25 @@
                 <div class="border-bottom"></div>
 
                 <div class="bakeryAccordionData wasteTab">
-                    <div class="row p-3 pb-sm-1 pt-sm-1">
+                    <div class="row p-3 pb-sm-1 pt-sm-1" id="dvmachine">
                         <div class="col-lg-2 col-md-2 col-sm-12 col-12"><strong>Machine Stop</strong> </div>
                         <div class="col-lg-4 col-md4 col-sm-12 col-12 sm-mt-1">
                             <div class="form-group">
-                                <input type="text" class="form-control float-left w-75 w-sm-75">
-                                <button class="btn btn-primary btn-orange hvr-float ripple text-uppercase font-weight-bold float-left ml-2 startStopFixedWidth">Stop</button>
+                                <input type="text" class="form-control float-left w-75 w-sm-75" id="txtmachinestop">
+                                <button class="btn btn-primary btn-orange hvr-float ripple text-uppercase font-weight-bold float-left ml-2 startStopFixedWidth" id="btnmachinestop">Stop</button>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-12 col-12 sm-mt-3">
                             <div class="form-group">
-                                <input type="text" class="form-control float-left w-75 w-sm-75">
-                                <button class="btn btn-primary btn-orange hvr-float ripple text-uppercase font-weight-bold float-left ml-2 startStopFixedWidth">Start</button>
+                                <input type="text" class="form-control float-left w-75 w-sm-75" id="txtmachinestart">
+                                <button class="btn btn-primary btn-orange hvr-float ripple text-uppercase font-weight-bold float-left ml-2 startStopFixedWidth" id="btnmachinestart">Start</button>
                             </div>
                         </div>
                     </div>
 
                     <div class="border-bottom"></div>
 
-                    <div class="row p-3 pb-sm-1 pt-sm-1">
+                    <div class="row p-3 pb-sm-1 pt-sm-1" id="dvverlust">
                         <div class="col-lg-2 col-md-2 col-sm-12 col-12"><strong>Verlust</strong> </div>
                         <div class="clear-sm"></div>
                         <div class="col-lg-10 col-md10 col-sm-12 col-12 sm-mt-2">
