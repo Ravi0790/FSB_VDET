@@ -32,7 +32,7 @@
                 <input type="hidden" value="@ViewBag.LineId" id="lineid" />
                 <input type="hidden" value="@ViewBag.UserTypeId" id="usertypeid" />
                 <input type="hidden" value="@ViewBag.UserId" id="userid" />
-                <input type="hidden" value="" id="prodstarttime" />
+                @*<input type="hidden" value="" id="prodstarttime" />*@
                 <input type="hidden" value="0" id="plantid" />
                 <div class="bakeryAccordionData mobileXscroll pl-4 pr-4 pb-4">
                     <div class="row">
@@ -111,14 +111,14 @@
 
                         <div class="row p-3 pt-sm-0 pb-sm-1">
                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                            <p class="mb-0"><strong class="fs-regular-14">Start Time</strong><br><span id="starttime"></span></p>
+                            <p class="mb-0"><strong class="fs-regular-14">Start Time</strong><br><span id="prodstarttime"></span></p>
                             </div>
                             
                             <div class="col-lg-4 col-md-4 col-sm-7 col-7 sm-mt-3">
-                                <p class="mb-0"><strong class="fs-regular-14">End Time</strong><br><span id="endtime"></span></p>
+                                <p class="mb-0"><strong class="fs-regular-14">End Time</strong><br><span id="prodendtime"></span></p>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-5 col-5 pl-5 pl-small-0 sm-mt-3">
-                                <p class="mb-0"><strong class="fs-regular-14">Duration</strong><br><span id="duration"> </span><span><strong class="fs-regular-14" id="durationmin"></strong></span></p>
+                                <p class="mb-0"><strong class="fs-regular-14">Duration</strong><br><span id="prodduration"> </span><span><strong class="fs-regular-14" id="proddurationmin"></strong></span></p>
                             </div>
                         </div>
 

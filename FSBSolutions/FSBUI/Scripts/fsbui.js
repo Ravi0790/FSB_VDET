@@ -9,6 +9,9 @@ function GetTimeInfo(timetype) {
 }
 
 function GetTimeDuration(startime, endtime) {
+
+    //console.log("starttime", startime)
+    //console.log("endtime", endtime)
     var timeDiff = Math.abs(startime - endtime);
 
     var hh = Math.floor(timeDiff / 1000 / 60 / 60);
@@ -26,104 +29,72 @@ function GetTimeDuration(startime, endtime) {
         ss = '0' + ss;
     }
 
-    return hh + ":" + mm;
+    var durationinmin = parseInt(hh) * 60 + parseInt(mm);
+
+    return hh + ":" + mm + "|" + durationinmin;
     //console.log("Time Diff- " + hh + ":" + mm + ":" + ss);
 }
 
-function InitiateStartTime(timetype,callback) {
+function InitiateTime(timetype,timeindex) {
 
     var d = new Date();
-    var starthour = d.getHours()
-    var startmin = d.getMinutes();
-    var startyear = d.getFullYear();
-    var startmonth = d.getMonth();
-    var rightmonth = parseInt(startmonth) + 1;
-    var startdate = d.getDate();
+    var hour = d.getHours()
+    var min = d.getMinutes();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var rightmonth = parseInt(month) + 1;
+    var date = d.getDate();
 
-    var startdatetime =rightmonth + "/" + startdate + "/" + startyear + " " + starthour + ":" + startmin;
+    var datetime = new Date(year, month, date, hour, min);
 
-    var starttimedisplay = starthour + ":" + startmin;
+    var datetimeformat =rightmonth + "/" + date + "/" + year + " " + hour + ":" + min;
+
+    var timedisplay = hour + ":" + min;
 
     var timeobj = new Object();
 
-    timeobj.StartHour = starthour;
-    timeobj.StartMinute = startmin;
-    timeobj.StartYear = startyear;
-    timeobj.StartMonth = rightmonth;
-    timeobj.StartDate = startdate;
-    timeobj.StartDateTime = startdatetime;
-    timeobj.StartTimeDisplay = starttimedisplay;
-    timeobj.EndDateTime = startdatetime;
+    timeobj.Hour = hour;
+    timeobj.Minute = min;
+    timeobj.Year = year;
+    timeobj.Month = rightmonth;
+    timeobj.Date = date;
+    timeobj.DateTime = datetime;
+    timeobj.DateTimeFormat = datetimeformat;
+    timeobj.TimeDisplay = timedisplay;    
     timeobj.Type = timetype;
+    timeobj.TimeIndex = timeindex
 
-    startstoptimeArray.push(timeobj);
+    //startstoptimeArray.push(timeobj);
 
-    callback();
+    //callback();
     //timeobject.val(starttimedisplay);
+    return timeobj;
 }
 
 
-function InitiateEndTime(timetype, callback) {
 
-    var d = new Date();
-    var endhour = d.getHours()
-    var endmin = d.getMinutes();
-    var endyear = d.getFullYear();
-    var endmonth = d.getMonth();
-    var rightmonth = parseInt(endmonth) + 1;
-    var enddate = d.getDate();
 
-    var enddatetime = rightmonth + "/" + enddate + "/" + endyear + " " + endhour + ":" + endmin;
+function CheckProdTime() {
 
-    var endtimedisplay = endhour + ":" + endmin;
-
-    var timeobj = new Object();
-
-    timeobj.StartHour = starthour;
-    timeobj.StartMinute = startmin;
-    timeobj.StartYear = startyear;
-    timeobj.StartMonth = rightmonth;
-    timeobj.StartDate = startdate;
-    timeobj.StartDateTime = startdatetime;
-    timeobj.StartTimeDisplay = starttimedisplay;
-    timeobj.EndDateTime = startdatetime;
-    timeobj.Type = timetype;
-
-    startstoptimeArray.push(timeobj);
-
-    callback();
-    //timeobject.val(starttimedisplay);
-}
-
-function CheckTime() {
-
-    console.log("checktime started")
-    var d = new Date();
-    var endhour = d.getHours()
-    var endmin = d.getMinutes();
-    var endyear = d.getFullYear();
-    var endmonth = d.getMonth();
-    var enddate = d.getDate();
-
-    var endtime = endhour + ":" + endmin;
-
-    var enddatetime = new Date(endyear, endmonth, enddate, endhour, endmin);
-
-    console.log("prodendtime", enddatetime);
-
+    var endtimeinfo = InitiateTime("prodend",0)
+    var starttimeinfo = GetTimeInfo("prodstart");
     
+    var strtimeduration=GetTimeDuration(starttimeinfo[0].DateTime, endtimeinfo.DateTime);
 
 
+    $("#prodendtime").text(endtimeinfo.TimeDisplay);
 
-    $("#endtime").text(endtime);
-    $("#duration").text(hh + ":" + mm);
-    var durationinmin = parseInt(hh) * 60 + parseInt(mm);
-    $("#durationmin").text("(" + durationinmin + " mins)")
+    var timeduration = strtimeduration.split('|')[0];
+    var timedurationmin = strtimeduration.split('|')[1];
+
+    $("#prodduration").text(timeduration);
+    
+    $("#proddurationmin").text("(" + timedurationmin + " mins)")
 
     var cutpermin = selectedproductinfo[0].CutPerMinute;
     var pockets = selectedproductinfo[0].ProductPocket;
 
-    var plannedquantity = parseInt(durationinmin) * parseInt(cutpermin) * parseInt(pockets);
+    var plannedquantity = parseInt(timedurationmin) * parseInt(cutpermin) * parseInt(pockets);
     $("#plannedquantity").text(plannedquantity);
 
 }
@@ -304,24 +275,18 @@ $(document).ready(function () {
 
         var ordervalid = ValidateOrder(); //Validate Order Fields
 
-        if (ordervalid) {
-
+        if (ordervalid) {            
             
             
-            InitiateStartTime("production", function () {
-                var timeinfo = GetTimeInfo("Production")
+            var timeinfo = InitiateTime("prodstart",0)
 
 
-                $("#starttime").text(timeinfo[0].StartTimeDisplay);
-                $("#endtime").text(timeinfo[0].StartTimeDisplay);
-                $("#duration").text("00:00");
-                $("#durationmin").text("(0 mins)")
+            $("#prodstarttime").text(timeinfo.TimeDisplay);
+            $("#prodendtime").text(timeinfo.TimeDisplay);
+            $("#prodduration").text("00:00");
+            $("#proddurationmin").text("(0 mins)")
 
-            })
-
-            
-
-            
+            startstoptimeArray.push(timeinfo);
             
             $(this).addClass("btn-disabled");
             $(this).attr("disabled", true);
@@ -334,9 +299,9 @@ $(document).ready(function () {
             $("#product").attr("disabled", true);
             $("#sapnumber").attr("disabled", true);
 
-            setInterval(CheckTime, 30000);
+            setInterval(CheckProdTime, 5000);
 
-            ShowVolumes();
+            //ShowVolumes();
             //CreateOrder();
         }
     })
