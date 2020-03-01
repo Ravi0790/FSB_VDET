@@ -126,7 +126,7 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
 
                     if (urlpathname.toLowerCase().indexOf("bakery") > -1) {
                         $("#spline").text(data.LineName);
-                        $("#plantid").val(data.Plant.PlantId);
+                        //$("#plantid").val(data.Plant.PlantId);
                     }
                 }
 

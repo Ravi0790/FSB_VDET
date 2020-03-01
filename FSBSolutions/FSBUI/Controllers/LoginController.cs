@@ -57,8 +57,8 @@ namespace FSBUI.Controllers
 
         public ActionResult LogOut()
         {
-            Session.RemoveAll();
-            return RedirectToAction("Index", "Login");
+            FormsAuthentication.SignOut();
+            return RedirectToAction("index", "login");
         }
     }
 }

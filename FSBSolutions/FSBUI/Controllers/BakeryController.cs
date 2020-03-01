@@ -8,6 +8,7 @@ using FSBModel;
 using FSBUI.Hubs;
 using FSBUI.Models;
 using FSBUI.ViewModels;
+using System.Web.Security;
 
 namespace FSBUI.Controllers
 {
@@ -20,15 +21,25 @@ namespace FSBUI.Controllers
 
         public ActionResult Index()
         {
-            ViewBag.LineId = Session["lineid"];
-            ViewBag.UserTypeId = Session["usertypeid"];
-            ViewBag.UserId = Session["userid"];
-            ViewBag.PlantId = Session["plantid"];
+            if (Session["lineid"] != null)
+            {
+                ViewBag.LineId = Session["lineid"];
+                ViewBag.UserTypeId = Session["usertypeid"];
+                ViewBag.UserId = Session["userid"];
+                ViewBag.PlantId = Session["plantid"];
+                return View();
+            }
+
+            else
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("index", "login");
+            }
 
             //ViewBag.productid = new SelectList(db.Products.Where(x=>x.LineId==), "LineId", "LineName");
 
 
-            return View();
+            
         }
 
         [HttpGet]
