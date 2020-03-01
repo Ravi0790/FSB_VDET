@@ -22,7 +22,6 @@
 }
 
     
-
 <div class="minHeight400 pt-4 pb-4">
     <div class="row">
         <div class="col-12">
@@ -59,7 +58,7 @@
         </div>
     </div>
 
-
+    
     <div class="row mt-4">
 
         <!--Order Form-->
@@ -67,7 +66,7 @@
             <div class="bg-white shadow rounded orderSection w-100">
 
                 <div class="heading of-h pb-4">
-                    <p class="orderHeading mb-0" ><strong>Order ID: <span id="orderid"></span></strong> <span class="font-italic pl-4 pl-sm-1 fs-regular-14">Date: @DateTime.Now.ToString("dd/MM/yyyy")</span> <span class="font-italic pl-4 pl-sm-1 fs-regular-14" id="spline"></span></p>
+                    <p class="orderHeading mb-0"><strong>Order ID: <span id="orderid"></span></strong> <span class="font-italic pl-4 pl-sm-1 fs-regular-14">Date: @DateTime.Now.ToString("dd/MM/yyyy")</span> <span class="font-italic pl-4 pl-sm-1 fs-regular-14" id="spline"></span></p>
                     <p class="float-left mt-2 ml-5 mb-0 collapseOrder hide hide-sm"><strong class="fs-regular-14">Product Details</strong><br><span>Hamburger</span></p>
                     <p class="float-left mt-2 ml-5 mb-0 collapseOrder hide hide-sm"><strong class="fs-regular-14">Start Time</strong><br><span>8:00</span></p>
                     <p class="float-left mt-2 ml-5 mb-0 collapseOrder hide hide-sm"><strong class="fs-regular-14">End Time</strong><br><span>14:46</span></p>
@@ -84,7 +83,7 @@
                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                                 <select class="form-control" id="product">
                                     <option>--Select--</option>
-                                   
+
                                 </select>
                             </div>
 
@@ -96,7 +95,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-5 col-5 pl-5 pl-small-0 sm-mt-3">
                                 <p><strong class="fs-regular-14">Weight</strong><br><span id="bunweight"></span></p>
                                 <p><strong class="fs-regular-14">Speed</strong><br><span id="cutperminute"></span></p>
-                            </div>  
+                            </div>
                         </div>
 
                         <div class="border-bottom"></div>
@@ -111,9 +110,9 @@
 
                         <div class="row p-3 pt-sm-0 pb-sm-1">
                             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                            <p class="mb-0"><strong class="fs-regular-14">Start Time</strong><br><span id="prodstarttime"></span></p>
+                                <p class="mb-0"><strong class="fs-regular-14">Start Time</strong><br><span id="prodstarttime"></span></p>
                             </div>
-                            
+
                             <div class="col-lg-4 col-md-4 col-sm-7 col-7 sm-mt-3">
                                 <p class="mb-0"><strong class="fs-regular-14">End Time</strong><br><span id="prodendtime"></span></p>
                             </div>
@@ -140,7 +139,7 @@
 
                         <div class="border-bottom"></div>
 
-                        <div class="text-center pt-3 pl-3 pr-3"><button type="button" id="btnstart" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 mr-4 startIcon" >Start</button> <button type="button" id="btnend" class="btn btn-primary hvr-float btn-disabled ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4">Finish</button> </div>
+                        <div class="text-center pt-3 pl-3 pr-3"><button type="button" id="btnstart" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 mr-4 startIcon">Start</button> <button type="button" id="btnend" class="btn btn-primary hvr-float btn-disabled ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4">Finish</button> </div>
 
                         <div class="qualityDataWrap mt-4">
                             <div class="row justify-content-between p-3">
@@ -181,9 +180,7 @@
                                     <th scope="col" class="text-right pr-4 w-25">Pcs</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
 
@@ -206,7 +203,7 @@
                     <div class="col-lg-8 col-md-8 col-sm-5 col-5">
                         <div class="form-group sm-ml-3">
                             <div class="form-check">
-                                <input class="form-check-input " type="checkbox"  id="chkprodstatus" required>
+                                <input class="form-check-input " type="checkbox" id="chkprodstatus" required>
                                 <label class="form-check-label fc-grey" for="chkprodstatus">
                                     Storungsfrei
                                 </label>
@@ -593,5 +590,80 @@
 
     </script>
 
+
+
+
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script>
+        
+
+        $(function () {
+
+            var cus = $.connection.cusHub;
+
+
+            cus.client.displayVolumes = function (gorderid) {                
+                
+                    //getData(gorderid);
+                
+            }
+
+
+            $.connection.hub.start();
+
+            
+           //getData(gorderid);
+            
+
+
+            
+
+        });
+
+
+        function getData(porderid) {
+            var $tbl = $("#tcust")
+            console.log("orderidfrompackaging", porderid)
+            var borderid = $("#orderid").text();
+
+            console.log("orderidgeneratedinbaking", borderid)
+
+
+            if (porderid == borderid) {
+                $.ajax({
+                    url: "bakery/customer",
+                    type: "GET",
+                    datatype: "json",
+                    success: function (data) {
+                        console.log(data)
+                        $tbl.empty();
+
+                        $.each(data, function (i, model) {
+                            $tbl.append(
+                                '<tr><td>' + model.Name + '</td><td>' + model.Email + '</td><td>' + model.Mobile + '</td></tr>'
+
+                            );
+
+
+                        })
+
+
+                    }
+
+                });
+            }
+        }
+
+
+
+        
+    </script>
+
+
 }
+
+
+
 

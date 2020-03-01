@@ -9,6 +9,7 @@ namespace FSBModel
 {
     public class Company
     {
+        
         public int CompanyId { get; set; }
 
         [Required]
@@ -20,6 +21,7 @@ namespace FSBModel
         [StringLength(200)]
         [Display(Name = "Name der Firma", Description = "Company Name")]
         public string CompanyName { get; set; }
+
 
         [Display(Name = "Ländernamen", Description = "Country Name")]
         public int CountryId { get; set; }

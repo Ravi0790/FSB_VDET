@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using FSBModel;
+using FSBUI.Hubs;
 using FSBUI.Models;
 using FSBUI.ViewModels;
 
@@ -25,6 +27,23 @@ namespace FSBUI.Controllers
 
 
             return View();
+        }
+
+        [HttpGet]
+        [Route("bakery/volume/{orderid}")]
+        public ActionResult GetVolumeInfo(int orderid)
+        {
+            return Json(db.Customers.Where(x=>x.Id==orderid).ToList(),JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        [Route("bakery/packaging/{orderid}")]
+        public void HitVolumeHub(string orderid)
+        {
+            //return Json(db.Customers.ToList());
+
+            CusHub.ShowVoume(orderid);
         }
     }
 }

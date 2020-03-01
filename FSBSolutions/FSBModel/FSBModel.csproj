@@ -63,6 +63,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Zencoder, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zencoder-cs.1.2.1.0\lib\net35\Zencoder.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspNetRoles.cs" />
@@ -72,6 +75,7 @@
     <Compile Include="Company.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.cs" />
     <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.Designer.cs">

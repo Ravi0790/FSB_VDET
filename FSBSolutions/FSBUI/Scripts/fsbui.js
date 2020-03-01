@@ -134,7 +134,9 @@ function ValidateOrder() {
 
 function ShowVolumes() {
     var strvoltr = "";
-    var currenthour = parseInt(starthour);
+
+    var timeinfo = startstoptimeArray.filter(x => x.Type == "prodstart");
+    var currenthour = parseInt(timeinfo[0].Hour);
 
     //var i = 1;
     for (var i = 1; i <= 8; i++) {
@@ -170,10 +172,14 @@ function CreateOrder() {
     var usertypeid = $("#usertypeid").val();
     var lineid = $("#lineid").val();
     var productid = $("#product").val();
-    var orderstartime = $("#prodstarttime").val();
+    //var orderstartime = $("#prodstarttime").val();
     var plannedquantity = 0;
     var saprefnumber = $("#sapnumber").val();
     var createddate = $("#prodstarttime").val();
+
+    var timeinfo = startstoptimeArray.filter(x => x.Type == "prodstart");
+
+
 
     orderrequest.SAPReferenceNumber = saprefnumber;
     orderrequest.UserTypeId = usertypeid;
@@ -181,12 +187,12 @@ function CreateOrder() {
     orderrequest.ShiftId = 1;
     orderrequest.LineId = lineid;
     orderrequest.ProductId = productid;
-    orderrequest.OrderStartTime = orderstartime;
+    orderrequest.OrderStartTime = timeinfo[0].DateTimeFormat;
     orderrequest.PlannedQuantity = 0;
     orderrequest.PremanentEmp = 0;
     orderrequest.TemporaryEmp = 0;
     orderrequest.ExternalEmp = 0;
-    orderrequest.CreatedDate = orderstartime;
+    orderrequest.CreatedDate = timeinfo[0].DateTimeFormat;
 
     console.log("orderrequest")
     console.log(orderrequest)
@@ -265,9 +271,7 @@ $(document).ready(function () {
         $("#cutperminute").text(selectedproductinfo[0].CutPerMinute);
 
         
-    })
-
-    
+    })    
     
     //Calling starttime event
 
@@ -301,11 +305,10 @@ $(document).ready(function () {
 
             setInterval(CheckProdTime, 5000);
 
-            //ShowVolumes();
-            //CreateOrder();
+            ShowVolumes();
+            CreateOrder();
         }
     })
-
 
     //Calling Product Status event
 
