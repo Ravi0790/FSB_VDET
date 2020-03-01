@@ -14,7 +14,7 @@ namespace FSBUI.Models
 
         public User GetLoginInfo(User userinfo)
         {
-            User objuser=db.Users.Include(ut=>ut.UserType).SingleOrDefault(x => x.UserLoginId == userinfo.UserLoginId && x.UserPassword == userinfo.UserPassword && x.Status == true);
+            User objuser=db.Users.Include(ut=>ut.UserType).Include(ut => ut.UserType.Plant).SingleOrDefault(x => x.UserLoginId == userinfo.UserLoginId && x.UserPassword == userinfo.UserPassword && x.Status == true);
 
             return objuser;
 

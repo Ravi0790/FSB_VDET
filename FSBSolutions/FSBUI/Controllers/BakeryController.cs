@@ -11,6 +11,7 @@ using FSBUI.ViewModels;
 
 namespace FSBUI.Controllers
 {
+    [Authorize]
     public class BakeryController : Controller
     {
         // GET: Bakery
@@ -22,6 +23,7 @@ namespace FSBUI.Controllers
             ViewBag.LineId = Session["lineid"];
             ViewBag.UserTypeId = Session["usertypeid"];
             ViewBag.UserId = Session["userid"];
+            ViewBag.PlantId = Session["plantid"];
 
             //ViewBag.productid = new SelectList(db.Products.Where(x=>x.LineId==), "LineId", "LineName");
 
@@ -33,7 +35,8 @@ namespace FSBUI.Controllers
         [Route("bakery/volume/{orderid}")]
         public ActionResult GetVolumeInfo(int orderid)
         {
-            return Json(db.Customers.Where(x=>x.Id==orderid).ToList(),JsonRequestBehavior.AllowGet);
+            //return Json(db.Customers.Where(x=>x.Id==orderid).ToList(),JsonRequestBehavior.AllowGet);
+            return Content("hello");
         }
 
 

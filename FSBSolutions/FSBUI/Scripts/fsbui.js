@@ -3,6 +3,12 @@
 var starthour = "";
 var selectedproductinfo = null;
 
+var lineid = "";
+var plantid = "";
+
+var userid = "";
+var usertypeid = "";
+
 
 function GetTimeInfo(timetype) {
     return startstoptimeArray.filter(x => x.Type == timetype);
@@ -91,7 +97,7 @@ function CheckProdTime() {
     
     $("#proddurationmin").text("(" + timedurationmin + " mins)")
 
-    var cutpermin = selectedproductinfo[0].CutPerMinute;
+    var cutpermin = selectedproductinfo[0].Speed;
     var pockets = selectedproductinfo[0].ProductPocket;
 
     var plannedquantity = parseInt(timedurationmin) * parseInt(cutpermin) * parseInt(pockets);
@@ -153,9 +159,11 @@ function ShowVolumes() {
         //console.log("currenthour", currenthour);
         strvoltr += "<tr>"
         strvoltr += "<td class='text-left font-weight-bold pl-4' > " + nexthour + ": 00</td>"
-        strvoltr += "<td class='text-right'>-</td> "
-        strvoltr += "<td class='text-right'>-</td> "
-        strvoltr += "<td class='text-right pr-4'>-</td> "
+        strvoltr += "<td class='text-center'>-</td> "
+        strvoltr += "<td class='text-center'>-</td> "
+        strvoltr += "<td class='text-center'>-</td> "
+        strvoltr += "<td class='text-center'>-</td> "
+        strvoltr += "<td class='text-center pr-3'>-</td> "
         strvoltr += "</tr>"
 
         //i++;
@@ -222,8 +230,11 @@ $(document).ready(function () {
 
 
     /************Get Lines by LineID -- Start */
-    var lineid = $("#lineid").val();
-    var usertypeid = $("#usertypeid").val();
+    lineid = $("#lineid").val();
+    usertypeid = $("#usertypeid").val();
+    plantid = $("#plantid").val();
+
+
     ajaxrequest.URL = apiurl.lines + lineid;
     SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines);
 
@@ -247,16 +258,30 @@ $(document).ready(function () {
     /************Get Products by Line and UserType -- End */
 
 
+    /************Get Shift by Plant -- Start */
+    var dropdowninfo = new Object();
+
+    dropdowninfo.controlobj = $("#shifts");
+    dropdowninfo.objdata = "";
+    dropdowninfo.dropdowntext = "ShiftName";
+    dropdowninfo.dropdownval = "ShiftId";
+    dropdowninfo.dropdownname = "Shift";
+    dropdowninfo.selectedval = "";
+
+    ajaxrequest.URL = apiurl.shiftsbyplant + plantid;
+
+    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.shifts, dropdowninfo);
+
+    /************Get Products by Shift -- End */
+
+
     //Calling product change event
 
     $("#product").change(function () { 
         var bakerydetail = JSON.parse(localStorage.getItem("bakeryinfo"));
         var productid = $(this).val();
 
-        //var productinfo = bakerydetail.ProductInfo.filter(function (product) {
-        //    return product.ProductId == productid;
-        //});
-
+        
         selectedproductinfo = bakerydetail.ProductInfo.filter((product) => product.ProductId == productid);
 
         console.log(selectedproductinfo);
@@ -268,7 +293,7 @@ $(document).ready(function () {
 
         
 
-        $("#cutperminute").text(selectedproductinfo[0].CutPerMinute);
+        $("#cutperminute").text(selectedproductinfo[0].Speed);
 
         
     })    

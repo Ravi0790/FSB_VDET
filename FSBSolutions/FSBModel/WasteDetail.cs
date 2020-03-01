@@ -65,5 +65,10 @@ namespace FSBModel
         [ForeignKey("OrderId")]
         public OrderDetail OrderDetail { get; set; }
 
+
+        public string ProblemReason { get; set; }
+        public string ActionTaken { get; set; }
+        public string PreventiveAction { get; set; }
+
     }
 }

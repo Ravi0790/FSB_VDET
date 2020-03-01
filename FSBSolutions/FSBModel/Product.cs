@@ -33,7 +33,7 @@ namespace FSBModel
 
         [Required]        
         //[Display(Name = "Schnitt pro Minute")]
-        public int CutPerMinute { get; set; }
+        public int Speed { get; set; }
 
         //[Display(Name = "Backzeit")]
         public int? BakingTime { get; set; }
@@ -129,6 +129,12 @@ namespace FSBModel
         //[Display(Name = "Benutzername")]
         public int UserTypeId { get; set; }
         public virtual UserType UserType { get; set; }
+
+        [StringLength(10)]
+        public string WeightUnit { get; set; }
+
+        [StringLength(10)]
+        public string SpeedUnit { get; set; }
 
     }
 }

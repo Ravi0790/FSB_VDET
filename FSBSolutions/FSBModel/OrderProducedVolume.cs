@@ -26,6 +26,10 @@ namespace FSBModel
 
         public int Pieces { get; set; }
 
+        public int GeplanteMenge { get; set; }
+
+        public int Efficiency { get; set; }
+
         public DateTime CreatedDate { get; set; }
     }
 }

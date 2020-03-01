@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using FSBModel;
 using FSBUI.Models;
 using FSBUI.ViewModels;
@@ -34,7 +35,8 @@ namespace FSBUI.Controllers
                 Session["lineid"] = userinfo.LineId;
                 Session["usertypeid"] = objuser.UserType.UserTypeId;
                 Session["userid"] = objuser.UserId;
-
+                Session["plantid"] = objuser.UserType.Plant.PlantId;
+                FormsAuthentication.SetAuthCookie(objuser.UserName, false);
 
                 return RedirectToAction(objuser.UserType.LoginActionURL, objuser.UserType.LoginControllerURL);
             }

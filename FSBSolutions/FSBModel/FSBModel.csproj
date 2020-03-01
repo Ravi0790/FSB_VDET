@@ -173,6 +173,22 @@
     <Compile Include="Migrations\202002240924382_changeinorderdetail.Designer.cs">
       <DependentUpon>202002240924382_changeinorderdetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003011457545_AddGeplateMengeEfficiencyinVolumTable.cs" />
+    <Compile Include="Migrations\202003011457545_AddGeplateMengeEfficiencyinVolumTable.Designer.cs">
+      <DependentUpon>202003011457545_AddGeplateMengeEfficiencyinVolumTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011501228_Add3NewFieldsinWasteDetailTable.cs" />
+    <Compile Include="Migrations\202003011501228_Add3NewFieldsinWasteDetailTable.Designer.cs">
+      <DependentUpon>202003011501228_Add3NewFieldsinWasteDetailTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011503307_RenameCutperminutetoSpeedinProduct.cs" />
+    <Compile Include="Migrations\202003011503307_RenameCutperminutetoSpeedinProduct.Designer.cs">
+      <DependentUpon>202003011503307_RenameCutperminutetoSpeedinProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003011508478_AddWeightUnitSpeedUnitinProduct.cs" />
+    <Compile Include="Migrations\202003011508478_AddWeightUnitSpeedUnitinProduct.Designer.cs">
+      <DependentUpon>202003011508478_AddWeightUnitSpeedUnitinProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -351,6 +367,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002240924382_changeinorderdetail.resx">
       <DependentUpon>202002240924382_changeinorderdetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011457545_AddGeplateMengeEfficiencyinVolumTable.resx">
+      <DependentUpon>202003011457545_AddGeplateMengeEfficiencyinVolumTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011501228_Add3NewFieldsinWasteDetailTable.resx">
+      <DependentUpon>202003011501228_Add3NewFieldsinWasteDetailTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011503307_RenameCutperminutetoSpeedinProduct.resx">
+      <DependentUpon>202003011503307_RenameCutperminutetoSpeedinProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003011508478_AddWeightUnitSpeedUnitinProduct.resx">
+      <DependentUpon>202003011508478_AddWeightUnitSpeedUnitinProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

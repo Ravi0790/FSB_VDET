@@ -50,7 +50,7 @@ namespace FSBModel
 
         public DbSet<AspNetRoles> AspNetRoles { get; set; }
 
-        public DbSet<Customer> Customers { get; set; }
+        
 
     }
 }
