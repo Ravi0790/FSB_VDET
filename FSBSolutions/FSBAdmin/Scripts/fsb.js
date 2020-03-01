@@ -5,6 +5,13 @@ var lineusertypeArray = ["locations", "lines", "machines", "modules", "component
 
 $(document).ready(function () {
 
+    $(document).ajaxStart(function () {
+        $(".fixedLoaderWrap").show()
+    });
+
+    $(document).ajaxComplete(function () {
+        $(".fixedLoaderWrap").hide()
+    });
 
     $("#countryid").change(function () {
         var countryid = $(this).val();
