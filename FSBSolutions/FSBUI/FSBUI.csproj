@@ -170,6 +170,7 @@
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="font\OFL.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\admin.svg" />
@@ -226,6 +227,17 @@
     <Content Include="img\.DS_Store" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <Content Include="font\.DS_Store" />
+    <Content Include="font\Lato-Black.ttf" />
+    <Content Include="font\Lato-BlackItalic.ttf" />
+    <Content Include="font\Lato-Bold.ttf" />
+    <Content Include="font\Lato-BoldItalic.ttf" />
+    <Content Include="font\Lato-Italic.ttf" />
+    <Content Include="font\Lato-Light.ttf" />
+    <Content Include="font\Lato-LightItalic.ttf" />
+    <Content Include="font\Lato-Regular.ttf" />
+    <Content Include="font\Lato-Thin.ttf" />
+    <Content Include="font\Lato-ThinItalic.ttf" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
