@@ -25,20 +25,20 @@ namespace FSBAPI.Controllers
         [Route("api/Products/UserType/{id}")]
         public IQueryable<Product> GetProductsByUserType(int id)
         {
-            return db.Products.Where(p => p.UserTypeId == id);
+            return db.Products.Where(p => p.UserTypeId == id && p.Status == true);
         }
 
 
         [Route("api/Products/Line/{id}")]
         public IQueryable<Product> GetProductsByLine(int id)
         {
-            return db.Products.Where(p => p.LineId == id);
+            return db.Products.Where(p => p.LineId == id && p.Status == true);
         }
 
         [Route("api/Products/Line/UserType/{lineid}/{usertypeid}")]
         public IQueryable<Product> GetProductsByLineUserId(int lineid, int usertypeid)
         {
-            return db.Products.Where(p => p.LineId == lineid && p.UserTypeId==usertypeid);
+            return db.Products.Where(p => p.LineId == lineid && p.UserTypeId== usertypeid && p.Status == true);
         }
 
         // GET: api/Products/5

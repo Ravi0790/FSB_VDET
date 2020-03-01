@@ -26,7 +26,7 @@ namespace FSBAPI.Controllers
         [Route("api/Users/UserType/{id}")]
         public IQueryable<User> GetUsersByUserType(int id)
         {
-            return db.Users.Where(p => p.UserTypeId == id);
+            return db.Users.Where(p => p.UserTypeId == id && p.Status == true);
         }
 
         // GET: api/Users/5

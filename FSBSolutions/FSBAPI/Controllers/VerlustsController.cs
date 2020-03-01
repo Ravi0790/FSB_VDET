@@ -24,7 +24,7 @@ namespace FSBAPI.Controllers
         [Route("api/Verlusts/UserType/{id}")]
         public IQueryable<Verlust> GetVerlustsByUserType(int id)
         {
-            return db.Verlusts.Where(p => p.UserTypeId == id);
+            return db.Verlusts.Where(p => p.UserTypeId == id && p.Status == true);
         }
 
         // GET: api/Verlusts/5

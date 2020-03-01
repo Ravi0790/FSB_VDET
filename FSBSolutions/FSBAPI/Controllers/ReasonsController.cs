@@ -26,7 +26,7 @@ namespace FSBAPI.Controllers
         [Route("api/Reasons/Verlustart/{id}")]
         public IQueryable<Reason> GetReasonsByVerlustart(int id)
         {
-            return db.Reasons.Where(p => p.VerlustartId == id);
+            return db.Reasons.Where(p => p.VerlustartId == id && p.Status == true);
         }
 
         // GET: api/Reasons/5

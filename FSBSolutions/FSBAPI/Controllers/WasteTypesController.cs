@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/WasteTypes/UserType/{id}")]
         public IQueryable<WasteType> GetWasteTypesByUserType(int id)
         {
-            return db.WasteTypes.Where(p => p.UserTypeId == id);
+            return db.WasteTypes.Where(p => p.UserTypeId == id && p.Status == true);
         }
 
         // GET: api/WasteTypes/5
