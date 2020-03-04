@@ -26,7 +26,7 @@ namespace FSBAPI.Controllers
         [ResponseType(typeof(OrderDetail))]
         public IHttpActionResult GetOrderDetail(int id)
         {
-            OrderDetail orderDetail = db.OrderDetails.Find(id);
+            OrderDetail orderDetail = db.OrderDetails.Include(p=>p.UserType).Include(p=>p.Shift).Include(p=>p.Line).Include(p => p.Product).SingleOrDefault(x=>x.OrderId==id);
             if (orderDetail == null)
             {
                 return NotFound();
