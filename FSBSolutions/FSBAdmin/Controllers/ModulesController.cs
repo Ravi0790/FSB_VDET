@@ -19,6 +19,8 @@ namespace FSBAdmin.Controllers
         {
             var modules = db.Modules.Include(m => m.Machine).Include(m => m.Machine.Location).Include(p => p.Machine.Location.Line).Include(p => p.Machine.Location.UserType).Include(u => u.Machine.Location.UserType.Plant).Include(u => u.Machine.Location.UserType.Plant.Company).Include(u => u.Machine.Location.UserType.Plant.Company.Country); 
             return View(modules.ToList());
+
+
         }
 
         // GET: Modules/Details/5
