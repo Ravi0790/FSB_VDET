@@ -13,51 +13,57 @@ namespace FSBModel
         [Key]
         public int WasteId { get; set; }
         
-        public DateTime MachineStartTime { get; set; }
-        public DateTime MachineEndTime { get; set; }
+        public DateTime? MachineStartTime { get; set; }
+        public DateTime? MachineEndTime { get; set; }
         public int MachinDurationMin { get; set; }
-        public DateTime CleaningStartTime { get; set; }
-        public DateTime CleaningEndTime { get; set; }
+        public DateTime? CleaningStartTime { get; set; }
+        public DateTime? CleaningEndTime { get; set; }
         public int CleaningDurationMin { get; set; }
-        public DateTime RepairStartTime { get; set; }
-        public DateTime RepairEndTime { get; set; }
+        public DateTime? RepairStartTime { get; set; }
+        public DateTime? RepairEndTime { get; set; }
         public int RepairDuration { get; set; }        
-        public bool Produktionsstatus { get; set; }
+        public int Produktionsstatus { get; set; }
 
-        public int WasteTypeId { get; set; }
-        public WasteType WasteType { get; set; }
+        [StringLength(200)]
+        public string WasteType { get; set; }
 
-        public int VerlustId { get; set; }
-        public Verlust Verlust { get; set; }
+        [StringLength(200)]
+        public string Verlust { get; set; }
 
-        public int VerlustartId { get; set; }
-        public Verlustart Verlustart { get; set; }
+        [StringLength(200)]
+        public string Verlustart { get; set; }
 
+        [StringLength(200)]
+        public string Location { get; set; }
 
-        public int LocationId { get; set; }
-        public Location Location { get; set; }
+        [StringLength(200)]
+        public string Machine { get; set; }
 
-        public int MachineId { get; set; }
-        public Machine Machine { get; set; }
+        [StringLength(200)]
+        public string Module { get; set; }
 
-        public int ModuleId { get; set; }
-        public Module Module { get; set; }
+        [StringLength(200)]
+        public string Component { get; set; }
 
-        public int ComponentId { get; set; }
-        public Component Component { get; set; }
+        [StringLength(200)]
+        public string Part { get; set; }
 
-        public int PartId { get; set; }
-        public Part Part { get; set; }
+        [StringLength(200)]
+        public string Reason { get; set; }
 
-        public int ReasonId { get; set; }
-        public Reason Reason { get; set; }
+        [StringLength(200)]
+        public string CleanerApproverName { get; set; }
+
+        [StringLength(200)]
+        public string RepairApproverName { get; set; }
 
         public string comments { get; set; }
         public int WasteKg { get; set; }
         public int WastePieces { get; set; }
         public int TimelossPieces { get; set; }
-        public int CleaningApproverId { get; set; }
-        public int RepairingApporverId { get; set; }
+        
+
+
         public DateTime CreatedDate { get; set; }              
         
         public int OrderId { get; set; }
@@ -65,6 +71,8 @@ namespace FSBModel
         [ForeignKey("OrderId")]
         public OrderDetail OrderDetail { get; set; }
 
+        public int UserTypeId { get; set; }
+        public UserType UserType { get; set; }
 
         public string ProblemReason { get; set; }
         public string ActionTaken { get; set; }

@@ -189,6 +189,34 @@
     <Compile Include="Migrations\202003011508478_AddWeightUnitSpeedUnitinProduct.Designer.cs">
       <DependentUpon>202003011508478_AddWeightUnitSpeedUnitinProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003030258016_AddUserTypeinWaste.cs" />
+    <Compile Include="Migrations\202003030258016_AddUserTypeinWaste.Designer.cs">
+      <DependentUpon>202003030258016_AddUserTypeinWaste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003030300428_RemoveUserfromOrderDetail.cs" />
+    <Compile Include="Migrations\202003030300428_RemoveUserfromOrderDetail.Designer.cs">
+      <DependentUpon>202003030300428_RemoveUserfromOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003031458165_AddFinalStatusinOrderDetail.cs" />
+    <Compile Include="Migrations\202003031458165_AddFinalStatusinOrderDetail.Designer.cs">
+      <DependentUpon>202003031458165_AddFinalStatusinOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003041210044_RemovingSomeForeignKeys.cs" />
+    <Compile Include="Migrations\202003041210044_RemovingSomeForeignKeys.Designer.cs">
+      <DependentUpon>202003041210044_RemovingSomeForeignKeys.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003041213178_addingnewfieldsinwastedetails.cs" />
+    <Compile Include="Migrations\202003041213178_addingnewfieldsinwastedetails.Designer.cs">
+      <DependentUpon>202003041213178_addingnewfieldsinwastedetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003041214593_addingapprovernameinwaste.cs" />
+    <Compile Include="Migrations\202003041214593_addingapprovernameinwaste.Designer.cs">
+      <DependentUpon>202003041214593_addingapprovernameinwaste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003041218520_makingdatetimenullableinwastedetail.cs" />
+    <Compile Include="Migrations\202003041218520_makingdatetimenullableinwastedetail.Designer.cs">
+      <DependentUpon>202003041218520_makingdatetimenullableinwastedetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -379,6 +407,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003011508478_AddWeightUnitSpeedUnitinProduct.resx">
       <DependentUpon>202003011508478_AddWeightUnitSpeedUnitinProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003030258016_AddUserTypeinWaste.resx">
+      <DependentUpon>202003030258016_AddUserTypeinWaste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003030300428_RemoveUserfromOrderDetail.resx">
+      <DependentUpon>202003030300428_RemoveUserfromOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003031458165_AddFinalStatusinOrderDetail.resx">
+      <DependentUpon>202003031458165_AddFinalStatusinOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003041210044_RemovingSomeForeignKeys.resx">
+      <DependentUpon>202003041210044_RemovingSomeForeignKeys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003041213178_addingnewfieldsinwastedetails.resx">
+      <DependentUpon>202003041213178_addingnewfieldsinwastedetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003041214593_addingapprovernameinwaste.resx">
+      <DependentUpon>202003041214593_addingapprovernameinwaste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003041218520_makingdatetimenullableinwastedetail.resx">
+      <DependentUpon>202003041218520_makingdatetimenullableinwastedetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

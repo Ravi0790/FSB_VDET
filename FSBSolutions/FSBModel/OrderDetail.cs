@@ -16,19 +16,16 @@ namespace FSBModel
         public string SAPReferenceNumber { get; set; }
 
         public int UserTypeId { get; set; }
-        public UserType UserType { get; set; }
-
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual UserType UserType { get; set; }
 
         public int ShiftId { get; set; }
-        public Shift Shift { get; set; }
+        public virtual Shift Shift { get; set; }
 
         public int LineId { get; set; }
-        public Line Line { get; set; }
+        public virtual Line Line { get; set; }
 
         public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
         public DateTime OrderStartTime { get; set; }
         public DateTime? OrderEndTime { get; set; }
@@ -58,6 +55,10 @@ namespace FSBModel
         public DateTime CreatedDate { get; set; }
 
         public IList<WasteDetail> WasteDetails { get; set; }
+
+        public IList<OrderInfo> OrderInfos { get; set; }
+
+        public int FinalStatus { get; set; }
 
     }
 }
