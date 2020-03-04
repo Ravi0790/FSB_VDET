@@ -26,7 +26,8 @@ namespace FSBUI.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                LoginInfo objlogin = new LoginInfo();
+            LoginInfo objlogin = new LoginInfo();
+            OrderInformation objorderinfo = new OrderInformation();
 
             User objuser = objlogin.GetLoginInfo(userinfo.User);
 
@@ -38,7 +39,26 @@ namespace FSBUI.Controllers
                 Session["plantid"] = objuser.UserType.Plant.PlantId;
                 FormsAuthentication.SetAuthCookie(objuser.UserName, false);
 
-                return RedirectToAction(objuser.UserType.LoginActionURL, objuser.UserType.LoginControllerURL);
+                IList<OrderDetail> orderdetail = objorderinfo.CheckOrderPending(userinfo.LineId);
+
+                if (orderdetail.Count > 0)
+                {
+                    
+                    //foreach (var item in orderdetail)
+                    //{
+                    //    foreach (var oitem in item.OrderInfos)
+                    //    {
+                            //if (item.FinalStatus == 0)
+                            //{
+                                return RedirectToRoute("orderpending");
+                            //}
+                    //    }
+                    //}
+                }
+                else
+                {
+                    return RedirectToAction(objuser.UserType.LoginActionURL, objuser.UserType.LoginControllerURL);
+                }
             }
             else
             {

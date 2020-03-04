@@ -234,6 +234,11 @@ header{background: #A17E69 url("../img/header-bg.jpg"); height: 100px;}
 input[type='text'],input[type='email'], input[type='number'], input[type='date'], input[type='password'],select, textarea{border:1px solid #E5D51C !important;background-color: #FFFEF6 !important;height: 35px !important;}
  label{font-size: 1rem;font-weight: bold}
 
+input[type='text']:disabled, input[type='email']:disabled, input[type='number']:disabled, input[type='date']:disabled, input[type='password']:disabled, select:disabled, textarea:disabled {
+    border: 1px solid #bbb !important;
+    background-color: #f1f1f1 !important;
+}
+
 input.form-control-sm{height:36px !important;}
 button.btn-small{height: 36px !important;font-size: 12px}
 

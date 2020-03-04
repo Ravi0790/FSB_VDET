@@ -59,5 +59,28 @@ namespace FSBUI.Controllers
 
             CusHub.ShowVoume(orderid);
         }
+
+
+        [HttpGet]
+        [Route("bakery/pending/{orderid}")]
+        public ActionResult GetOrderIdFromPending(int orderid)
+        {
+
+            if (Session["lineid"] != null)
+            {
+                ViewBag.OrderId = orderid;
+                ViewBag.LineId = Session["lineid"];
+                ViewBag.UserTypeId = Session["usertypeid"];
+                ViewBag.UserId = Session["userid"];
+                ViewBag.PlantId = Session["plantid"];
+                return View("index");
+            }
+
+            else
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("index", "login");
+            }
+        }
     }
 }

@@ -1,0 +1,80 @@
+﻿@model FSBUI.Models.OrderInformation
+
+@{
+    ViewBag.Title = "Pending Orders";
+}
+
+<div class="minHeight400">
+    <div class="row pt-4 pb-4">
+        <div class="col-12">
+            <h1 class="fs-regular-20 text-uppercase font-weight-bold">Department - Bakery</h1>
+            <p class="font-weight-bold">Pending Orders <span>(@Model.OrderDetails.Count())</span></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consectetur, metus quis efficitur tincidunt, felis magna sagittis ante, ut maximus ex velit nec purus. In vel arcu</p>
+        </div>
+    </div>
+    <div class="w-sm-100">
+        <table class="table tableType1 table-bordered shadow w-sm-100">
+            <thead>
+                <tr>
+                    <th scope="col">Datum</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Product</th>
+                    <th scope="col" class="hide-sm">Product Detail</th>
+                    <th scope="col" class="hide-sm">Linie</th>
+                    <th scope="col" class="hide-sm">Von(Start)</th>
+                    <th scope="col" class="hide-sm">Backery Status</th>
+                    <th scope="col" class="hide-sm">Packaging Status</th>
+                    <th scope="col" class="hide-sm">Auftrag Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.OrderDetails)
+                {
+                <tr>
+                    <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                    <td><a href="~/bakery/pending/@item.OrderId" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a></td>
+                    <td>@Html.DisplayFor(modelItem => item.Product.ProductName)</td>
+                    <td class="hide-sm">@Html.DisplayFor(modelItem => item.Product.ProductDesc)</td>
+                    <td class="hide-sm">@Html.DisplayFor(modelItem => item.Line.LineName)</td>
+                    <td class="hide-sm">@Html.DisplayFor(modelItem => item.OrderStartTime)</td>
+
+
+                    @foreach (var itemusertype in Model.OrderInfos)
+                    {
+                        if (itemusertype.UserType.UserTypeName.ToLower() == "bakery")
+                        {
+
+                            var bstatus = itemusertype.OrderStatus == 0 ? "In Process" : "Finished";
+                            <td class="hide-sm">@bstatus</td>
+                            continue;
+
+                        }
+
+                        if (itemusertype.UserType.UserTypeName.ToLower() == "packaging")
+                        {
+
+                            var pstatus = itemusertype.OrderStatus == 0 ? "In Process" : "Finished";
+                            <td class="hide-sm">@pstatus</td>
+                            continue;
+
+
+                        }
+                    }
+
+                    @{
+
+                        var finalstatus = item.FinalStatus == 0 ? "In Process" : "Finished";
+
+                        
+
+                    }
+
+                    <td class="hide-sm">@finalstatus&nbsp;</td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

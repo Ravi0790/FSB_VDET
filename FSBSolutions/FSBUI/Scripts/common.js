@@ -1,4 +1,10 @@
-﻿var apiurl = new Object()
+﻿var ajaxrequest = new Object();
+
+ajaxrequest.Type = "GET";
+ajaxrequest.PData = "";
+ajaxrequest.DataType = "json";
+
+var apiurl = new Object()
 var linebyid = "";
 apiurl.companiesbycountry = "/services/api/companies/country/";
 apiurl.plantsbycompany = "/services/api/plants/company/";
@@ -20,12 +26,11 @@ apiurl.verlustsbyusertype = "/services/api/verlusts/usertype/";
 apiurl.verlustartsbyusertype = "/services/api/verlustarts/usertype/";
 apiurl.wastetypesbyusertype = "/services/api/wastetypes/usertype/";
 apiurl.reasonsbyverlustart = "/services/api/reasons/verlustart/";
-apiurl.ordercreate = "/services/api/OrderDetails";
+apiurl.ordercreate = "/services/api/OrderDetails/";
+apiurl.wastedetail = "/services/api/WasteDetails/";
+apiurl.orderinfo ="/services/api/OrderInfoes"
 
-var ajaxrequest = new Object();
-ajaxrequest.Type = "GET";
-ajaxrequest.PData = "";
-ajaxrequest.DataType = "json";
+
 
 var hitapi = new Object()
 
@@ -47,6 +52,7 @@ hitapi.verlust = true;
 hitapi.wastetype = true;
 hitapi.reason = true;
 hitapi.order = true;
+hitapi.waste = true;
 
 var urlpathname = location.pathname;
 
@@ -61,7 +67,12 @@ function FillDropDown(dropdowninfo) {
     var dropdownobj = dropdowninfo.controlobj;
     dropdownobj.empty();
     var stroptions = "";
-    stroptions += "<option value='0'>--Select " + dropdowninfo.dropdownname+"--</option>";
+    if (dropdowninfo.dropdownname == "") {
+        stroptions += "<option value=''>--Auswahlen--</option>";
+    }
+    else {
+        stroptions += "<option value=''>--Auswahlen " + dropdowninfo.dropdownname + "--</option>";
+    }
     for (var i = 0; i < dropdowninfo.objdata.length; i++) {
         stroptions += "<option  value='" + dropdowninfo.objdata[i][dropdowninfo.dropdownval] + "'>" + dropdowninfo.objdata[i][dropdowninfo.dropdowntext] + "</option>";
     }
@@ -135,15 +146,51 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
                     console.log("orderdetail");
                     console.log(data);
 
-                    bootbox.alert({
-                        size: "small",
-                        title: "Auftragserstellung",
-                        message: "Ihre Auftragsnummer : " + data.OrderId
-                    })
+                    
 
                     $("#orderid").text(data.OrderId);
 
+
+                    CreateOrderInfo(data.OrderId)
+                }
+
+                if (step == "orderinfo") {
+
+                    console.log("orderinfo created");
+                    console.log(data);
+
+                    bootbox.alert({
+
+                        title: "Auftragserstellung",
+                        message: "Ihre Auftragsnummer : " + data.OrderId
+                    })
                     
+                }
+
+
+                if (step == "getorderinfo") {
+
+                    console.log("getorderinfo")
+
+                    console.log(data)
+
+                    SetOrderValues(data)
+
+                    
+
+                }
+
+                if (step == "wastecreate") {
+
+                    console.log("wastedetails");
+                    console.log(data);
+
+
+
+                    //$("#orderid").text(data.OrderId);
+
+
+                    ShowWasteInfo(data)
                 }
 
 
@@ -171,6 +218,105 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
         $.ajax(obj);
     }
 
+}
+
+
+var startstoptimeArray = [];
+var selectedproductinfo = null;
+
+var lineid = "";
+var plantid = "";
+var userid = "";
+var usertypeid = "";
+
+
+function GetTimeInfo(timetype) {
+    return startstoptimeArray.filter(x => x.Type == timetype);
+}
+
+function GetTimeDuration(startime, endtime) {
+
+    //console.log("starttime", startime)
+    //console.log("endtime", endtime)
+    var timeDiff = Math.abs(startime - endtime);
+
+    var hh = Math.floor(timeDiff / 1000 / 60 / 60);
+    if (hh < 10) {
+        hh = '0' + hh;
+    }
+    timeDiff -= hh * 1000 * 60 * 60;
+    var mm = Math.floor(timeDiff / 1000 / 60);
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    timeDiff -= mm * 1000 * 60;
+    var ss = Math.floor(timeDiff / 1000);
+    if (ss < 10) {
+        ss = '0' + ss;
+    }
+
+    var durationinmin = parseInt(hh) * 60 + parseInt(mm);
+
+    return hh + ":" + mm + "|" + durationinmin;
+    //console.log("Time Diff- " + hh + ":" + mm + ":" + ss);
+}
+
+
+function GetCurrentTime() {
+    var d = new Date();
+    var hour = d.getHours()
+    var min = d.getMinutes();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var rightmonth = parseInt(month) + 1;
+    var date = d.getDate();
+
+    //var datetime = new Date(year, month, date, hour, min);
+
+    var datetimeformat = rightmonth + "/" + date + "/" + year + " " + hour + ":" + min;
+
+    return datetimeformat;
+}
+
+function InitiateTime(timetype, timeindex) {
+
+    var d = new Date();
+    var hour = d.getHours()
+    var min = d.getMinutes();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var rightmonth = parseInt(month) + 1;
+    var date = d.getDate();
+
+    var datetime = new Date(year, month, date, hour, min);
+
+    var datetimeformat = rightmonth + "/" + date + "/" + year + " " + hour + ":" + min;
+
+    var timedisplay = hour + ":" + min;
+
+    var timeobj = new Object();
+
+    timeobj.Hour = hour;
+    timeobj.Minute = min;
+    timeobj.Year = year;
+    timeobj.Month = rightmonth;
+    timeobj.Date = date;
+    timeobj.DateTime = datetime;
+    timeobj.DateTimeFormat = datetimeformat;
+    timeobj.TimeDisplay = timedisplay;
+    timeobj.Type = timetype;
+    timeobj.TimeIndex = timeindex
+
+    //startstoptimeArray.push(timeobj);
+
+    //callback();
+    //timeobject.val(starttimedisplay);
+    return timeobj;
+}
+
+
+function isNullOrEmpty(s) {
+    return (s == null || s === "");
 }
 
 

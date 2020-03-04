@@ -3,15 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FSBModel;
+using FSBUI.Models;
 
 namespace FSBUI.Controllers
 {
     public class OrderController : Controller
     {
-        // GET: Order
-        public ActionResult Index()
+
+        
+        //public ActionResult Index()
+        //{
+        //    return View("Pending");
+        //}
+
+
+        
+        [Route("Order/Pending",Name ="orderpending")]
+        public ActionResult PendingOrders()
         {
-            return View();
+            OrderInformation objinfo = new OrderInformation();
+
+            objinfo = objinfo.GetPendingOrderDetails(Convert.ToInt32(Session["lineid"]));
+
+            return View("Pending", objinfo);
         }
     }
 }

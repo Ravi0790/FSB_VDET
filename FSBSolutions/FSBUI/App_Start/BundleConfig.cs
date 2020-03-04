@@ -15,10 +15,15 @@ namespace FSBUI
                         "~/Scripts/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/fsbscript").Include(
-                        "~/Scripts/common.js",
-                        "~/Scripts/fsbui.js",
+                        "~/Scripts/common.js",                        
                         "~/Scripts/toastr.js",
                         "~/Scripts/bootbox.js"
+                        ));
+
+            bundles.Add(new ScriptBundle("~/bundles/bakeryscript").Include(
+                        "~/Scripts/bakery.js",
+                        "~/Scripts/waste.js"
+                        
                         ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
