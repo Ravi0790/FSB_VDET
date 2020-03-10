@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/Companies/Country/{id}")]
         public IQueryable<Company> GetCompaniesByCountry(int id)
         {
-            return db.Companies.Where(x=>x.CountryId==id && x.Status==true);
+            return db.Companies.Where(x=>x.CountryId==id && x.Status==true).OrderBy(x=>x.CompanyName);
         }
 
         // GET: api/Companies/5

@@ -26,7 +26,7 @@ namespace FSBAPI.Controllers
         [Route("api/Machines/Location/{id}")]
         public IQueryable<Machine> GetMachinesByLocation(int id)
         {
-            return db.Machines.Where(p => p.LocationId == id && p.Status==true);
+            return db.Machines.Where(p => p.LocationId == id && p.Status==true).OrderBy(x=>x.MachineName);
         }
 
         // GET: api/Machines/5

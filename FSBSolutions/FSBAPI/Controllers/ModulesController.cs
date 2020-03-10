@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/Modules/Machine/{id}")]
         public IQueryable<Module> GetModulesByMachine(int id)
         {
-            return db.Modules.Where(p => p.MachineId == id && p.Status==true);
+            return db.Modules.Where(p => p.MachineId == id && p.Status==true).OrderBy(x=>x.ModuleName);
         }
 
         // GET: api/Modules/5

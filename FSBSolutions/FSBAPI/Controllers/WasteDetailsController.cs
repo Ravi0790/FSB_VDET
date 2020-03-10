@@ -22,6 +22,13 @@ namespace FSBAPI.Controllers
             return db.WasteDetails;
         }
 
+        [HttpGet]
+        [Route("api/WasteDetails/Order/UserType/{orderid}/{usertypeid}")]
+        public IQueryable<WasteDetail> GetWasteDetailsByOrderId(int orderid,int usertypeid)
+        {
+            return db.WasteDetails.Where(x=>x.OrderId==orderid && x.UserTypeId==usertypeid).OrderByDescending(x=>x.WasteId);
+        }
+
         // GET: api/WasteDetails/5
         [ResponseType(typeof(WasteDetail))]
         public IHttpActionResult GetWasteDetail(int id)

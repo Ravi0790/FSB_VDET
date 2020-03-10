@@ -40,24 +40,23 @@ namespace FSBUI.Controllers
                 FormsAuthentication.SetAuthCookie(objuser.UserName, false);
 
                 IList<OrderDetail> orderdetail = objorderinfo.CheckOrderPending(userinfo.LineId);
+                var usertypeid = Convert.ToString(Session["usertypeid"]);
 
                 if (orderdetail.Count > 0)
-                {
+                {                    
                     
-                    //foreach (var item in orderdetail)
-                    //{
-                    //    foreach (var oitem in item.OrderInfos)
-                    //    {
-                            //if (item.FinalStatus == 0)
-                            //{
-                                return RedirectToRoute("orderpending");
-                            //}
-                    //    }
-                    //}
+                  return RedirectToRoute("orderpending");                           
                 }
                 else
                 {
-                    return RedirectToAction(objuser.UserType.LoginActionURL, objuser.UserType.LoginControllerURL);
+                    if (usertypeid != "2")
+                    {
+                        return RedirectToAction(objuser.UserType.LoginActionURL, objuser.UserType.LoginControllerURL);
+                    }
+                    else
+                    {
+                        return RedirectToRoute("orderpending");
+                    }
                 }
             }
             else

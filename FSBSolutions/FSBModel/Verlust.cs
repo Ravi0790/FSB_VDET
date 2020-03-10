@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FSBModel
 {
-    /***************This is Efficiency************/
+    /***************This is Loss Type************/
     public class Verlust
     {
         public int VerlustId { get; set; }

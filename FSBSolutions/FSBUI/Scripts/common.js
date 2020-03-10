@@ -28,6 +28,7 @@ apiurl.wastetypesbyusertype = "/services/api/wastetypes/usertype/";
 apiurl.reasonsbyverlustart = "/services/api/reasons/verlustart/";
 apiurl.ordercreate = "/services/api/OrderDetails/";
 apiurl.wastedetail = "/services/api/WasteDetails/";
+apiurl.wastedetailbyorderusertype = "/services/api/WasteDetails/Order/UserType/";
 apiurl.orderinfo ="/services/api/OrderInfoes"
 
 
@@ -86,10 +87,10 @@ function FillDropDown(dropdowninfo) {
     }
 }
 
-function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
+function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
     //alert("step" + step + "\n url=" + arequest.URL);
     //console.log("SendAjaxRequest");
-    console.log("Request: " + arequest, " isapihit: " + isapihit,"dropdowninfo" + dropdowninfo);
+    //console.log("Request: " + arequest, " isapihit: " + isapihit,"dropdowninfo" + dropdowninfo);
 
     var gtype = arequest.Type;
     var gurl = arequest.URL;
@@ -111,45 +112,62 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
 
                 if (step == "dropdownfill") {
                     result = data;
-                    console.log(result)
+                    //console.log(result)
 
                     //$("#sptotalpremium").text($.number(result.TotalPremium, 0));
                     dropdowninfo.objdata = result;
 
-                    if (dropdowninfo.dropdownname.toLowerCase() == "product") {
+                    if (dropdowninfo.dropdowntext.toLowerCase().indexOf("product")>-1) {
                         bakeryinfo.ProductInfo = result;
                         localStorage.setItem("bakeryinfo", JSON.stringify(bakeryinfo));
                     }
 
+                    console.log("dropdown")
+                    console.log(result.length);
+
+                    if (result.length > 0) {
+                        $cobj = dropdowninfo.controlobj;
+                        $cobj.attr("disabled", false);
+
+                    }
+                    else {
+                        $cobj = dropdowninfo.controlobj;
+                        $cobj.attr("disabled", true);
+                    }
+                    
+
                     FillDropDown(dropdowninfo)
+
+                    if (callback != null) {
+                        callback();
+                    }
 
                 }
 
                 if (step == "linebyid") {
 
                     console.log("lineinfo");
-                    console.log(data);
-
 
                     bakeryinfo.LineInfo = data;
                     localStorage.setItem("bakeryinfo", JSON.stringify(bakeryinfo));
 
+                    $("#linename").text(data.LineName);
 
-                    if (urlpathname.toLowerCase().indexOf("bakery") > -1) {
-                        $("#spline").text(data.LineName);
-                        //$("#plantid").val(data.Plant.PlantId);
+
+                    //console.log("callback function")
+                    //console.log(callback);
+
+                    if (callback != null) {
+                        callback();
                     }
                 }
 
                 if (step == "ordercreate") {
 
-                    console.log("orderdetail");
-                    console.log(data);
-
-                    
+                    console.log("order created");
 
                     $("#orderid").text(data.OrderId);
-
+                    orderid = data.OrderId;
 
                     CreateOrderInfo(data.OrderId)
                 }
@@ -157,8 +175,7 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
                 if (step == "orderinfo") {
 
                     console.log("orderinfo created");
-                    console.log(data);
-
+                    
                     bootbox.alert({
 
                         title: "Auftragserstellung",
@@ -171,26 +188,35 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo) {
                 if (step == "getorderinfo") {
 
                     console.log("getorderinfo")
-
-                    console.log(data)
-
                     SetOrderValues(data)
-
-                    
 
                 }
 
                 if (step == "wastecreate") {
 
                     console.log("wastedetails");
-                    console.log(data);
 
+                    wastestartstopArry = [];
+                    machinestartstopArry = [];
+                    
+                    $("#chkprodstatus").prop("checked", false);
+                     ShowWasteInfo(data)
+                }
 
+                if (step == "getwastesbyorderusertype") {
 
-                    //$("#orderid").text(data.OrderId);
+                    console.log("getwastesbyorderusertype");
+                    
+                    ShowWasteInfoAll(data)
+                }
 
+                if (step == "orderclose") {
 
-                    ShowWasteInfo(data)
+                    console.log("orderclose")
+                    bootbox.alert("Your order has been closed", function () {
+                        location.href = "login/logout"
+                    });
+                    
                 }
 
 
@@ -233,6 +259,27 @@ var usertypeid = "";
 function GetTimeInfo(timetype) {
     return startstoptimeArray.filter(x => x.Type == timetype);
 }
+
+
+function formatDateTime(gdate) {
+    var monthAry = ["Jan", "Feb", "Mar", "April", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    var cdate = new Date(gdate);
+
+    var gyear = cdate.getFullYear();
+    var gmonth = cdate.getMonth();
+    var gdate = cdate.getDate();
+    var ghour = cdate.getHours();
+    var gmin = cdate.getMinutes();
+
+    gdate = String(gdate).length <= 1 ? "0" + gdate : gdate;
+
+    var formatedtime = (String(ghour).length <= 1 ? "0" + ghour : ghour) + ":" + (String(gmin).length <= 1 ? "0" + gmin : gmin);
+    var formatedate = gdate + " " + monthAry[gmonth] + " " + gyear + "<br>" + formatedtime;
+
+    return formatedate
+}
+
 
 function GetTimeDuration(startime, endtime) {
 
@@ -278,7 +325,7 @@ function GetCurrentTime() {
     return datetimeformat;
 }
 
-function InitiateTime(timetype, timeindex) {
+function InitiateTime(timetype, timeindex, iszerohour) {
 
     var d = new Date();
     var hour = d.getHours()
@@ -288,11 +335,14 @@ function InitiateTime(timetype, timeindex) {
     var rightmonth = parseInt(month) + 1;
     var date = d.getDate();
 
+    hour = iszerohour == true ? 0 : hour;
+    min = iszerohour == true ? 0 : min;
+
     var datetime = new Date(year, month, date, hour, min);
 
     var datetimeformat = rightmonth + "/" + date + "/" + year + " " + hour + ":" + min;
 
-    var timedisplay = hour + ":" + min;
+    var timedisplay = (String(hour).length <= 1 ? "0" + hour : hour) + ":" + (String(min).length <= 1 ? "0" + min : min);
 
     var timeobj = new Object();
 
@@ -313,6 +363,8 @@ function InitiateTime(timetype, timeindex) {
     //timeobject.val(starttimedisplay);
     return timeobj;
 }
+
+
 
 
 function isNullOrEmpty(s) {

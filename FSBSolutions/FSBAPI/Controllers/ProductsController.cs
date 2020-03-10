@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/Products/UserType/{id}")]
         public IQueryable<Product> GetProductsByUserType(int id)
         {
-            return db.Products.Where(p => p.UserTypeId == id && p.Status == true);
+            return db.Products.Where(p => p.UserTypeId == id && p.Status == true).OrderBy(x=>x.ProductName);
         }
 
 

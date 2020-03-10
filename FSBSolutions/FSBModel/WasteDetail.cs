@@ -78,5 +78,7 @@ namespace FSBModel
         public string ActionTaken { get; set; }
         public string PreventiveAction { get; set; }
 
+        public int Efficiency { get; set; }
+
     }
 }

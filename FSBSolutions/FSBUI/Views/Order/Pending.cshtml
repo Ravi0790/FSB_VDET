@@ -8,7 +8,10 @@
     <div class="row pt-4 pb-4">
         <div class="col-12">
             <h1 class="fs-regular-20 text-uppercase font-weight-bold">Department - Bakery</h1>
-            <p class="font-weight-bold">Pending Orders <span>(@Model.OrderDetails.Count())</span></p>
+            @{ 
+                var pendingordercount = Model.OrderDetails.Count();
+            }
+            <p class="font-weight-bold">Pending Orders <span>(@pendingordercount)</span></p>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consectetur, metus quis efficitur tincidunt, felis magna sagittis ante, ut maximus ex velit nec purus. In vel arcu</p>
         </div>
     </div>
@@ -21,56 +24,120 @@
                     <th scope="col">Product</th>
                     <th scope="col" class="hide-sm">Product Detail</th>
                     <th scope="col" class="hide-sm">Linie</th>
+                    <th scope="col" class="hide-sm">Shift</th>
                     <th scope="col" class="hide-sm">Von(Start)</th>
-                    <th scope="col" class="hide-sm">Backery Status</th>
+                    <th scope="col" class="hide-sm">Bakery Status</th>
                     <th scope="col" class="hide-sm">Packaging Status</th>
                     <th scope="col" class="hide-sm">Auftrag Status</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.OrderDetails)
-                {
-                <tr>
-                    <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
-                    <td><a href="~/bakery/pending/@item.OrderId" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a></td>
-                    <td>@Html.DisplayFor(modelItem => item.Product.ProductName)</td>
-                    <td class="hide-sm">@Html.DisplayFor(modelItem => item.Product.ProductDesc)</td>
-                    <td class="hide-sm">@Html.DisplayFor(modelItem => item.Line.LineName)</td>
-                    <td class="hide-sm">@Html.DisplayFor(modelItem => item.OrderStartTime)</td>
-
-
-                    @foreach (var itemusertype in Model.OrderInfos)
+                @{ 
+                    if (pendingordercount <= 0)
                     {
-                        if (itemusertype.UserType.UserTypeName.ToLower() == "bakery")
-                        {
-
-                            var bstatus = itemusertype.OrderStatus == 0 ? "In Process" : "Finished";
-                            <td class="hide-sm">@bstatus</td>
-                            continue;
-
-                        }
-
-                        if (itemusertype.UserType.UserTypeName.ToLower() == "packaging")
-                        {
-
-                            var pstatus = itemusertype.OrderStatus == 0 ? "In Process" : "Finished";
-                            <td class="hide-sm">@pstatus</td>
-                            continue;
-
-
-                        }
+                        <tr><td colspan="10">No order created yet</td></tr>
                     }
 
-                    @{
+                    else
+                    { 
+                
 
-                        var finalstatus = item.FinalStatus == 0 ? "In Process" : "Finished";
+                        foreach (var item in Model.OrderDetails)
+                        {
+                            <tr>
+                            @{
+                                var cdate = item.CreatedDate.ToString("dd MMM yyyy");
+                                var objorderinfo = Model.OrderInfos.Where(x => x.OrderId == item.OrderId);
+                                var usercount = objorderinfo.Count();
+                                var bakerystatus = "";
+                                var packagingstatus = "";
+                                var usertypeid = Convert.ToString(Session["usertypeid"]);
 
-                        
+                                if (usercount == 1)
+                                {
+                                    var objbakery = objorderinfo.SingleOrDefault(x => x.UserType.UserTypeName.ToLower() == "bakery");
 
+                                    bakerystatus = objbakery.OrderStatus == 0 ? "In Process" : "Finished";
+
+
+                                }
+                                else
+                                {
+                                    var objbakery = objorderinfo.SingleOrDefault(x => x.UserType.UserTypeName.ToLower() == "bakery");
+                                    var objpackaging = objorderinfo.SingleOrDefault(x => x.UserType.UserTypeName.ToLower() == "packaging");
+
+                                    bakerystatus = objbakery.OrderStatus == 0 ? "In Process" : "Finished";
+                                    packagingstatus = objpackaging.OrderStatus == 0 ? "In Process" : "Finished";
+
+
+                                }
+                            }
+
+                            <td>@cdate</td>
+                            <td>
+                                @{
+                                    var controllername = usertypeid == "1" ? "Bakery" : "Packaging";
+                                    var formname = "form" + item.OrderId;
+                                    
+                                }
+
+                                @using (Html.BeginForm("Index", controllername, FormMethod.Post, new { id = formname }))
+                                {
+                                    <input type="hidden" name="orderid" value="@item.OrderId" />
+
+                                    if ((usertypeid == "1" && bakerystatus == "Finished") || (usertypeid == "2" && packagingstatus == "Finished"))
+                                    {
+                                        <a href="javascript:void" class="font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
+                                    }
+                                    else
+                                    {
+                                    <a href="javascript:document.getElementById('@formname').submit()" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
+                                    }
+                                }
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.Product.ProductName)</td>
+                            <td class="hide-sm">@Html.DisplayFor(modelItem => item.Product.ProductDesc)</td>
+                            <td class="hide-sm">@Html.DisplayFor(modelItem => item.Line.LineName)</td>
+                            <td class="hide-sm">@Html.DisplayFor(modelItem => item.Shift.ShiftName)</td>
+                            @{
+                                var von = item.OrderStartTime.ToString("dd MMM yyyy hh:mm");
+                            }
+                            <td class="hide-sm">@von</td>
+
+
+
+                            @{
+
+
+                                if (usercount == 1)
+                                {
+
+
+                                    <td class="hide-sm">@bakerystatus</td>
+                                    <td class="hide-sm">Offen</td>
+                                }
+                                else
+                                {
+                                   <td class="hide-sm">@bakerystatus</td>
+                                    <td class="hide-sm">@packagingstatus</td>
+                                }
+                            }
+
+
+
+                            @{
+
+                                var finalstatus = item.FinalStatus == 0 ? "Offen" : "Finished";
+
+                                <td class="hide-sm">&nbsp;@finalstatus</td>
+
+                            }
+
+
+                        </tr>
+                
+                        }
                     }
-
-                    <td class="hide-sm">@finalstatus&nbsp;</td>
-                </tr>
                 }
 
             </tbody>

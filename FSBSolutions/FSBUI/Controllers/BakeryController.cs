@@ -61,8 +61,8 @@ namespace FSBUI.Controllers
         }
 
 
-        [HttpGet]
-        [Route("bakery/pending/{orderid}")]
+        [HttpPost]        
+        [ActionName("Index")]
         public ActionResult GetOrderIdFromPending(int orderid)
         {
 
@@ -80,6 +80,7 @@ namespace FSBUI.Controllers
             {
                 FormsAuthentication.SignOut();
                 return RedirectToAction("index", "login");
+
             }
         }
     }

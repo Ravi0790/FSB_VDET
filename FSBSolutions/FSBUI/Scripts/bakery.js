@@ -1,5 +1,6 @@
 ﻿var orderid = 0;
 var startimeafterpending = "";
+var setintervalid = 0;
 
 
 function CheckProdTimeAfterPending() {
@@ -222,15 +223,7 @@ function CreateOrderInfo(gorderid) {
     SendAjaxRequest(ajaxrequest, "orderinfo", hitapi.order);
 }
 
-function GetLineById(callback) {
 
-    console.log("linefunc")
-
-    ajaxrequest.URL = apiurl.lines + lineid;
-    SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines);
-
-    callback(GetProductsByLine);
-}
 
 function GetOrderById() {
     console.log("orderinfo");
@@ -242,6 +235,17 @@ function GetOrderById() {
     
 }
 
+function GetLineById(callback) {
+
+    console.log("GetLineById")
+
+    ajaxrequest.URL = apiurl.lines + lineid;
+    SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines,"",callback);
+
+    
+}
+
+
 function GetProductsByLine(callback) {
 
     console.log("productfunc")
@@ -252,14 +256,14 @@ function GetProductsByLine(callback) {
     dropdowninfo.objdata = "";
     dropdowninfo.dropdowntext = "ProductName";
     dropdowninfo.dropdownval = "ProductId";
-    dropdowninfo.dropdownname = "Product";
+    dropdowninfo.dropdownname = "";
     dropdowninfo.selectedval = "";
 
     ajaxrequest.URL = apiurl.productsbylineusertype + lineid + "/" + usertypeid;
 
-    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.lines, dropdowninfo);
+    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.lines, dropdowninfo,callback);
 
-    callback(GetOrderById)
+    //callback()
 
     /************Get Products by Line and UserType -- End */
 }
@@ -274,14 +278,14 @@ function GetShiftByPlant(callback) {
     dropdowninfo.objdata = "";
     dropdowninfo.dropdowntext = "ShiftName";
     dropdowninfo.dropdownval = "ShiftId";
-    dropdowninfo.dropdownname = "Shift";
+    dropdowninfo.dropdownname = "";
     dropdowninfo.selectedval = "";
 
     ajaxrequest.URL = apiurl.shiftsbyplant + plantid;
 
-    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.shifts, dropdowninfo);
+    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.shifts, dropdowninfo,callback);
 
-    callback();
+    //callback();
 
     /************Get Products by Shift -- End */
 }
@@ -309,12 +313,16 @@ function SetOrderValues(orderdata) {
     startimeafterpending = orderdata.OrderStartTime;
 
     
-    var starttime = orderdata.OrderStartTime.split('T')[1];
-    $("#prodstarttime").text(starttime);
+    var gstartime = orderdata.OrderStartTime.split('T')[1];
+
+    var nstarttime = gstartime.split(':');
+    var startime = nstarttime[0] + ":" + nstarttime[1];
+
+    $("#prodstarttime").text(startime);
 
     $("#shifts").val(orderdata.ShiftId);
 
-    setInterval(CheckProdTimeAfterPending, 5000);
+    setintervalid=setInterval(CheckProdTimeAfterPending, 3000);
 
     $("#dvorder").find(".form-control").attr("disabled", true)
 
@@ -325,6 +333,79 @@ function SetOrderValues(orderdata) {
     $("#btnend").attr("disabled", false);
 
     ShowVolumesAfterPending();
+}
+
+function ShowTeigteileruhr() {
+    var strmodel = "";
+
+    strmodel += "<div class='row p-2 pt-sm-1 pb-sm-1'>"
+    strmodel += "<div class='col-lg-6 col-md-6 col-sm-6 col-6'><span class='float-left d-block lh-40 pr-3 w-sm-100'>Start Time</span><input type='text' class='form-control float-left w-50 w-sm-100 timepicker' id='ttstart'></div>"
+    strmodel += "<div class='col-lg-6 col-md-6 col-sm-6 col-6'><span class='float-left d-block lh-40 pr-3 w-sm-100'>End Time</span><input type='text' class='form-control float-left w-50 w-sm-100 timepicker' id='ttstop'></div>"
+    strmodel += "</div>"
+
+
+
+    var dialog = bootbox.dialog({
+        title: 'Teigteileruhr',
+        message: strmodel,
+        size: 'large',
+        buttons: {
+
+            ok: {
+                label: "Save Order",
+                className: 'btn-info',
+                callback: function () {
+                    console.log($("#ttstart").val());
+                    console.log($("#ttstop").val());
+                }
+            }
+        },
+        callback: function () {
+            $('.timepicker').wickedpicker(options);
+        }
+    });
+}
+
+
+function CloseOrder() {
+    var plannedquantity = $("#plannedquantity").text();
+
+
+    var orderrequest = new Object();
+
+    orderrequest.PlannedQuantity = plannedquantity;
+
+    orderrequest.OrderId = orderid;
+    orderrequest.UserTypeId = usertypeid;
+    orderrequest.Status = 1;
+
+    ajaxrequest.URL = apiurl.ordercreate + "update";
+    ajaxrequest.Type = "POST";
+    ajaxrequest.PData = orderrequest;
+
+    SendAjaxRequest(ajaxrequest, "orderclose", hitapi.order);
+
+
+}
+
+
+function runFunctionAfterPending(callback) {
+    GetProductsByLine(function () {
+        GetLineById(function () {
+            GetShiftByPlant(function () {
+                GetOrderById()
+            });
+        });
+    });
+}
+
+function runFunctionBeforePending(callback) {
+    GetProductsByLine(function () {
+        GetLineById(function () {
+            GetShiftByPlant(function () {
+            });
+        });
+    });
 }
 
 $(document).ready(function () {
@@ -338,24 +419,7 @@ $(document).ready(function () {
         });
 
 
-    function runFunctionAfterPending(callback) {
-        GetProductsByLine(function () {
-            GetLineById(function () {
-                GetShiftByPlant(function () {
-                    GetOrderById()
-                });
-            });
-        });
-    }
-
-    function runFunctionBeforePending(callback) {
-        GetProductsByLine(function () {
-            GetLineById(function () {
-                GetShiftByPlant(function () {
-                });
-            });
-        });
-    }
+    
     
     lineid = $("#lineid").val();
     usertypeid = $("#usertypeid").val();
@@ -379,11 +443,20 @@ $(document).ready(function () {
         runFunctionWasteFirstTime(function () {
             console.log("waste first functions called")
         });
+
+        DisableWasteControlsPartially();
+
+        GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
+        
     }
     else {
         runFunctionBeforePending(function () {
             console.log("function callfinished")
         });
+
+        DisableWasteControlsPartially();
+        $("#dvwastedetail").hide();//hiding waste information before order is created
+        //DisableWasteControls()
     }
 
 
@@ -434,7 +507,7 @@ $(document).ready(function () {
             $("#product").attr("disabled", true);
             $("#sapnumber").attr("disabled", true);
 
-            setInterval(CheckProdTime, 5000);
+            setintervalid=setInterval(CheckProdTime, 3000);
 
             ShowVolumes();
             CreateOrder();
@@ -443,6 +516,16 @@ $(document).ready(function () {
                 console.log("waste first functions called")
             });
 
+            DisableWasteControlsPartially();
+            $("#dvwastedetail").show()
         }
+    })
+
+
+    $("#btnend").click(function () {
+       
+        clearInterval(setintervalid)
+
+        CloseOrder()
     })
 })

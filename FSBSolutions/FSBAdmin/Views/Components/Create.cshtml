@@ -8,9 +8,10 @@
 
 
 
-@using (Html.BeginForm())
+@*@using (Html.BeginForm())*@
+@using (Ajax.BeginForm("Create",new AjaxOptions() { OnSuccess="fnSuccess",OnFailure="fnFailure"}))
 {
-    @Html.AntiForgeryToken()
+    //@Html.AntiForgeryToken()
 
     <div id="dvstart">
 
@@ -122,7 +123,19 @@
         $("#dvstart").addClass("row");
         $(".form-group").addClass("col-lg-4 col-md-4 col-sm-12 col-12")
 
+        function fnSuccess(data) {
+            alert("Success")
+        }
+
+        function fnFailure(data) {
+            alert("Failure")
+        }
+
     </script>
 
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
 }

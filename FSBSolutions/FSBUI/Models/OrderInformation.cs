@@ -55,7 +55,8 @@ namespace FSBUI.Models
                 OrderDetails = db.OrderDetails
                                             .Include(o => o.Line)
                                             .Include(o => o.Product)
-                                            .Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.CreatedDate.Day == startdate.Day && o.LineId == lineid)
+                                            .Include(o => o.Shift)
+                                            .Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.CreatedDate.Day == startdate.Day && o.LineId == lineid && o.FinalStatus==0)
                                             .OrderByDescending(x => x.OrderId).ToList(),
 
                 OrderInfos = db.OrderInfos

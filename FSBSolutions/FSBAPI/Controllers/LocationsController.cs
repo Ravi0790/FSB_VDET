@@ -26,7 +26,7 @@ namespace FSBAPI.Controllers
         [Route("api/Locations/Line/UserType/{lineid}/{usertypeid}")]
         public IQueryable<Location> GetLocationsByLineUserType(int lineid,int usertypeid)
         {
-            return db.Locations.Where(p => p.LineId == lineid && p.UserTypeId == usertypeid && p.Status==true);
+            return db.Locations.Where(p => p.LineId == lineid && p.UserTypeId == usertypeid && p.Status==true).OrderBy(x=>x.LocationName);
         }
 
         // GET: api/Locations/5

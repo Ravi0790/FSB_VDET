@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using FSBModel;
+using FSBAPI.Models;
 
 namespace FSBAPI.Controllers
 {
@@ -35,39 +36,115 @@ namespace FSBAPI.Controllers
             return Ok(orderDetail);
         }
 
-        // PUT: api/OrderDetails/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutOrderDetail(int id, OrderDetail orderDetail)
+        
+        [HttpGet]
+        [Route("api/orderformula/{orderid}")]        
+        public OrderFormula GetOrderFormulas(int orderid)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            OrderFormula objformula = new OrderFormula();
+            objformula = objformula.CreateFormula(orderid);
 
-            if (id != orderDetail.OrderId)
-            {
-                return BadRequest();
-            }
+            
+            return objformula;
+        }
 
-            db.Entry(orderDetail).State = EntityState.Modified;
+        [HttpPost]
+        [Route("api/orderformula/status")]
+        public string UpdateOrderStatus(OrderStatus orderstatus)
+        {
+            var orderinfo = db.OrderInfos.Include(x=>x.OrderDetail).SingleOrDefault(x => x.OrderId == orderstatus.OrderId && x.UserTypeId == orderstatus.UserTypeId);
+
+            
+
+            orderinfo.OrderStatus = 1;
+
+            if (orderstatus.UserTypeId != 1)
+            {
+                orderinfo.OrderDetail.FinalStatus = 1;
+            }
 
             try
             {
                 db.SaveChanges();
+
+                return "order status updated";
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!OrderDetailExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                return ex.Message.ToString();
+            }
+                        
+        }
+
+        // POST: api/OrderDetails/update
+
+        [HttpPost]
+        [Route("api/orderdetails/update")]
+        
+        public string UpdateOrderDetails(OrderDetail orderDetail)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            //if (id != orderDetail.OrderId)
+            //{
+            //    return BadRequest();
+            //}
+
+            //db.Entry(orderDetail).State = EntityState.Modified;
+
+            var returnval = "failure";
+
+            var order = db.OrderDetails.SingleOrDefault(x => x.OrderId == orderDetail.OrderId);
+
+            order.TeigteileruhrStartTime = orderDetail.TeigteileruhrStartTime;
+            order.TeigteileruhrEndTime = orderDetail.TeigteileruhrEndTime;
+            order.TeigteileruhrDurationMin = orderDetail.TeigteileruhrDurationMin;
+            order.PlannedQuantity = orderDetail.PlannedQuantity;
+            order.ProducedQuantity = orderDetail.ProducedQuantity;
+
+            try
+            {
+                db.SaveChanges();
+
+                
+                var objformula=GetOrderFormulas(orderDetail.OrderId);
+
+                order.BakeryTotalWaste = objformula.BakeryTotalWaste;
+                order.PackageTotalWaste = objformula.PackageTotalWaste;
+                order.TotalDowntime = objformula.TotalDowntime;
+                order.TotalWasteKg = objformula.TotalWasteKg;
+                order.TotalWastePieces = objformula.TotalWastePieces;
+                order.TotalProduction = objformula.TotalProduction;
+                order.Sollmengen = objformula.Sollmengen;
+                order.StillStandMin = objformula.StillStandMin;
+                order.StillStandPieces = objformula.StillStandPieces;
+                order.LeerIndexMinute = objformula.LeerIndexMinute;
+                order.LeerIndexPieces = objformula.LeerIndexPieces;
+                order.PlannedKg = objformula.PlannedKg;
+                order.ProducedKg = objformula.ProducedKg;
+
+                db.SaveChanges();
+
+                OrderStatus objstatus = new OrderStatus();
+                objstatus.OrderId = orderDetail.OrderId;
+                objstatus.UserTypeId = orderDetail.UserTypeId;
+
+                UpdateOrderStatus(objstatus);
+
+
+                returnval = "success";
+
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                returnval = ex.Message.ToString();
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return returnval;
         }
 
         // POST: api/OrderDetails

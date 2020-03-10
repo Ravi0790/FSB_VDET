@@ -217,6 +217,10 @@
     <Compile Include="Migrations\202003041218520_makingdatetimenullableinwastedetail.Designer.cs">
       <DependentUpon>202003041218520_makingdatetimenullableinwastedetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003071127502_AddEfficiencyinWasteDetail.cs" />
+    <Compile Include="Migrations\202003071127502_AddEfficiencyinWasteDetail.Designer.cs">
+      <DependentUpon>202003071127502_AddEfficiencyinWasteDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -428,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003041218520_makingdatetimenullableinwastedetail.resx">
       <DependentUpon>202003041218520_makingdatetimenullableinwastedetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003071127502_AddEfficiencyinWasteDetail.resx">
+      <DependentUpon>202003071127502_AddEfficiencyinWasteDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

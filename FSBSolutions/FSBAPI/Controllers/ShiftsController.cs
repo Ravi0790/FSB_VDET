@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/Shifts/Plant/{id}")]
         public IQueryable<Shift> GetShiftsByPlant(int id)
         {
-            return db.Shifts.Where(p => p.PlantId == id && p.Status == true);
+            return db.Shifts.Where(p => p.PlantId == id && p.Status == true).OrderBy(x=>x.ShiftName);
         }
 
         // GET: api/Shifts/5

@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/Parts/Component/{id}")]
         public IQueryable<Part> GetPartsByComponent(int id)
         {
-            return db.Parts.Where(p => p.ComponentId == id && p.Status == true);
+            return db.Parts.Where(p => p.ComponentId == id && p.Status == true).OrderBy(x=>x.PartName);
         }
 
         // GET: api/Parts/5

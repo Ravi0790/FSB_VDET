@@ -55,18 +55,20 @@ namespace FSBAdmin.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PartId,PartName,ComponentId,Status")] Part part)
+        //[ValidateAntiForgeryToken]
+        public JsonResult Create([Bind(Include = "PartId,PartName,ComponentId,Status")] Part part)
         {
             if (ModelState.IsValid)
             {
                 db.Parts.Add(part);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
 
-            ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName", part.ComponentId);
-            return View(part);
+            //ViewBag.ComponentId = new SelectList(db.Components, "ComponentId", "ComponentName", part.ComponentId);
+            //return View(part);
+
+            return Json("true", JsonRequestBehavior.AllowGet);
         }
 
         // GET: Parts/Edit/5

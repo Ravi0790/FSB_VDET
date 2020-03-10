@@ -21,8 +21,9 @@ namespace FSBUI
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/bakeryscript").Include(
-                        "~/Scripts/bakery.js",
-                        "~/Scripts/waste.js"
+                        "~/Scripts/waste.js",
+                        "~/Scripts/bakery.js"
+                        
                         
                         ));
 

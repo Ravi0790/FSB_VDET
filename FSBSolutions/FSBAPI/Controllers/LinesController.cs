@@ -25,7 +25,7 @@ namespace FSBAPI.Controllers
         [Route("api/Lines/Plant/{id}")]
         public IQueryable<Line> GetLinesByPlant(int id)
         {
-            return db.Lines.Where(p => p.PlantId == id && p.Status==true);
+            return db.Lines.Where(p => p.PlantId == id && p.Status==true).OrderBy(x=>x.LineName);
         }
 
         // GET: api/Lines/5
