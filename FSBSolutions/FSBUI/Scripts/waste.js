@@ -414,7 +414,7 @@ function CreateWaste() {
 
 
     var wastekg = $("#wastekg").val() == "" ? 0 : $("#wastekg").val();
-    var wastepieces = (parseInt(wastekg) / bunweight) * 1000;
+    var wastepieces = Math.round(((parseInt(wastekg) / bunweight) * 1000));
     var timelosspieces = parseInt(machineduration) * speed * pocket;
     
     wasterequest.MachineStartTime = machinestarttime
