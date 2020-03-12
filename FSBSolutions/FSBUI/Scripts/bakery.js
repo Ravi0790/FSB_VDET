@@ -335,33 +335,17 @@ function SetOrderValues(orderdata) {
     ShowVolumesAfterPending();
 }
 
-function ShowTeigteileruhr() {
-    var strmodel = "";
-
-    strmodel += "<div class='row p-2 pt-sm-1 pb-sm-1'>"
-    strmodel += "<div class='col-lg-6 col-md-6 col-sm-6 col-6'><span class='float-left d-block lh-40 pr-3 w-sm-100'>Start Time</span><input type='text' class='form-control float-left w-50 w-sm-100 timepicker' id='ttstart'></div>"
-    strmodel += "<div class='col-lg-6 col-md-6 col-sm-6 col-6'><span class='float-left d-block lh-40 pr-3 w-sm-100'>End Time</span><input type='text' class='form-control float-left w-50 w-sm-100 timepicker' id='ttstop'></div>"
-    strmodel += "</div>"
-
-
-
-    var dialog = bootbox.dialog({
-        title: 'Teigteileruhr',
-        message: strmodel,
-        size: 'large',
-        buttons: {
-
-            ok: {
-                label: "Save Order",
-                className: 'btn-info',
-                callback: function () {
-                    console.log($("#ttstart").val());
-                    console.log($("#ttstop").val());
-                }
+function ShowTeigteileruhr(gcallback) {
+    bootbox.prompt({
+        title: "Teigteileruhr",
+        centerVertical: true,
+        callback: function (result) {
+            
+            if (result != null) {
+                $("#ttduration").val(result);
+                gcallback()
             }
-        },
-        callback: function () {
-            $('.timepicker').wickedpicker(options);
+            
         }
     });
 }
@@ -373,10 +357,31 @@ function CloseOrder() {
 
     var orderrequest = new Object();
 
+    var endtimeinfo = InitiateTime("prodend", 0)
+    var starttimeinfo = "";
+
+    var loginstatus = $("#loginstatus").val();
+
+    if (loginstatus == "pending") {
+        starttimeinfo = new Date(startimeafterpending);
+    }
+    else {
+        var timeinfo = startstoptimeArray.filter(x => x.Type == "prodstart");
+        starttimeinfo = timeinfo[0].DateTime;
+    }
+
+    var strtimeduration = GetTimeDuration(starttimeinfo, endtimeinfo.DateTime);
+    var timeduration = strtimeduration.split('|')[0];
+    var timedurationmin = strtimeduration.split('|')[1];
+     
+
     orderrequest.PlannedQuantity = plannedquantity;
 
     orderrequest.OrderId = orderid;
+    orderrequest.TeigteileruhrDurationMin = $("#ttduration").val() == "" ? 0 : $("#ttduration").val();
     orderrequest.UserTypeId = usertypeid;
+    orderrequest.OrderEndTime = endtimeinfo.DateTimeFormat;
+    orderrequest.OrderDurationMin = timedurationmin;
     orderrequest.Status = 1;
 
     ajaxrequest.URL = apiurl.ordercreate + "update";
@@ -447,6 +452,8 @@ $(document).ready(function () {
         DisableWasteControlsPartially();
 
         GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
+
+        $("#loginstatus").val("pending");
         
     }
     else {
@@ -457,6 +464,7 @@ $(document).ready(function () {
         DisableWasteControlsPartially();
         $("#dvwastedetail").hide();//hiding waste information before order is created
         //DisableWasteControls()
+        $("#loginstatus").val("firsttime");
     }
 
 
@@ -523,9 +531,13 @@ $(document).ready(function () {
 
 
     $("#btnend").click(function () {
-       
-        clearInterval(setintervalid)
 
-        CloseOrder()
+        ShowTeigteileruhr(function () {
+
+            clearInterval(setintervalid)
+
+            CloseOrder()
+        })
+        
     })
 })
