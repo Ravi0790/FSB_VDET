@@ -105,6 +105,8 @@ namespace FSBAPI.Controllers
             order.TeigteileruhrDurationMin = orderDetail.TeigteileruhrDurationMin;
             order.PlannedQuantity = orderDetail.PlannedQuantity;
             order.ProducedQuantity = orderDetail.ProducedQuantity;
+            order.OrderEndTime = orderDetail.OrderEndTime;
+            order.OrderDurationMin = orderDetail.OrderDurationMin;
 
             try
             {
