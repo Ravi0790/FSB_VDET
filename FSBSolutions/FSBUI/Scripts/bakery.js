@@ -337,7 +337,7 @@ function SetOrderValues(orderdata) {
 
 function ShowTeigteileruhr(gcallback) {
     bootbox.prompt({
-        title: "Teigteileruhr",
+        title: "Dauer der Teigteileruhr (Minuten)",
         centerVertical: true,
         callback: function (result) {
             
@@ -540,4 +540,7 @@ $(document).ready(function () {
         })
         
     })
+
+
+   
 })

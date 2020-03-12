@@ -341,7 +341,7 @@ function CreateWaste() {
     var timestopobj = null;
     var timeduration = 0;
 
-    var bunweight = parseInt($("#bunweight").text());
+    var bunweight = parseFloat($("#bunweight").text());
     var speed = parseInt($("#speed").text());
     var pocket = parseInt($("#pockets").text());
 
@@ -733,7 +733,7 @@ function ValidateWaste() {
 
         if (machineend.prop("disabled") == false) {
             if (machineend.val() == "") {
-                alert("Bitte den Stillstand / die Unterbrechung der Maschine starten");
+                bootbox.alert("Bitte den Stillstand / die Unterbrechung der Maschine beenden");
                 machineend.focus();
                 return false;
             }
@@ -741,7 +741,7 @@ function ValidateWaste() {
 
         if (verlust.val() !="Recept/Parameter") {
             if (verlustart == "--Auswahlen--") {
-                alert("Bitte ein Ausschuss auswählen");
+                bootbox.alert("Bitte ein Ausschuss auswählen");
                 $("#verlustart").focus()
                 return false;
 
@@ -754,7 +754,7 @@ function ValidateWaste() {
 
             if (cleaningstart.prop("disabled") == false && repairstart.prop("disabled") == false) {
                 if (cleaningstart.val() == "" || repairstart.val() == "") {
-                    alert("Bitte die Reinigungs- / Reparaturzeit starten");
+                    bootbox.alert("Bitte die Reinigungs / Reparaturzeit starten");
                     cleaningstart.focus();
                     return false;
                 }
@@ -764,7 +764,7 @@ function ValidateWaste() {
 
             if (glocation.prop("disabled") == false) {
                 if (glocation.val() == "") {
-                    alert("Bitte einen Bereich auswählen");
+                    bootbox.alert("Bitte einen Bereich auswählen");
                     glocation.focus()
                     return false;
 
@@ -773,7 +773,7 @@ function ValidateWaste() {
 
             if (machine.prop("disabled") == false) {
                 if (machine.val() == "") {
-                    alert("Bitte eine Maschine auswählen");
+                    bootbox.alert("Bitte eine Maschine auswählen");
                     machine.focus()
                     return false;
 
@@ -782,7 +782,7 @@ function ValidateWaste() {
 
             if (module.prop("disabled") == false) {
                 if (module.val() == "") {
-                    alert("Bitte eine Baugruppe auswählen");
+                    bootbox.alert("Bitte eine Baugruppe auswählen");
                     module.focus()
                     return false;
 
@@ -791,7 +791,7 @@ function ValidateWaste() {
 
             if (component.prop("disabled") == false) {
                 if (component.val() == "") {
-                    alert("Bitte eine Komponente auswählen");
+                    bootbox.alert("Bitte eine Komponente auswählen");
                     component.focus()
                     return false;
 
@@ -800,7 +800,7 @@ function ValidateWaste() {
 
             if (parts.prop("disabled") == false) {
                 if (parts.val() == "") {
-                    alert("Bitte ein Bauteil auswählen");
+                    bootbox.alert("Bitte ein Bauteil auswählen");
                     parts.focus()
                     return false;
                      
@@ -810,7 +810,7 @@ function ValidateWaste() {
             if (repairend.prop("disabled") == false) {
                 if (repairstart.val() != "") {
                     if (repairend.val() == "") {
-                        alert("Bitte die Reparaturzeit stoppen");
+                        bootbox.alert("Bitte die Reparaturzeit stoppen");
                         repairend.focus();
                         return false;
                     }
@@ -821,7 +821,7 @@ function ValidateWaste() {
             if (cleaningend.prop("disabled") == false) {
                 if (cleaningstart.val() != "") {
                     if (cleaningend.val() == "") {
-                        alert("Bitte die Reinigungszeit stoppen");
+                        bootbox.alert("Bitte die Reinigungszeit stoppen");
                         cleaningend.focus();
                         return false;
                     }
@@ -831,7 +831,7 @@ function ValidateWaste() {
 
             if (verlust.val() == "Stillstand") {
                 if (wastekg.val() == "") {
-                    alert("Bitte die Ausschussmenge eingeben");
+                    bootbox.alert("Bitte die Ausschussmenge eingeben");
                     wastekg.focus();
                     return false;
                 }
@@ -844,7 +844,7 @@ function ValidateWaste() {
 
             if (glocation.prop("disabled") == false) {
                 if (glocation.val() == "") {
-                    alert("Bitte einen Bereich auswählen");
+                    bootbox.alert("Bitte einen Bereich auswählen");
                     glocation.focus()
                     return false;
 
@@ -853,7 +853,7 @@ function ValidateWaste() {
 
             if (machine.prop("disabled") == false) {
                 if (machine.val() == "") {
-                    alert("Bitte eine Maschine auswählen");
+                    bootbox.alert("Bitte eine Maschine auswählen");
                     machine.focus()
                     return false;
 
@@ -870,7 +870,7 @@ function ValidateWaste() {
 
             if (cleaningstart.prop("disabled") == false) {
                 if (cleaningstart.val() == "") {
-                    alert("Bitte die Reinigungszeit starten");
+                    bootbox.alert("Bitte die Reinigungs / Reparaturzeit starten");
                     cleaningstart.focus();
                     return false;
                 }
@@ -884,7 +884,7 @@ function ValidateWaste() {
 
             if (wastetype.prop("disabled") == false) {
                 if (wastetype.val() == "") {
-                    alert("Bitte eine Ausschussart auswählen");
+                    bootbox.alert("Bitte eine Ausschussart auswählen");
                     wastetype.focus()
                     return false;
 
@@ -896,7 +896,7 @@ function ValidateWaste() {
 
         if (wastekg.prop("disabled") == false) {
             if (wastekg.val() == "") {
-                alert("Bitte die Ausschussmenge eingeben");
+                bootbox.alert("Bitte den Ausschussmenge betreten");
                 wastekg.focus();
                 return false;
             }
@@ -913,7 +913,7 @@ function ValidateWaste() {
         if (verlust.val() != "Recept/Parameter") {
             if (reason.prop("disabled") == false) {
                 if (reason.val() == "") {
-                    alert("Bitte eine Verlustgrund auswählen");
+                    bootbox.alert("Bitte eine Verlustgrund auswählen");
                     reason.focus()
                     return false;
 
@@ -927,7 +927,7 @@ function ValidateWaste() {
             if (cleaningend.prop("disabled") == false) {
                 if (cleaningstart.val() != "") {
                     if (cleaningend.val() == "") {
-                        alert("Bitte die Reinigungszeit stoppen");
+                        bootbox.alert("Bitte die Reinigungs / Reparaturzeit stoppen");
                         cleaningend.focus();
                         return false;
                     }
@@ -937,7 +937,7 @@ function ValidateWaste() {
 
         if (machinestart.prop("disabled") == false) {
             if (machinestart.val() == "") {
-                alert("Bitte den Stillstand / die Unterbrechung der Maschine beenden");
+                bootbox.alert("Bitte den Stillstand / die Unterbrechung der Maschine starten");
                 machinestart.focus();
                 return false;
             }
@@ -962,7 +962,31 @@ function ValidateWaste() {
 }
 
 
+function MachineStop() {
+    var timeinfo = InitiateTime("machinestop", 0)
+    $("#machinestop").val(timeinfo.TimeDisplay);
+    $("#machinestop").attr("disabled", true);
+    $(this).attr("disabled", true);
 
+    machinestartstopArry.push(timeinfo);
+
+    $("#machinestart").attr("disabled", false);
+    $("#btnmachinestart").attr("disabled", false);
+}
+
+function MachineStart() {
+
+    if ($("#machinestop").val() == "") {
+        bootbox.alert("Bitte den Stillstand / die Unterbrechung der Maschine beenden");
+        return false;
+    }
+
+    var timeinfo = InitiateTime("machinestart", 0)
+    $("#machinestart").val(timeinfo.TimeDisplay);
+    $("#machinestart").attr("disabled", true);
+    $(this).attr("disabled", true);
+    machinestartstopArry.push(timeinfo);
+}
 
 
 
@@ -1016,30 +1040,13 @@ $(document).ready(function () {
 
     /***********Machine Start Stopt************/
     $("#btnmachinestop").click(function () {
-        var timeinfo = InitiateTime("machinestop", 0)
-        $("#machinestop").val(timeinfo.TimeDisplay);
-        $("#machinestop").attr("disabled", true);
-        $(this).attr("disabled", true);
-
-        machinestartstopArry.push(timeinfo);
-
-        $("#machinestart").attr("disabled", false);
-        $("#btnmachinestart").attr("disabled", false);
-
+       
+        MachineStop();
     });
 
     $("#btnmachinestart").click(function () {
 
-        if ($("#machinestop").val() == ""){
-            alert("Bitte den Stillstand / die Unterbrechung der Maschine starten");
-            return false;
-        }
-
-        var timeinfo = InitiateTime("machinestart", 0)
-        $("#machinestart").val(timeinfo.TimeDisplay);
-        $("#machinestart").attr("disabled", true);
-        $(this).attr("disabled", true);
-        machinestartstopArry.push(timeinfo);
+        MachineStart();
         
     });
 
@@ -1135,5 +1142,28 @@ $(document).ready(function () {
             CreateWaste();
         }
     })
+
+    $(document).keydown(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        var prodstatus = $("#chkprodstatus")
+
+
+        if (prodstatus.prop("checked") == false) {
+            if (keycode == '119') {//f8
+
+                if ($("#btnmachinestop").prop("disabled") == false) {
+                    MachineStop();
+                }
+
+            }
+
+            if (keycode == '120') {//f9
+                if ($("#btnmachinestop").prop("disabled") == false) {
+                    MachineStart();
+                }
+            }
+        }
+               
+    });
 
 })
