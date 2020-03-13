@@ -130,10 +130,10 @@ namespace FSBModel
         public int UserTypeId { get; set; }
         public virtual UserType UserType { get; set; }
 
-        [StringLength(10)]
+        [StringLength(20)]
         public string WeightUnit { get; set; }
 
-        [StringLength(10)]
+        [StringLength(20)]
         public string SpeedUnit { get; set; }
 
     }

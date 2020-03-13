@@ -17,10 +17,15 @@ namespace FSBModel
         [Display(Name = "VerlustartName", Description = "Verlustart Name")]
         public string VerlustartName { get; set; }
 
-        [Display(Name = "Benutzername", Description = "UserType Name")] 
-        public int UserTypeId { get; set; }
+        //[Display(Name = "Benutzername", Description = "UserType Name")] 
+        //public int UserTypeId { get; set; }
 
-        public UserType UserType { get; set; }
+        //public UserType UserType { get; set; }
+
+
+        public int PlantId { get; set; }
+
+        public Plant Plant { get; set; }
 
         public bool Status { get; set; }
         public IList<Reason> Reasons { get; set; }

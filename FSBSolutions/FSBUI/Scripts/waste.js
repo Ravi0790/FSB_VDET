@@ -24,7 +24,7 @@ function FillVerlustart(callback) {
     dropdowninfo.selectedval = "";
 
     ajaxrequest.Type = "GET";
-    ajaxrequest.URL = apiurl.verlustartsbyusertype + usertypeid;
+    ajaxrequest.URL = apiurl.verlustartsbyplant + plantid;
     SendAjaxRequest(ajaxrequest, "dropdownfill", true, dropdowninfo,callback);
 
     //callback();
@@ -176,7 +176,7 @@ function FillReasons(verlustartid) {//Verlustgrund
     dropdowninfo.selectedval = "";
 
     ajaxrequest.Type = "GET";
-    ajaxrequest.URL = apiurl.reasonsbyverlustart + verlustartid;
+    ajaxrequest.URL = apiurl.reasonsbyverlustartusertype + verlustartid + "/" + usertypeid;
     SendAjaxRequest(ajaxrequest, "dropdownfill", true, dropdowninfo);
 }
 

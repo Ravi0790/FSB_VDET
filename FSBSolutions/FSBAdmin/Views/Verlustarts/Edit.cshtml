@@ -15,28 +15,28 @@
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.VerlustartId)
-    @Html.HiddenFor(model => model.UserTypeId)
+    @Html.HiddenFor(model => model.PlantId)
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UserType.Plant.Company.Country.CountryName)
-        @Html.DisplayFor(model => model.UserType.Plant.Company.Country.CountryName)
+        @Html.LabelFor(model => model.Plant.Company.Country.CountryName)
+        @Html.DisplayFor(model => model.Plant.Company.Country.CountryName)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UserType.Plant.Company.CompanyName)
-        @Html.DisplayFor(model => model.UserType.Plant.Company.CompanyName)
+        @Html.LabelFor(model => model.Plant.Company.CompanyName)
+        @Html.DisplayFor(model => model.Plant.Company.CompanyName)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.UserType.Plant.PlantName)
-        @Html.DisplayFor(model => model.UserType.Plant.PlantName)
+        @Html.LabelFor(model => model.Plant.PlantName)
+        @Html.DisplayFor(model => model.Plant.PlantName)
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(model => model.UserType.UserTypeName)
         @Html.DisplayFor(model => model.UserType.UserTypeName)
-    </div>
+    </div>*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.VerlustartName)

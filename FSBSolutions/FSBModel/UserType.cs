@@ -21,15 +21,10 @@ namespace FSBModel
 
         public Plant Plant { get; set; }
         public IList<User> Users { get; set; }
-        public IList<Location> Locations { get; set; }
-        //public IList<Machine> Machines { get; set; }
-        //public IList<Module> Modules { get; set; }
-        //public IList<Component> Components { get; set; }
-        //public IList<Part> Parts { get; set; }
+        public IList<Location> Locations { get; set; }        
         public IList<Product> Products { get; set; }
-        public IList<Verlust> Verlusts { get; set; }
-        public IList<Verlustart> Verlustarts { get; set; }
-        //public IList<Reason> Reasons { get; set; }
+        public IList<Verlust> Verlusts { get; set; }        
+        public IList<Reason> Reasons { get; set; }
         public IList<WasteType> WasteTypes { get; set; }        
         public bool Status { get; set; }
 

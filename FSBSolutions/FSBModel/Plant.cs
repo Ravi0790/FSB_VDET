@@ -32,6 +32,8 @@ namespace FSBModel
 
         public IList<UserType> UserTypes { get; set; }
 
+        public IList<Verlustart> Verlustarts { get; set; }
+
         public bool Status { get; set; }
     }
 }

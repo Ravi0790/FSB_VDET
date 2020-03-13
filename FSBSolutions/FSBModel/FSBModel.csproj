@@ -221,6 +221,22 @@
     <Compile Include="Migrations\202003071127502_AddEfficiencyinWasteDetail.Designer.cs">
       <DependentUpon>202003071127502_AddEfficiencyinWasteDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003130222393_ChangeinWeightSpeedUnitLength.cs" />
+    <Compile Include="Migrations\202003130222393_ChangeinWeightSpeedUnitLength.Designer.cs">
+      <DependentUpon>202003130222393_ChangeinWeightSpeedUnitLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003130826420_removeusertypeidfromverlustart.cs" />
+    <Compile Include="Migrations\202003130826420_removeusertypeidfromverlustart.Designer.cs">
+      <DependentUpon>202003130826420_removeusertypeidfromverlustart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003130836390_AddUserTypeinReason.cs" />
+    <Compile Include="Migrations\202003130836390_AddUserTypeinReason.Designer.cs">
+      <DependentUpon>202003130836390_AddUserTypeinReason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003130937330_addplantidforeignkeyinverlustart.cs" />
+    <Compile Include="Migrations\202003130937330_addplantidforeignkeyinverlustart.Designer.cs">
+      <DependentUpon>202003130937330_addplantidforeignkeyinverlustart.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -435,6 +451,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003071127502_AddEfficiencyinWasteDetail.resx">
       <DependentUpon>202003071127502_AddEfficiencyinWasteDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130222393_ChangeinWeightSpeedUnitLength.resx">
+      <DependentUpon>202003130222393_ChangeinWeightSpeedUnitLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130826420_removeusertypeidfromverlustart.resx">
+      <DependentUpon>202003130826420_removeusertypeidfromverlustart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130836390_AddUserTypeinReason.resx">
+      <DependentUpon>202003130836390_AddUserTypeinReason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130937330_addplantidforeignkeyinverlustart.resx">
+      <DependentUpon>202003130937330_addplantidforeignkeyinverlustart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

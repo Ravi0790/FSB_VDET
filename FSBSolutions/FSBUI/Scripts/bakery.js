@@ -94,6 +94,7 @@ function CheckProdTime() {
 function ValidateOrder() {
     var product = $("#product");
     var sapnumber = $("#sapnumber");
+    var shift=$("#shifts")
     var empperm = $("#empperm");
     var emptemp = $("#emptemp")
     var empexternal = $("#empexternal")
@@ -111,6 +112,22 @@ function ValidateOrder() {
         sapnumber.focus();
         return false;
     }
+    else {
+        if (!sappatten.test(sapnumber.val())) {
+            bootbox.alert("Ungültige SAP-Referenznummer")
+            sapnumber.focus();
+            return false;
+        }
+    }
+
+
+    if (shift.val() == "") {
+        bootbox.alert("Bitte Schichten auswählen")
+        product.focus();
+        return false;
+    }
+
+    
 
 
     if (empperm.val() == "" || emptemp.val() == "" || empexternal.val() == "") {
@@ -300,6 +317,9 @@ function SetProductValues(product) {
     $("#bunweight").text(product.BunWeight);
 
     $("#speed").text(product.Speed);
+
+    $("#weightunit").text("(" + product.WeightUnit + ")")
+    $("#speedunit").text("(" + product.SpeedUnit + ")")
 }
 
 

@@ -29,6 +29,24 @@ namespace FSBAPI.Controllers
             return db.Reasons.Where(p => p.VerlustartId == id && p.Status == true).OrderBy(x=>x.ReasonName);
         }
 
+
+        [Route("api/Reasons/Verlustart/usertype/{verlustartid}/{usertypeid}")]
+        public IQueryable<Reason> GetReasonsByVerlustartUserType(int verlustartid, int usertypeid)
+        {
+            return db.Reasons
+                .Include(u=>u.UserType)
+                .Include(v=>v.Verlustart)
+                .Where(p => p.VerlustartId == verlustartid || p.Verlustart.VerlustartName.ToLower()=="all" && (p.UserType.UserTypeId==usertypeid || p.UserType.UserTypeName=="all") && p.Status==true)                
+                .OrderBy(x => x.ReasonName);
+        }
+
+
+        [Route("api/Reasons/UserType/{id}")]
+        public IQueryable<Reason> GetReasonsByUserTypes(int id)
+        {
+            return db.Reasons.Where(p => p.UserTypeId == id && p.Status == true).OrderBy(x => x.ReasonName);
+        }
+
         // GET: api/Reasons/5
         [ResponseType(typeof(Reason))]
         public IHttpActionResult GetReason(int id)

@@ -1,11 +1,27 @@
 ﻿var ajaxrequest = new Object();
+var apiurl = new Object()
+
+
+var startstoptimeArray = [];
+var selectedproductinfo = null;
+
+var lineid = "";
+var plantid = "";
+var userid = "";
+var usertypeid = "";
+
+/***Regex Patterns**********/
+
+var sappatten = /^[0-9]{6,12}$/;
+
 
 ajaxrequest.Type = "GET";
 ajaxrequest.PData = "";
 ajaxrequest.DataType = "json";
 
-var apiurl = new Object()
-var linebyid = "";
+
+
+
 apiurl.companiesbycountry = "/services/api/companies/country/";
 apiurl.plantsbycompany = "/services/api/plants/company/";
 apiurl.shiftsbyplant = "/services/api/shifts/plant/";
@@ -24,8 +40,10 @@ apiurl.componentsbymodule = "/services/api/components/module/";
 apiurl.partsbycomponent = "/services/api/parts/component/";
 apiurl.verlustsbyusertype = "/services/api/verlusts/usertype/";
 apiurl.verlustartsbyusertype = "/services/api/verlustarts/usertype/";
+apiurl.verlustartsbyplant = "/services/api/verlustarts/plant/";
 apiurl.wastetypesbyusertype = "/services/api/wastetypes/usertype/";
 apiurl.reasonsbyverlustart = "/services/api/reasons/verlustart/";
+apiurl.reasonsbyverlustartusertype = "/services/api/reasons/verlustart/usertype/";
 apiurl.ordercreate = "/services/api/OrderDetails/";
 apiurl.wastedetail = "/services/api/WasteDetails/";
 apiurl.wastedetailbyorderusertype = "/services/api/WasteDetails/Order/UserType/";
@@ -247,13 +265,7 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
 }
 
 
-var startstoptimeArray = [];
-var selectedproductinfo = null;
 
-var lineid = "";
-var plantid = "";
-var userid = "";
-var usertypeid = "";
 
 
 function GetTimeInfo(timetype) {

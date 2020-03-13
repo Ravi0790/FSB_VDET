@@ -23,10 +23,17 @@ namespace FSBAPI.Controllers
         }
 
 
-        [Route("api/Verlustarts/UserType/{id}")]
-        public IQueryable<Verlustart> GetVerlustartsByUserType(int id)
+        //[Route("api/Verlustarts/UserType/{id}")]
+        //public IQueryable<Verlustart> GetVerlustartsByUserType(int id)
+        //{
+        //    return db.Verlustarts.Where(p => p.UserTypeId == id && p.Status == true).OrderBy(x=>x.VerlustartName);
+        //}
+
+
+        [Route("api/Verlustarts/Plant/{id}")]
+        public IQueryable<Verlustart> GetVerlustartsByPlant(int id)
         {
-            return db.Verlustarts.Where(p => p.UserTypeId == id && p.Status == true).OrderBy(x=>x.VerlustartName);
+            return db.Verlustarts.Where(p => p.PlantId == id && p.Status == true && p.VerlustartName.ToLower()!="all").OrderBy(x => x.VerlustartName);
         }
 
 

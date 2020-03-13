@@ -20,6 +20,11 @@ namespace FSBModel
         public int VerlustartId { get; set; }
 
         public virtual Verlustart Verlustart { get; set; }
+        
+
+        public int UserTypeId { get; set; }
+
+        public virtual UserType UserType { get; set; }
 
         public bool Status { get; set; }
     }

@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Verlustarts
         public ActionResult Index()
         {
-            var verlustarts = db.Verlustarts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country);
+            var verlustarts = db.Verlustarts.Include(u => u.Plant).Include(u => u.Plant.Company).Include(u => u.Plant.Company.Country);
             return View(verlustarts.ToList());
         }
 
@@ -48,7 +48,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "VerlustartId,VerlustartName,UserTypeId,Status")] Verlustart verlustart)
+        public ActionResult Create([Bind(Include = "VerlustartId,VerlustartName,PlantId,Status")] Verlustart verlustart)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlustart.UserTypeId);
+            //ViewBag.PlantId = new SelectList(db.UserTypes, "PlantId", "UserTypeName", verlustart.PlantId);
             return View(verlustart);
         }
 
@@ -68,12 +68,12 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Verlustart verlustart = db.Verlustarts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.VerlustartId == id);
+            Verlustart verlustart = db.Verlustarts.Include(u => u.Plant).Include(u => u.Plant.Company).Include(u => u.Plant.Company.Country).SingleOrDefault(x => x.VerlustartId == id);
             if (verlustart == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlustart.UserTypeId);
+            //ViewBag.PlantId = new SelectList(db.UserTypes, "PlantId", "UserTypeName", verlustart.PlantId);
             return View(verlustart);
         }
 
@@ -82,7 +82,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "VerlustartId,VerlustartName,UserTypeId,Status")] Verlustart verlustart)
+        public ActionResult Edit([Bind(Include = "VerlustartId,VerlustartName,PlantId,Status")] Verlustart verlustart)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace FSBAdmin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserTypeId = new SelectList(db.UserTypes, "UserTypeId", "UserTypeName", verlustart.UserTypeId);
+            //ViewBag.PlantId = new SelectList(db.UserTypes, "PlantId", "UserTypeName", verlustart.PlantId);
             return View(verlustart);
         }
 
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Verlustart verlustart = db.Verlustarts.Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.VerlustartId == id);
+            Verlustart verlustart = db.Verlustarts.Include(u => u.Plant).Include(u => u.Plant.Company).Include(u => u.Plant.Company.Country).SingleOrDefault(x => x.VerlustartId == id);
             if (verlustart == null)
             {
                 return HttpNotFound();

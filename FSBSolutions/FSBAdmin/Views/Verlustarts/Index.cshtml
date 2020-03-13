@@ -14,17 +14,17 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserType.Plant.Company.Country.CountryName)
+                    @Html.DisplayNameFor(model => model.Plant.Company.Country.CountryName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserType.Plant.Company.CompanyName)
+                    @Html.DisplayNameFor(model => model.Plant.Company.CompanyName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.UserType.Plant.PlantName)
+                    @Html.DisplayNameFor(model => model.Plant.PlantName)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserType.UserTypeName)
-                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.UserTypeName)
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.VerlustartName)
                 </th>
@@ -41,17 +41,17 @@
 
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserType.Plant.Company.Country.CountryName)
+                    @Html.DisplayFor(modelItem => item.Plant.Company.Country.CountryName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserType.Plant.Company.CompanyName)
+                    @Html.DisplayFor(modelItem => item.Plant.Company.CompanyName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserType.Plant.PlantName)
+                    @Html.DisplayFor(modelItem => item.Plant.PlantName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserType.UserTypeName)
-                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.UserTypeName)
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.VerlustartName)
                 </td>

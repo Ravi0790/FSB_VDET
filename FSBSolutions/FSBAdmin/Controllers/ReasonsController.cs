@@ -17,7 +17,7 @@ namespace FSBAdmin.Controllers
         // GET: Reasons
         public ActionResult Index()
         {
-            var reasons = db.Reasons.Include(r => r.Verlustart).Include(u => u.Verlustart.UserType).Include(u => u.Verlustart.UserType.Plant).Include(u => u.Verlustart.UserType.Plant.Company).Include(u => u.Verlustart.UserType.Plant.Company.Country);
+            var reasons = db.Reasons.Include(r => r.Verlustart).Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country);
             return View(reasons.ToList());
         }
 
@@ -48,7 +48,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ReasonId,ReasonName,VerlustartId,Status")] Reason reason)
+        public ActionResult Create([Bind(Include = "ReasonId,ReasonName,VerlustartId,UserTypeId,Status")] Reason reason)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace FSBAdmin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName", reason.VerlustartId);
+            //ViewBag.VerlustartId = new SelectList(db.Verlustarts, "VerlustartId", "VerlustartName", reason.VerlustartId);
             return View(reason);
         }
 
@@ -68,7 +68,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reason reason = db.Reasons.Include(r => r.Verlustart).Include(u => u.Verlustart.UserType).Include(u => u.Verlustart.UserType.Plant).Include(u => u.Verlustart.UserType.Plant.Company).Include(u => u.Verlustart.UserType.Plant.Company.Country).SingleOrDefault(x => x.ReasonId == id);
+            Reason reason = db.Reasons.Include(r => r.Verlustart).Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.ReasonId == id);
             if (reason == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,7 @@ namespace FSBAdmin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ReasonId,ReasonName,VerlustartId,Status")] Reason reason)
+        public ActionResult Edit([Bind(Include = "ReasonId,ReasonName,VerlustartId,UserTypeId,Status")] Reason reason)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace FSBAdmin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reason reason = db.Reasons.Include(r => r.Verlustart).Include(u => u.Verlustart.UserType).Include(u => u.Verlustart.UserType.Plant).Include(u => u.Verlustart.UserType.Plant.Company).Include(u => u.Verlustart.UserType.Plant.Company.Country).SingleOrDefault(x => x.ReasonId == id);
+            Reason reason = db.Reasons.Include(r => r.Verlustart).Include(u => u.UserType).Include(u => u.UserType.Plant).Include(u => u.UserType.Plant.Company).Include(u => u.UserType.Plant.Company.Country).SingleOrDefault(x => x.ReasonId == id);
             if (reason == null)
             {
                 return HttpNotFound();
