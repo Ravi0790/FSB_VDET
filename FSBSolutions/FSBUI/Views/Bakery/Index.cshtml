@@ -21,7 +21,7 @@
 
 }
 
-    <link href="~/Content/wickedpicker.min.css" rel="stylesheet" />
+    
     <div class="container-fluid minHeight600 pt-4 pb-4">
         <div class="row">
             <div class="col-12">
@@ -542,7 +542,7 @@
 
             cus.client.displayVolumes = function (gorderid) {
 
-                //getData(gorderid);
+                getData(gorderid);
 
             }
 
@@ -560,7 +560,7 @@
 
 
         function getData(porderid) {
-            var $tbl = $("#tcust")
+            
             console.log("orderidfrompackaging", porderid)
             var borderid = $("#orderid").text();
 
@@ -568,27 +568,7 @@
 
 
             if (porderid == borderid) {
-                $.ajax({
-                    url: "bakery/customer",
-                    type: "GET",
-                    datatype: "json",
-                    success: function (data) {
-                        console.log(data)
-                        $tbl.empty();
-
-                        $.each(data, function (i, model) {
-                            $tbl.append(
-                                '<tr><td>' + model.Name + '</td><td>' + model.Email + '</td><td>' + model.Mobile + '</td></tr>'
-
-                            );
-
-
-                        })
-
-
-                    }
-
-                });
+                GetShowVolumes();
             }
         }
 
@@ -605,60 +585,12 @@
         }
     </script>
 
-    <script language="javascript" type="text/javascript">
-        //this code handles the F5/Ctrl+F5/Ctrl+R
-        document.onkeydown = checkKeycode
-        function checkKeycode(e) {
-            var keycode;
-            if (window.event)
-                keycode = window.event.keyCode;
-            else if (e)
-                keycode = e.which;
+    
 
-            // Mozilla firefox
-            //if ($.browser.mozilla) {
-            if (keycode == 116 || (e.ctrlKey && keycode == 82)) {
-                if (e.preventDefault) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            }
-            //}
-            // IE
-            else if ($.browser.msie) {
-                if (keycode == 116 || (window.event.ctrlKey && keycode == 82)) {
-                    window.event.returnValue = false;
-                    window.event.keyCode = 0;
-                    window.status = "Refresh is disabled";
-                }
-            }
-        }
-    </script>
-
-    <script src="~/Scripts/wickedpicker.js"></script>
+    
 
 
-    <script>
-        var options = {
-            //now: "12:35", //hh:mm 24 hour format only, defaults to current time
-            twentyFour: true,  //Display 24 hour format, defaults to false
-            upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
-            downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
-            close: 'wickedpicker__close', //The close class selector to use, for custom CSS
-            hoverState: 'hover-state', //The hover state class to use, for custom CSS
-            title: 'Timepicker', //The Wickedpicker's title,
-            showSeconds: false, //Whether or not to show seconds,
-            timeSeparator: ' : ', // The string to put in between hours and minutes (and seconds)
-            secondsInterval: 1, //Change interval for seconds, defaults to 1,
-            minutesInterval: 1, //Change interval for minutes, defaults to 1
-            beforeShow: null, //A function to be called before the Wickedpicker is shown
-            afterShow: null, //A function to be called after the Wickedpicker is closed/hidden
-            show: null, //A function to be called when the Wickedpicker is shown
-            clearable: false, //Make the picker's input clearable (has clickable "x")
-        };
-        
-
-    </script>
+    
 }
 
 

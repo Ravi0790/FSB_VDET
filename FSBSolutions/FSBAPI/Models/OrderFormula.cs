@@ -14,6 +14,8 @@ namespace FSBAPI.Models
         public int? ProducedQuantity { get; set; }
         public int Speed { get; set; }
         public int Pocket { get; set; }
+        public int? BunPerTray { get; set; }
+        public int BunPerDolly { get; set; }
         public float BunWeight { get; set; }
         public float? PlannedKg { get; set; }
         public float? ProducedKg { get; set; }
@@ -42,6 +44,8 @@ namespace FSBAPI.Models
             var speed = orderdetail.Product.Speed;
             var pocket = orderdetail.Product.ProductPocket;
             var bunweight = orderdetail.Product.BunWeight;
+            var bunpertray = orderdetail.Product.BunPerTray;
+            var bunperdolly = orderdetail.Product.BunPerDolly;
 
 
             IList<WasteDetail> wastedetails = db.WasteDetails
@@ -98,6 +102,8 @@ namespace FSBAPI.Models
             objformula.Speed = speed;
             objformula.Pocket = pocket;
             objformula.BunWeight = bunweight;
+            objformula.BunPerTray = bunpertray;
+            objformula.BunPerDolly = bunperdolly;
             objformula.BakeryTotalWaste = bakerytotalwaste;
             objformula.PackageTotalWaste = packagingtotalwaste;
             objformula.TotalDowntime = totaldowntime;

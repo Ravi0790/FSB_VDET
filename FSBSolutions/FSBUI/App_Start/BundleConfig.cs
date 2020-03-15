@@ -20,12 +20,21 @@ namespace FSBUI
                         "~/Scripts/bootbox.js"
                         ));
 
+
+
             bundles.Add(new ScriptBundle("~/bundles/bakeryscript").Include(
                         "~/Scripts/waste.js",
                         "~/Scripts/bakery.js"
                         
                         
                         ));
+
+            bundles.Add(new ScriptBundle("~/bundles/packagingscript").Include(
+                       "~/Scripts/waste.js",
+                       "~/Scripts/packaging.js"
+
+
+                       ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.

@@ -171,6 +171,7 @@
     <Compile Include="Controllers\ModulesController.cs" />
     <Compile Include="Controllers\OrderDetailsController.cs" />
     <Compile Include="Controllers\OrderInfoesController.cs" />
+    <Compile Include="Controllers\OrderVolumesController.cs" />
     <Compile Include="Controllers\PartsController.cs" />
     <Compile Include="Controllers\PlantsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -187,6 +188,7 @@
     </Compile>
     <Compile Include="Models\OrderFormula.cs" />
     <Compile Include="Models\OrderStatus.cs" />
+    <Compile Include="Models\OrderVolumeList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

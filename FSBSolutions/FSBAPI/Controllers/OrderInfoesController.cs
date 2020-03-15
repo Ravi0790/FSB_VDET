@@ -35,6 +35,18 @@ namespace FSBAPI.Controllers
             return Ok(orderInfo);
         }
 
+
+        [HttpGet]
+        [Route("api/orderinfoes/order/{orderid}")]
+        public IList<OrderInfo> GetOrderInfoByOrder(int orderid)
+        {
+            IList<OrderInfo> orderInfo = db.OrderInfos.Where(x=>x.OrderId==orderid).ToList();
+
+            return orderInfo;
+
+
+        }
+
         // PUT: api/OrderInfoes/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutOrderInfo(int id, OrderInfo orderInfo)

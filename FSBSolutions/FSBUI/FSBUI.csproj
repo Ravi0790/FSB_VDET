@@ -200,6 +200,7 @@
     <Content Include="img\unselect-tab.svg" />
     <Content Include="img\upper-arrow.svg" />
     <Content Include="img\verpackung-abteilung.svg" />
+    <Content Include="Scripts\packaging.js" />
     <Content Include="Scripts\waste.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />

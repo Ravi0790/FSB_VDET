@@ -456,7 +456,7 @@ function CreateWaste() {
 
 
     console.log("wasterequest")
-    console.log(wasterequest)
+    //console.log(wasterequest)
 
     ajaxrequest.URL = apiurl.wastedetail;
     ajaxrequest.Type = "POST";
@@ -1003,7 +1003,7 @@ $(document).ready(function () {
     $("#chkprodstatus").click(function () {
 
         console.log("prodstatus clicked")
-        console.log($(this).prop("checked"))
+        //console.log($(this).prop("checked"))
 
         if ($(this).prop("checked")) {//if prodstatus checked then disable all fields
 

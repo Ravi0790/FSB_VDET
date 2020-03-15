@@ -7,10 +7,10 @@ var setintervalid = 0;
 /**********Production Time-Start********/
 function CheckProdTime() {
 
-    var endtimeinfo = InitiateTime("prodend",0)
+    var endtimeinfo = InitiateTime("prodend", 0)
     var starttimeinfo = GetTimeInfo("prodstart");
-    
-    var strtimeduration=GetTimeDuration(starttimeinfo[0].DateTime, endtimeinfo.DateTime);
+
+    var strtimeduration = GetTimeDuration(starttimeinfo[0].DateTime, endtimeinfo.DateTime);
 
 
     $("#prodendtime").text(endtimeinfo.TimeDisplay);
@@ -19,7 +19,7 @@ function CheckProdTime() {
     var timedurationmin = strtimeduration.split('|')[1];
 
     $("#prodduration").text(timeduration);
-    
+
     $("#proddurationmin").text("(" + timedurationmin + " mins)")
 
     var speed = selectedproductinfo[0].Speed;
@@ -99,10 +99,8 @@ function CreateVolumes(vhour) {
 
     SendAjaxRequest(ajaxrequest, "ordervolcreate", hitapi.order);
 
-   
+
 }
-
-
 
 function ShowVolumes() {
     var strvoltr = "";
@@ -154,9 +152,32 @@ function GetVolumes() {
     SendAjaxRequest(ajaxrequest, "getordervolume", hitapi.order);
 }
 
+function UpdateVolume(volumeid,rowid) {
+
+    var volumereq = new Object();
+
+    //volumereq.TimeSlot = $("#timeslot" + volumeid).html();
+    volumereq.ProducedVolumeId = volumeid;
+    volumereq.Dollies = $("#dolly" + rowid).val();
+    volumereq.Korbe = $("#korbe" + rowid).html();
+    volumereq.Pieces = $("#piece" + rowid).html();
+    volumereq.GeplanteMenge = $("#gplant" + rowid).html();
+    volumereq.Efficiency = $("#eff" + rowid).html(); 
+
+    ajaxrequest.Type = "POST";
+    ajaxrequest.URL = apiurl.ordervolume + "update";
+    ajaxrequest.PData = volumereq;
+
+    console.log("volume update request")
+    console.log(ajaxrequest)
+
+
+    SendAjaxRequest(ajaxrequest, "updatevolume", hitapi.order);
+}
+
 function ShowVolumesAfterPending(volumelist) {
 
-    
+    console.log("start showvolumepending")
 
     var strvoltr = "";
     for (var i = 0; i < volumelist.length; i++) {
@@ -165,21 +186,34 @@ function ShowVolumesAfterPending(volumelist) {
         var dollies = volumelist[i].Dollies;
         var korbe = volumelist[i].Korbe;
         var pieces = volumelist[i].Pieces;
-        var geplantemenge = volumelist[i].GeplanteMenge; 
-        var efficiency = volumelist[i].Efficiency; 
-                     
+        var geplantemenge = volumelist[i].GeplanteMenge;
+        var efficiency = volumelist[i].Efficiency;
+        var volumeid = volumelist[i].ProducedVolumeId;
 
+
+        dollies = dollies == "0" ? "" : dollies;
+
+        var disabled = "";
+        if (i > 0) {
+            disabled = dollies == "" ? "disabled" : "";
+        }
+
+        //if (dollies > 0) {
+        //    disabled = "disabled";
+        //}
         
+
         strvoltr += "<tr>"
-        strvoltr += "<td class='text-left font-weight-bold pl-4' > " + timeslot + "</td>"
-        strvoltr += "<td class='text-center'>" + dollies+"</td> "
-        strvoltr += "<td class='text-center'>" + korbe+"</td> "
-        strvoltr += "<td class='text-center'>" + pieces+"</td> "
-        strvoltr += "<td class='text-center'>" + geplantemenge+"</td> "
-        strvoltr += "<td class='text-center pr-3'>" + efficiency+"</td> "
+        strvoltr += "<td class='text-left font-weight-bold pl-4' id='timeslot"+i+"' > " + timeslot + "</td>"
+        strvoltr += "<td class='text-center'><input type='text' class='form-control form-control-sm dollies' " + disabled + " value='" + dollies + "' id='dolly" + i + "' rowid='" + i +"'></td>"
+        strvoltr += "<td class='text-center' id='korbe"+i+"'>" + korbe + "</td> "
+        strvoltr += "<td class='text-center' id='piece" + i +"'>" + pieces + "</td> "
+        strvoltr += "<td class='text-center' id='gplant" + i +"'>" + geplantemenge + "</td> "
+        strvoltr += "<td class='text-center pr-3' id='eff" + i +"'>" + efficiency + "</td> "
+        strvoltr += "<td class='text-right pr-small-1 pr-3'> <button type='button' class='btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold btnadd' " + disabled + " vid='" + volumeid+"' rowid='"+i+"'>Add</button></td>"	
         strvoltr += "</tr>"
 
-        
+
     }
 
     $("#tblvolume > tbody").empty();
@@ -253,7 +287,7 @@ function CreateOrder() {
     var createddate = timeinfo[0].DateTimeFormat;
     var shiftid = $("#shifts").val();
 
-    
+
 
 
 
@@ -284,12 +318,12 @@ function CreateOrder() {
 function CreateOrderInfo(gorderid) {
     var orderinforequest = new Object();
     orderinforequest.OrderId = gorderid;
-    orderinforequest.UserTypeId =usertypeid;
-    orderinforequest.UserId =userid;
-    orderinforequest.OrderStatus =0;
+    orderinforequest.UserTypeId = usertypeid;
+    orderinforequest.UserId = userid;
+    orderinforequest.OrderStatus = 0;
     orderinforequest.LoggedinTime = GetCurrentTime();
     orderinforequest.UpdatedLoggedinTime = GetCurrentTime();
-    
+
     //console.log("orderinforequest")
     //console.log(orderinforequest)
 
@@ -302,12 +336,12 @@ function CreateOrderInfo(gorderid) {
 
 function GetOrderById() {
     //console.log("orderinfo");
-    
+
 
     ajaxrequest.URL = apiurl.ordercreate + orderid;
     SendAjaxRequest(ajaxrequest, "getorderinfo", hitapi.order);
 
-    
+
 }
 
 function SetOrderValues(orderdata) {
@@ -316,7 +350,7 @@ function SetOrderValues(orderdata) {
     $("#empperm").val(orderdata.PremanentEmp);
     $("#emptemp").val(orderdata.TemporaryEmp);
     $("#empexternal").val(orderdata.ExternalEmp);
-    $("#sapnumber").val(orderdata.SAPReferenceNumber);
+    $("#sapnumber").text(orderdata.SAPReferenceNumber);
     startimeafterpending = orderdata.OrderStartTime;
 
 
@@ -329,7 +363,7 @@ function SetOrderValues(orderdata) {
 
     $("#shifts").val(orderdata.ShiftId);
 
-    setintervalid = setInterval(CheckProdTimeAfterPending, 3000);
+    
 
     $("#dvorder").find(".form-control").attr("disabled", true)
 
@@ -338,6 +372,8 @@ function SetOrderValues(orderdata) {
 
     $("#btnend").removeClass("btn-disabled");
     $("#btnend").attr("disabled", false);
+
+    GetOrderStatus(CheckOrderStatus);
 
     GetVolumes();
 }
@@ -384,6 +420,39 @@ function CloseOrder() {
 
 }
 
+
+function GetOrderStatus(callback) {
+    ajaxrequest.URL = apiurl.orderinfobyorder + orderid;
+    SendAjaxRequest(ajaxrequest, "getorderstatus", hitapi.order, "", callback);
+}
+
+function CheckOrderStatus(orderinfo, usertypeid,callback) {
+
+    var orderinfo = orderinfo.filter(x => x.UserTypeId == usertypeid);
+
+    console.log("inside checkorderstatus")
+    console.log(orderinfo)
+
+    var orderstatus = orderinfo[0].OrderStatus == 1 ? "closed" : "open";
+
+    callback(orderstatus);
+
+}
+
+function SetOrderTime(orderstatus) {
+
+    console.log("inside setorderstatus")
+    console.log(orderstatus)
+    if (orderstatus== "open") {
+
+
+        setintervalid = setInterval(CheckProdTimeAfterPending, 3000);
+    }
+    else {
+        CheckProdTimeAfterPending();
+    }
+}
+
 /***********Order-End****************/
 
 
@@ -408,7 +477,7 @@ function GetProductsByLine(callback) {
 
     //callback()
 
-    
+
 }
 
 function SetProductValues(product) {
@@ -423,6 +492,10 @@ function SetProductValues(product) {
 
     $("#weightunit").text("(" + product.WeightUnit + ")")
     $("#speedunit").text("(" + product.SpeedUnit + ")")
+
+    $("#bunpertray").val(product.BunPerTray);
+    $("#bunperdolly").val(product.BunPerDolly);
+
 }
 
 
@@ -434,9 +507,9 @@ function GetLineById(callback) {
     //console.log("GetLineById")
 
     ajaxrequest.URL = apiurl.lines + lineid;
-    SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines,"",callback);
+    SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines, "", callback);
 
-    
+
 }
 
 function GetShiftByPlant(callback) {
@@ -453,7 +526,7 @@ function GetShiftByPlant(callback) {
 
     ajaxrequest.URL = apiurl.shiftsbyplant + plantid;
 
-    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.shifts, dropdowninfo,callback);
+    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.shifts, dropdowninfo, callback);
 
     //callback();
 
@@ -466,49 +539,42 @@ function ShowTeigteileruhr(gcallback) {
         title: "Dauer der Teigteileruhr (Minuten)",
         centerVertical: true,
         callback: function (result) {
-            
+
             if (result != null) {
                 $("#ttduration").val(result);
                 gcallback()
             }
-            
+
         }
     });
 }
 
 
-function runFunctionAfterPending(callback) {
-    GetProductsByLine(function () {
-        GetLineById(function () {
-            GetShiftByPlant(function () {
-                GetOrderById()
-            });
-        });
-    });
-}
+//function runFunctionAfterPending(callback) {
+//    GetProductsByLine(function () {
+//        GetLineById(function () {
+//            GetShiftByPlant(function () {
+//                GetOrderById()
+//            });
+//        });
+//    });
+//}
 
-function runFunctionBeforePending(callback) {
-    GetProductsByLine(function () {
-        GetLineById(function () {
-            GetShiftByPlant(function () {
-            });
-        });
-    });
-}
+
 
 $(document).ready(function () {
 
-        $(document).ajaxStart(function () {
-            $(".fixedLoaderWrap").show()
-        });
+    $(document).ajaxStart(function () {
+        $(".fixedLoaderWrap").show()
+    });
 
-        $(document).ajaxComplete(function () {
-            $(".fixedLoaderWrap").hide()
-        });
+    $(document).ajaxComplete(function () {
+        $(".fixedLoaderWrap").hide()
+    });
 
 
-    
-    
+
+
     lineid = $("#lineid").val();
     usertypeid = $("#usertypeid").val();
     plantid = $("#plantid").val();
@@ -523,9 +589,7 @@ $(document).ready(function () {
     if (orderid != 0) {
 
         //console.log("orderid",orderid)
-        runFunctionAfterPending(function () {
-            console.log("function callfinished")
-        });
+        GetOrderById();
 
         //Fill Verlustart,Location,Cleaning and Repair Approver
         runFunctionWasteFirstTime(function () {
@@ -537,48 +601,39 @@ $(document).ready(function () {
         GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
 
         $("#loginstatus").val("pending");
-        
+
     }
-    else {
-        runFunctionBeforePending(function () {
-            console.log("function callfinished")
-        });
-
-        DisableWasteControlsPartially();
-        $("#dvwastedetail").hide();//hiding waste information before order is created
-        //DisableWasteControls()
-        $("#loginstatus").val("firsttime");
-    }
-
-
-
     
+
+
+
+
 
 
     //Calling product change event
 
-    $("#product").change(function () { 
+    $("#product").change(function () {
         var gbakerydetail = JSON.parse(localStorage.getItem("bakeryinfo"));
         var productid = $(this).val();
 
-        
+
         selectedproductinfo = gbakerydetail.ProductInfo.filter((product) => product.ProductId == productid);
 
         SetProductValues(selectedproductinfo[0])
 
-                      
-    })    
-    
+
+    })
+
     //Calling starttime event
 
     $("#btnstart").click(function () {
 
         var ordervalid = ValidateOrder(); //Validate Order Fields
 
-        if (ordervalid) {            
-            
-            
-            var timeinfo = InitiateTime("prodstart",0)
+        if (ordervalid) {
+
+
+            var timeinfo = InitiateTime("prodstart", 0)
 
 
             $("#prodstarttime").text(timeinfo.TimeDisplay);
@@ -587,18 +642,18 @@ $(document).ready(function () {
             $("#proddurationmin").text("(0 mins)")
 
             startstoptimeArray.push(timeinfo);
-            
+
             $(this).addClass("btn-disabled");
             $(this).attr("disabled", true);
 
-            $("#btnend").removeClass("btn-disabled");        
+            $("#btnend").removeClass("btn-disabled");
             $("#btnend").attr("disabled", false);
-            
-            $("#dvorder").find(".form-control").attr("disabled", true)      
+
+            $("#dvorder").find(".form-control").attr("disabled", true)
             $("#product").attr("disabled", true);
             $("#sapnumber").attr("disabled", true);
 
-            setintervalid=setInterval(CheckProdTime, 3000);
+            setintervalid = setInterval(CheckProdTime, 3000);
 
             //ShowVolumes();
             CreateOrder();
@@ -621,9 +676,51 @@ $(document).ready(function () {
 
             CloseOrder()
         })
-        
+
     })
 
+    $(document).on("blur", ".dollies", function () {
+        console.log("hello dolly")
+        //console.log($(this).val())
+        var rowid = $(this).attr("rowid");
+        var dollies = $(this).val();
+        var bunpertray = $("#bunpertray").val();
+        var bunperdolly = $("#bunperdolly").val();
+        var pockets = $("#pockets").text();
+        var speed = $("#speed").text();
+        var pieces = parseInt(dollies) * parseInt(bunperdolly);//produced quantity per hour
+        var korbe = parseInt(pieces) / parseInt(bunpertray);//korbe per hour
 
-   
+        var geplantemenge = pockets * speed * 60;//planned quantity per hour
+        var efficiency = parseInt((pieces / geplantemenge) * 100);//efficiency per hour
+
+
+
+        $("#piece" + rowid).html(pieces);
+        $("#korbe" + rowid).html(korbe);
+        $("#gplant" + rowid).html(geplantemenge);
+        $("#eff" + rowid).html(efficiency);
+
+
+
+
+
+    })
+
+    $(document).on("click", ".btnadd", function () {
+        //console.log("hello dolly")
+        var volumeid = $(this).attr("vid");
+        var rowid = $(this).attr("rowid");
+
+        UpdateVolume(volumeid,rowid);
+
+        $(this).attr("disabled", true);
+        $("#dolly" + rowid).attr("disabled", true);
+
+        var nextrowid = parseInt(rowid) + 1;
+
+        $(".btnadd").eq(nextrowid).attr("disabled", false);
+        $("#dolly" + nextrowid).attr("disabled", false);
+    })
+
 })

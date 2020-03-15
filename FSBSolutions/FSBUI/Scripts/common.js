@@ -44,10 +44,13 @@ apiurl.verlustartsbyplant = "/services/api/verlustarts/plant/";
 apiurl.wastetypesbyusertype = "/services/api/wastetypes/usertype/";
 apiurl.reasonsbyverlustart = "/services/api/reasons/verlustart/";
 apiurl.reasonsbyverlustartusertype = "/services/api/reasons/verlustart/usertype/";
-apiurl.ordercreate = "/services/api/OrderDetails/";
-apiurl.wastedetail = "/services/api/WasteDetails/";
-apiurl.wastedetailbyorderusertype = "/services/api/WasteDetails/Order/UserType/";
-apiurl.orderinfo ="/services/api/OrderInfoes"
+apiurl.ordercreate = "/services/api/orderdetails/";
+apiurl.wastedetail = "/services/api/wastedetails/";
+apiurl.wastedetailbyorderusertype = "/services/api/wastedetails/order/usertype/";
+apiurl.orderinfo = "/services/api/orderinfoes"
+apiurl.orderinfobyorder = "/services/api/orderinfoes/order/"
+apiurl.ordervolume = "/services/api/ordervolumes/"
+apiurl.ordervolumebyorder = "/services/api/ordervolumes/order/"
 
 
 
@@ -108,7 +111,9 @@ function FillDropDown(dropdowninfo) {
 function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
     //alert("step" + step + "\n url=" + arequest.URL);
     //console.log("SendAjaxRequest");
-    //console.log("Request: " + arequest, " isapihit: " + isapihit,"dropdowninfo" + dropdowninfo);
+    //console.log("requestobj")
+    //console.log(arequest)
+    //console.log(" isapihit: " + isapihit,"step-" + step,"dropdowninfo-" + dropdowninfo);
 
     var gtype = arequest.Type;
     var gurl = arequest.URL;
@@ -141,7 +146,7 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                     }
 
                     console.log("dropdown")
-                    console.log(result.length);
+                    //console.log(result.length);
 
                     if (result.length > 0) {
                         $cobj = dropdowninfo.controlobj;
@@ -197,8 +202,14 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                     bootbox.alert({
 
                         title: "Auftragserstellung",
-                        message: "Ihre Auftragsnummer : " + data.OrderId
+                        message: "Ihre Auftragsnummer : " + data.OrderId,
+                        callback: function () {
+                            ShowVolumes();
+                        }
                     })
+
+
+                    
                     
                 }
 
@@ -207,6 +218,7 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
 
                     console.log("getorderinfo")
                     SetOrderValues(data)
+                    
 
                 }
 
@@ -235,6 +247,31 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                         location.href = "login/logout"
                     });
                     
+                }
+
+                if (step == "ordervolcreate") {
+                    console.log("ordervolcreate")
+                    //console.log(data)
+                }
+
+                if (step == "getordervolume") {
+                    console.log("getordervolume");
+
+                    console.log(data)
+
+                    ShowVolumesAfterPending(data)
+                }
+
+                if (step == "updatevolume") {
+                    console.log("updatevolume");
+
+                    console.log(data)
+                }
+
+                if (step == "getorderstatus") {
+                    console.log("getorderstatus");
+
+                    callback(data, 1, SetOrderTime);//check bakery status;
                 }
 
 
