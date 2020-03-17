@@ -216,7 +216,7 @@ function ShowVolumesAfterPending(volumelist) {
 
         strvoltr += "<tr>"
         strvoltr += "<td class='text-left font-weight-bold pl-4' id='timeslot"+i+"' > " + timeslot + "</td>"
-        strvoltr += "<td class='text-center'><input type='text' class='form-control form-control-sm dollies' " + disabled + " value='" + dollies + "' id='dolly" + i + "' rowid='" + i +"'></td>"
+        strvoltr += "<td class='text-center'><input type='text' class='form-control dollies' " + disabled + " value='" + dollies + "' id='dolly" + i + "' rowid='" + i +"'></td>"
         strvoltr += "<td class='text-center' id='korbe"+i+"'>" + korbe + "</td> "
         strvoltr += "<td class='text-center' id='piece" + i +"'>" + pieces + "</td> "
         strvoltr += "<td class='text-center' id='gplant" + i +"'>" + geplantemenge + "</td> "
@@ -385,6 +385,8 @@ function SetOrderValues(orderdata) {
 
     $("#shifts").val(orderdata.ShiftId);
 
+    $("#linename").text(orderdata.LineName);
+
     
 
     $("#dvorder").find(".form-control").attr("disabled", true)
@@ -468,7 +470,7 @@ function SetOrderTime(orderstatus) {
     if (orderstatus== "open") {
 
 
-        setintervalid = setInterval(CheckProdTimeAfterPending, 3000);
+        setintervalid = setInterval(CheckProdTimeAfterPending, 2000);
     }
     else {
         CheckProdTimeAfterPending();
@@ -675,7 +677,7 @@ $(document).ready(function () {
             $("#product").attr("disabled", true);
             $("#sapnumber").attr("disabled", true);
 
-            setintervalid = setInterval(CheckProdTime, 3000);
+            setintervalid = setInterval(CheckProdTime, 2000);
 
             //ShowVolumes();
             CreateOrder();
@@ -723,21 +725,7 @@ $(document).ready(function () {
         $("#gplant" + rowid).html(geplantemenge);
         $("#eff" + rowid).html(efficiency);
 
-        var rowcount = parseInt(rowid) + 1;
-        var prodquantity = 0;
-
-        for (var i = 0; i < rowcount; i++) {
-            prodquantity += parseInt($("#piece" + rowcount).html());
-        }
         
-
-        var plannedquantity = parseInt($("plannedquantity").text());
-
-        $("producedquantity").text(prodquantity);
-
-        var effperc = parseInt((prodquantity / plannedquantity) * 100);
-
-        $("#efficiency").text(effperc);
 
 
 
@@ -747,6 +735,30 @@ $(document).ready(function () {
         //console.log("hello dolly")
         var volumeid = $(this).attr("vid");
         var rowid = $(this).attr("rowid");
+
+
+        var rowcount = parseInt(rowid) + 1;
+        var prodquantity = 0;
+
+        for (var i = 0; i < rowcount; i++) {
+
+            var pieces = $("#piece" + i).html()
+
+            prodquantity = parseInt(prodquantity) + parseInt(pieces);
+           
+        }
+
+        console.log("producedquantity", prodquantity);
+
+        $("#producedquantity").text(prodquantity);
+
+        var plannedquantity = parseInt($("plannedquantity").text());        
+
+        var effperc = parseInt((prodquantity / plannedquantity) * 100);
+
+        $("#efficiency").text(effperc);
+
+
 
         UpdateVolume(volumeid,rowid);
 

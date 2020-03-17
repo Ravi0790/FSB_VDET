@@ -265,13 +265,21 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                 if (step == "updatevolume") {
                     console.log("updatevolume");
 
-                    console.log(data)
+                    //console.log(data)
+                    ajaxrequest.Type = "GET";
+                    ajaxrequest.URL = "bakery/packaging/" + orderid;
+                    SendAjaxRequest(ajaxrequest, "hitbakery", true);
                 }
 
                 if (step == "getorderstatus") {
                     console.log("getorderstatus");
 
                     callback(data, 1, SetOrderTime);//check bakery status;
+                }
+
+                if (step == "hitbakery") {
+
+                    console.log("volumedata sent to bakery page")
                 }
 
 

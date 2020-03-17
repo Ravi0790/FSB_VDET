@@ -57,7 +57,7 @@ namespace FSBUI.Controllers
         {
             //return Json(db.Customers.ToList());
 
-            CusHub.ShowVoume(orderid);
+            CusHub.ShowVolume(orderid);
         }
 
 

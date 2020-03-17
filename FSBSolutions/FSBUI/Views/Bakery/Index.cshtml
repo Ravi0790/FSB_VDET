@@ -564,11 +564,11 @@
             console.log("orderidfrompackaging", porderid)
             var borderid = $("#orderid").text();
 
-            console.log("orderidgeneratedinbaking", borderid)
+            console.log("orderidfrombaking", borderid)
 
 
             if (porderid == borderid) {
-                GetShowVolumes();
+                GetVolumes(porderid);
             }
         }
 

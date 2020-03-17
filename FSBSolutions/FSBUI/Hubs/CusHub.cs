@@ -14,7 +14,7 @@ namespace FSBUI.Hubs
         }
 
 
-        public static void ShowVoume(string orderid)
+        public static void ShowVolume(string orderid)
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<CusHub>();
             context.Clients.All.displayVolumes(orderid);

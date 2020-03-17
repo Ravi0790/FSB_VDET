@@ -148,9 +148,9 @@ function ShowVolumes() {
     CreateVolumes(volumhour);
 }
 
-function GetVolumes() {
+function GetVolumes(gorderid) {
     ajaxrequest.Type = "GET";
-    ajaxrequest.URL = apiurl.ordervolumebyorder + orderid;
+    ajaxrequest.URL = apiurl.ordervolumebyorder + gorderid;
     SendAjaxRequest(ajaxrequest, "getordervolume", hitapi.order);
 }
 
@@ -339,7 +339,9 @@ function SetOrderValues(orderdata) {
     $("#btnend").removeClass("btn-disabled");
     $("#btnend").attr("disabled", false);
 
-    GetVolumes();
+
+    var gorderid = orderid;
+    GetVolumes(gorderid);
 }
 
 function CloseOrder() {
