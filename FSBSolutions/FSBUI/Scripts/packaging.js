@@ -53,6 +53,12 @@ function CheckProdTimeAfterPending() {
     var plannedquantity = parseInt(timedurationmin) * parseInt(speed) * parseInt(pockets);
     $("#plannedquantity").text(plannedquantity);
 
+    var producedquantity = parseInt($("#producedquantity").text())
+
+    var effperc = parseInt((producedquantity / plannedquantity) * 100);
+
+    $("#efficiency").text(effperc + "%");
+
 
 
 }
@@ -164,6 +170,11 @@ function UpdateVolume(volumeid,rowid) {
     volumereq.GeplanteMenge = $("#gplant" + rowid).html();
     volumereq.Efficiency = $("#eff" + rowid).html(); 
 
+    var displayrowid = parseInt(rowid) + 1;
+    volumereq.DisplayRowId = displayrowid;
+    volumereq.OrderId = orderid;
+
+
     ajaxrequest.Type = "POST";
     ajaxrequest.URL = apiurl.ordervolume + "update";
     ajaxrequest.PData = volumereq;
@@ -180,7 +191,12 @@ function ShowVolumesAfterPending(volumelist) {
     console.log("start showvolumepending")
 
     var strvoltr = "";
-    for (var i = 0; i < volumelist.length; i++) {
+    var producedquantity = 0;
+    var effperc = 0;
+
+    var volumecount = volumelist.length;
+
+    for (var i = 0; i < volumecount; i++) {
 
         var timeslot = volumelist[i].TimeSlot;
         var dollies = volumelist[i].Dollies;
@@ -189,18 +205,13 @@ function ShowVolumesAfterPending(volumelist) {
         var geplantemenge = volumelist[i].GeplanteMenge;
         var efficiency = volumelist[i].Efficiency;
         var volumeid = volumelist[i].ProducedVolumeId;
+        var displayrowid = volumelist[i].DisplayRowId;
 
+        producedquantity += parseInt(pieces);
 
-        dollies = dollies == "0" ? "" : dollies;
+        effperc += parseInt(efficiency);
 
-        var disabled = "";
-        if (i > 0) {
-            disabled = dollies == "" ? "disabled" : "";
-        }
-
-        //if (dollies > 0) {
-        //    disabled = "disabled";
-        //}
+        var disabled = i == displayrowid ? "" : "disabled";
         
 
         strvoltr += "<tr>"
@@ -216,9 +227,20 @@ function ShowVolumesAfterPending(volumelist) {
 
     }
 
+
+
     $("#tblvolume > tbody").empty();
 
     $("#tblvolume > tbody").append(strvoltr);
+
+
+    //var avgeffperc = parseInt(effperc / displayrowid);
+
+    $("#producedquantity").text(producedquantity);
+
+    GetOrderStatus(CheckOrderStatus);
+    //$("#efficiency").text(avgeffperc + "%");
+
 }
 /***********Volume-End****************/
 
@@ -373,7 +395,7 @@ function SetOrderValues(orderdata) {
     $("#btnend").removeClass("btn-disabled");
     $("#btnend").attr("disabled", false);
 
-    GetOrderStatus(CheckOrderStatus);
+    
 
     GetVolumes();
 }
@@ -694,14 +716,28 @@ $(document).ready(function () {
         var geplantemenge = pockets * speed * 60;//planned quantity per hour
         var efficiency = parseInt((pieces / geplantemenge) * 100);//efficiency per hour
 
-
+        
 
         $("#piece" + rowid).html(pieces);
         $("#korbe" + rowid).html(korbe);
         $("#gplant" + rowid).html(geplantemenge);
         $("#eff" + rowid).html(efficiency);
 
+        var rowcount = parseInt(rowid) + 1;
+        var prodquantity = 0;
 
+        for (var i = 0; i < rowcount; i++) {
+            prodquantity += parseInt($("#piece" + rowcount).html());
+        }
+        
+
+        var plannedquantity = parseInt($("plannedquantity").text());
+
+        $("producedquantity").text(prodquantity);
+
+        var effperc = parseInt((prodquantity / plannedquantity) * 100);
+
+        $("#efficiency").text(effperc);
 
 
 

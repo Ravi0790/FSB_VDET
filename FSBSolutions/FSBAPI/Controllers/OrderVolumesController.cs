@@ -78,6 +78,13 @@ namespace FSBAPI.Controllers
             try
             {
                 db.SaveChanges();
+
+                db.OrderProducedVolumes
+                    .Where(x => x.OrderId == producedvolume.OrderId).ToList()
+                    .ForEach(x => x.DisplayRowId = producedvolume.DisplayRowId);
+                db.SaveChanges();
+
+
                 returnval = "volume updated";
             }
             catch (Exception ex)

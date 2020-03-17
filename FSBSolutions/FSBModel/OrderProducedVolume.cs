@@ -31,5 +31,7 @@ namespace FSBModel
         public int Efficiency { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public int DisplayRowId { get; set; }
     }
 }

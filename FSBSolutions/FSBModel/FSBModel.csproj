@@ -237,6 +237,10 @@
     <Compile Include="Migrations\202003130937330_addplantidforeignkeyinverlustart.Designer.cs">
       <DependentUpon>202003130937330_addplantidforeignkeyinverlustart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003170105306_AddRowIdinVolume.cs" />
+    <Compile Include="Migrations\202003170105306_AddRowIdinVolume.Designer.cs">
+      <DependentUpon>202003170105306_AddRowIdinVolume.cs</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OrderProducedVolume.cs" />
@@ -463,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003130937330_addplantidforeignkeyinverlustart.resx">
       <DependentUpon>202003130937330_addplantidforeignkeyinverlustart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003170105306_AddRowIdinVolume.resx">
+      <DependentUpon>202003170105306_AddRowIdinVolume.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
