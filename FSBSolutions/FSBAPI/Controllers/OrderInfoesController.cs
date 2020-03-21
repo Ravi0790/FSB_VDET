@@ -38,11 +38,15 @@ namespace FSBAPI.Controllers
 
         [HttpGet]
         [Route("api/orderinfoes/order/{orderid}")]
-        public IList<OrderInfo> GetOrderInfoByOrder(int orderid)
+        public OrderDetail GetOrderInfoByOrder(int orderid)
         {
-            IList<OrderInfo> orderInfo = db.OrderInfos.Where(x=>x.OrderId==orderid).ToList();
+            //IList<OrderInfo> orderInfo = db.OrderInfos
+            //                               .Include(x=>x.OrderDetail)
+            //                               .Where(x=>x.OrderId==orderid).ToList();
 
-            return orderInfo;
+            OrderDetail objorder = db.OrderDetails.Include(x => x.OrderInfos).SingleOrDefault(x => x.OrderId == orderid);
+
+            return objorder;
 
 
         }

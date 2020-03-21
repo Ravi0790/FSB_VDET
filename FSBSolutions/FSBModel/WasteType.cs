@@ -13,10 +13,10 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Name der Abfallart", Description = "Waste Type Name")]
+        [Display(Name = "Name", Description = "Waste Type Name")]
         public string WasteTypeName { get; set; }
 
-        [Display(Name = "Benutzername", Description = "UserType Name")]
+        [Display(Name = "UserType", Description = "UserType Name")]
         public int UserTypeId { get; set; }
 
         public UserType UserType { get; set; }

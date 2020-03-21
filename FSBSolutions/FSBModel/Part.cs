@@ -13,7 +13,7 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Teilname", Description = "Part Name")]
+        [Display(Name = "Part Name", Description = "Part Name")]
         public string PartName { get; set; }
 
 
@@ -26,7 +26,7 @@ namespace FSBModel
         //public virtual Line Line { get; set; }
 
 
-        [Display(Name = "Komponentenname", Description = "Component Name")]
+        [Display(Name = "Component Name", Description = "Component Name")]
         public int ComponentId { get; set; }        
         public virtual Component Component { get; set; }
 

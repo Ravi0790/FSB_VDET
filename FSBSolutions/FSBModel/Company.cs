@@ -14,16 +14,16 @@ namespace FSBModel
 
         [Required]
         [StringLength(20)]
-        [Display(Name = "Buchungskreis", Description = "Company Code")]
+        [Display(Name = "Company Code", Description = "Company Code")]
         public string CompanyCode { get; set; }
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Name der Firma", Description = "Company Name")]
+        [Display(Name = "Company Name", Description = "Company Name")]
         public string CompanyName { get; set; }
 
 
-        [Display(Name = "Ländernamen", Description = "Country Name")]
+        [Display(Name = "Country Name", Description = "Country Name")]
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }

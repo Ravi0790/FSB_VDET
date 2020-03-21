@@ -13,126 +13,128 @@ namespace FSBModel
 
         [Required]
         [StringLength(50)]
-        //[Display(Name = "Produktname")]
+        [Display(Name = "Name")]
         public string ProductName { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Produktbeschreibung")]
+        [Display(Name = "Description")]
         public string ProductDesc { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Produktland")]
+        [Display(Name = "Country")]
         public string ProductCountry { get; set; }
 
         [Required]        
-        //[Display(Name = "Produkttasche")]
+        [Display(Name = "Pocket")]
         public int ProductPocket { get; set; }
 
-        //[Display(Name = "Produktgröße")]
+        [Display(Name = "Size")]
         public float? ProductSize { get; set; }
 
         [Required]        
-        //[Display(Name = "Schnitt pro Minute")]
+        [Display(Name = "Speed")]
         public int Speed { get; set; }
 
-        //[Display(Name = "Backzeit")]
+        [Display(Name = "Baking Time")]
         public int? BakingTime { get; set; }
 
         [Required]
-        //[Display(Name = "Teiggewicht")]
+        [Display(Name = "Dought Weight")]
         public float DoughWeight { get; set; }
 
         [Required]
-        //[Display(Name = "Brötchengewicht")]
+        [Display(Name = "Bun Weight")]
         public float BunWeight { get; set; }
 
-        //[Display(Name = "Brötchen pro Teig")]
+        [Display(Name = "Bun Per Dough")]
         public int? BunPerDough { get; set; }
 
-        //[Display(Name = "Brötchen pro Tablett")]
+        [Display(Name = "Bun Per Tray")]
         public int? BunPerTray { get; set; }
 
         [Required]
-        //[Display(Name = "Brötchen pro Dolly")]
+        [Display(Name = "Bun Per Dolly")]
         public int BunPerDolly { get; set; }//Dollies
 
-        //[Display(Name = "Mehl")]
+        [Display(Name = "Flour")]
         public float? Flour { get; set; }
 
 
-        //[Display(Name = "Öl")]
+        [Display(Name = "Oil")]
         public float? Oil { get; set; }
 
-        //[Display(Name = "Zucker")]
+        [Display(Name = "Sugar")]
         public float? Sugar { get; set; }
 
-        //[Display(Name = "Salz-")]
+        [Display(Name = "Salt")]
         public float? Salt { get; set; }
 
-        //[Display(Name = "Hefe")]
+        [Display(Name = "Yeast")]
         public float? Yeast { get; set; }
 
         [Required]
         [StringLength(50)]
-        //[Display(Name = "Produktfarbe")]
+        [Display(Name = "Color")]
         public string ProductColor { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Produktart")]
+        [Display(Name = "Type")]
         public string ProductType { get; set; }
 
         [Required]
         [StringLength(50)]
-        //[Display(Name = "Packungseinheit")]
+        [Display(Name = "Packaging Unit")]
         public string PackagingUnit { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Farbe der Verpackungseinheit")]
+        [Display(Name = "Packaging Unit Color")]
         public string PackagingUnitColor { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Master-Pack-Einheit")]
+        [Display(Name = "Master Pack Unit")]
         public string MasterPackUnit { get; set; }
 
         [Required]
         [StringLength(50)]
-        //[Display(Name = "Fachname")]
+        [Display(Name = "Tray Name")]
         public string TrayName { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Sonstiges1")]
+        [Display(Name = "Misc1")]
         public string Misc1 { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Sonstiges2")]
+        [Display(Name = "Misc2")]
         public string Misc2 { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Sonstiges3")]
+        [Display(Name = "Misc3")]
         public string Misc3 { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Sonstiges4")]
+        [Display(Name = "Misc4")]
         public string Misc4 { get; set; }
 
         [StringLength(50)]
-        //[Display(Name = "Sonstiges5")]
+        [Display(Name = "Misc5")]
         public string Misc5 { get; set; }
 
         public bool Status { get; set; }
 
         
-        //[Display(Name = "Zeilenname")]
+        [Display(Name = "Line")]
         public int LineId { get; set; }
         public virtual Line Line { get; set; }
 
-        //[Display(Name = "Benutzername")]
+        [Display(Name = "UserType")]
         public int UserTypeId { get; set; }
         public virtual UserType UserType { get; set; }
 
+        [Display(Name = "Weight Unit")]
         [StringLength(20)]
         public string WeightUnit { get; set; }
 
+        [Display(Name = "Speed Unit")]
         [StringLength(20)]
         public string SpeedUnit { get; set; }
 

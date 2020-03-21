@@ -19,5 +19,12 @@ namespace FSBUI.Hubs
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<CusHub>();
             context.Clients.All.displayVolumes(orderid);
         }
+
+
+        public static void CheckTimer(string orderid)
+        {
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<CusHub>();
+            context.Clients.All.BakeryStopTimeAlert(orderid);
+        }
     }
 }

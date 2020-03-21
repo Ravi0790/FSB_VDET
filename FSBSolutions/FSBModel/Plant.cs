@@ -13,15 +13,15 @@ namespace FSBModel
 
         [Required]
         [StringLength(20)]
-        [Display(Name = "Anlagencode", Description = "Plant Code")]
+        [Display(Name = "Plant Code", Description = "Plant Code")]
         public string PlantCode { get; set; }
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Buchungskreis", Description = "Plant Name")]
+        [Display(Name = "Plant Name", Description = "Plant Name")]
         public string PlantName { get; set; }
 
-        [Display(Name = "Name der Firma", Description = "Company Name")]
+        [Display(Name = "Company Name", Description = "Company Name")]
         public int CompanyId { get; set; }
 
         public virtual Company Company { get; set; }

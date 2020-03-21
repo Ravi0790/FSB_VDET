@@ -217,6 +217,7 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                 if (step == "getorderinfo") {
 
                     console.log("getorderinfo")
+                    console.log(data)
                     SetOrderValues(data)
                     
 
@@ -243,7 +244,12 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                 if (step == "orderclose") {
 
                     console.log("orderclose")
-                    bootbox.alert("Your order has been closed", function () {
+
+                    ajaxrequest.Type = "GET";
+                    ajaxrequest.URL = "packaging/bakerystop/" + orderid;
+                    SendAjaxRequest(ajaxrequest, "alertpackaging", true);
+
+                    bootbox.alert("Your order " + orderid+" has been closed", function () {
                         location.href = "login/logout"
                     });
                     
@@ -273,13 +279,35 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
 
                 if (step == "getorderstatus") {
                     console.log("getorderstatus");
+                    console.log(data)
 
-                    callback(data, 1, SetOrderTime);//check bakery status;
+                    $("#bakerystoptime").val(data.OrderEndTime);
+
+
+
+                    callback(data.OrderInfos, 1, SetOrderTime);//check bakery status;
                 }
 
                 if (step == "hitbakery") {
 
                     console.log("volumedata sent to bakery page")
+                }
+
+                if (step == "alertpackaging") {
+
+                    console.log("packaging alerted for bakery time stop")
+                }
+
+
+                if (step == "porderclose") {
+
+                    console.log("porderclose")
+                    location.href = "login/logout"
+                    
+                    //bootbox.alert("Your order has been closed", function () {
+                    //    location.href = "login/logout"
+                    //});
+
                 }
 
 
@@ -421,11 +449,72 @@ function InitiateTime(timetype, timeindex, iszerohour) {
     return timeobj;
 }
 
+function InitiateTimeByHourMin(hourmin) {
 
+    var d = new Date();
+    var hour = hourmin.split(':')[0];
+    var min = hourmin.split(':')[1];
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var rightmonth = parseInt(month) + 1;
+    var date = d.getDate();    
+
+    var datetime = new Date(year, month, date, hour, min);
+
+    var datetimeformat = rightmonth + "/" + date + "/" + year + " " + hour + ":" + min;
+
+    var timedisplay = (String(hour).length <= 1 ? "0" + hour : hour) + ":" + (String(min).length <= 1 ? "0" + min : min);
+
+    var timeobj = new Object();
+
+    timeobj.Hour = hour;
+    timeobj.Minute = min;
+    timeobj.Year = year;
+    timeobj.Month = rightmonth;
+    timeobj.Date = date;
+    timeobj.DateTime = datetime;
+    timeobj.DateTimeFormat = datetimeformat;
+    timeobj.TimeDisplay = timedisplay;
+    //timeobj.Type = timetype;
+    //timeobj.TimeIndex = timeindex
+
+    //startstoptimeArray.push(timeobj);
+
+    //callback();
+    //timeobject.val(starttimedisplay);
+    return timeobj;
+}
 
 
 function isNullOrEmpty(s) {
     return (s == null || s === "");
+}
+
+function CheckZero(obj) {
+    var objcontrol = $(obj);
+
+    
+    objcontrol.val(objcontrol.val() == "0" ? "" : objcontrol.val())
+    
+}
+
+
+function CheckEmpty(obj) {
+    var objcontrol = $(obj);
+
+
+    objcontrol.val(objcontrol.val() == "" ? "0" : objcontrol.val())
+
+}
+
+
+function EnableMachine() {
+    $("#machinestop").attr("disabled", false);
+    $("#btnmachinestop").attr("disabled", false);
+
+
+    $("#machinestart").attr("disabled", false);
+    $("#btnmachinestart").attr("disabled", false);
 }
 
 

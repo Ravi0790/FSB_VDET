@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using FSBModel;
+using FSBUI.Hubs;
 
 namespace FSBUI.Controllers
 {
@@ -73,6 +74,16 @@ namespace FSBUI.Controllers
                 return RedirectToAction("index", "login");
 
             }
+        }
+
+
+        [HttpGet]
+        [Route("packaging/bakerystop/{orderid}")]
+        public void BakeryStopAlert(string orderid)
+        {
+            //return Json(db.Customers.ToList());
+
+            CusHub.CheckTimer(orderid);
         }
     }
 }

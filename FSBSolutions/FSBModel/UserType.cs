@@ -13,10 +13,10 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Benutzername", Description = "UserType Name")]
+        [Display(Name = "UserType Name", Description = "UserType Name")]
         public string UserTypeName { get; set; }
 
-        [Display(Name = "Buchungskreis", Description = "Plant Name")]
+        [Display(Name = "Plant Name", Description = "Plant Name")]
         public int PlantId { get; set; }
 
         public Plant Plant { get; set; }

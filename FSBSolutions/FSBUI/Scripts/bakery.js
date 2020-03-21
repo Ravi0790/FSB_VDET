@@ -53,7 +53,11 @@ function CheckProdTimeAfterPending() {
     var plannedquantity = parseInt(timedurationmin) * parseInt(speed) * parseInt(pockets);
     $("#plannedquantity").text(plannedquantity);
 
+    var producedquantity = parseInt($("#producedquantity").text())
 
+    var effperc = parseInt((producedquantity / plannedquantity) * 100);
+
+    $("#efficiency").text(effperc + "%");
 
 }
 /**********Production Time-Stop********/
@@ -159,6 +163,10 @@ function ShowVolumesAfterPending(volumelist) {
     
 
     var strvoltr = "";
+
+    var producedquantity = 0;
+    var effperc = 0;
+
     for (var i = 0; i < volumelist.length; i++) {
 
         var timeslot = volumelist[i].TimeSlot;
@@ -168,7 +176,7 @@ function ShowVolumesAfterPending(volumelist) {
         var geplantemenge = volumelist[i].GeplanteMenge; 
         var efficiency = volumelist[i].Efficiency; 
                      
-
+        producedquantity += parseInt(pieces);
         
         strvoltr += "<tr>"
         strvoltr += "<td class='text-left font-weight-bold pl-4' > " + timeslot + "</td>"
@@ -176,7 +184,7 @@ function ShowVolumesAfterPending(volumelist) {
         strvoltr += "<td class='text-center'>" + korbe+"</td> "
         strvoltr += "<td class='text-center'>" + pieces+"</td> "
         strvoltr += "<td class='text-center'>" + geplantemenge+"</td> "
-        strvoltr += "<td class='text-center pr-3'>" + efficiency+"</td> "
+        strvoltr += "<td class='text-center pr-3'>" + efficiency+"%</td> "
         strvoltr += "</tr>"
 
         
@@ -185,6 +193,13 @@ function ShowVolumesAfterPending(volumelist) {
     $("#tblvolume > tbody").empty();
 
     $("#tblvolume > tbody").append(strvoltr);
+
+    $("#producedquantity").text(producedquantity);
+
+    var plannedquantity = $("#plannedquantity").text()
+
+    effperc = parseInt((producedquantity / parseInt(plannedquantity)) * 100);
+    $("#efficiency").text(effperc + "%");
 }
 /***********Volume-End****************/
 
@@ -535,6 +550,8 @@ $(document).ready(function () {
         });
 
         DisableWasteControlsPartially();
+
+        EnableMachine();
 
         GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
 

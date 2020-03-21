@@ -13,20 +13,20 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Schichtname", Description = "Shift Name")]
+        [Display(Name = "Shift Name", Description = "Shift Name")]
         public string ShiftName { get; set; }
 
         [Required]
-        [Display(Name = "Schichtstartzeit", Description = "Shift Start Time")]
+        [Display(Name = "Start Time", Description = "Shift Start Time")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}")]
         public string ShiftStartTime { get; set; }
 
         [Required]
-        [Display(Name = "Schichtendezeit", Description = "Shift End Time")]
+        [Display(Name = "End Time", Description = "Shift End Time")]
         [DisplayFormat(DataFormatString = "{0:hh\\:mm tt}")]
         public string ShiftEndTime { get; set; }
 
-        [Display(Name = "Buchungskreis", Description = "Plant Name")]
+        [Display(Name = "Plant Name", Description = "Plant Name")]
         public int PlantId { get; set; }
 
         public virtual Plant Plant { get; set; }

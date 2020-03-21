@@ -17,7 +17,7 @@ namespace FSBModel
         [Display(Name = "Verlust Name", Description = "Verlust Name")]
         public string VerlustName { get; set; }
 
-        [Display(Name = "Benutzername", Description = "UserType Name")]
+        [Display(Name = "UserType", Description = "UserType Name")]
         public int UserTypeId { get; set; }
 
         public UserType UserType { get; set; }

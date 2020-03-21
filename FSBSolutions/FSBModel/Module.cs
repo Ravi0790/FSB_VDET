@@ -13,7 +13,7 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Modulname", Description = "Module Name")]
+        [Display(Name = "Module Name", Description = "Module Name")]
         public string ModuleName { get; set; }
 
 

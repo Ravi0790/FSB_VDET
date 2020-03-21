@@ -14,7 +14,7 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "VerlustartName", Description = "Verlustart Name")]
+        [Display(Name = "Name", Description = "Verlustart Name")]
         public string VerlustartName { get; set; }
 
         //[Display(Name = "Benutzername", Description = "UserType Name")] 

@@ -13,10 +13,10 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Name des Grundes", Description = "Reason Name")]
+        [Display(Name = "Reason Name", Description = "Reason Name")]
         public string ReasonName { get; set; }
 
-        [Display(Name = "VerlustartName", Description = "Verlustart Name")]
+        [Display(Name = "Verlustart", Description = "Verlustart Name")]
         public int VerlustartId { get; set; }
 
         public virtual Verlustart Verlustart { get; set; }

@@ -13,15 +13,15 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Standortnamen", Description = "Location Name")]
+        [Display(Name = "Location Name", Description = "Location Name")]
         public string LocationName { get; set; }
         public bool Status { get; set; }
 
-        [Display(Name = "Zeilenname", Description = "Line Name")]
+        [Display(Name = "Line Name", Description = "Line Name")]
         public int LineId { get; set; }
         public virtual Line Line { get; set; }
 
-        [Display(Name = "Benutzername", Description = "UserType Name")]
+        [Display(Name = "UserType Name", Description = "UserType Name")]
         public int UserTypeId { get; set; }
         public virtual UserType UserType { get; set; }
 

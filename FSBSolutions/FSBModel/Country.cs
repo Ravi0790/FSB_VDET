@@ -13,7 +13,7 @@ namespace FSBModel
 
         [Required]
         [StringLength(100)]
-        [Display(Name = "Ländernamen",Description ="Country Name")]
+        [Display(Name = "Country Name",Description ="Country Name")]
         public string CountryName { get; set; }        
 
         public IList<Company> Companies { get; set; }

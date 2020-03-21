@@ -257,6 +257,10 @@ function ShowWasteInfo(wastedata) {
     $("#tbwasteinfo>tbody").prepend(strwaste);
 
     DisableWasteControlsPartially();
+    EnableMachine();
+    $("#machinestop").val("");
+    $("#machinestart").val("");
+    $("#verlustart").val("");
 }
 
 function ShowWasteInfoAll(wastedata) {
@@ -490,27 +494,27 @@ function DisableWasteControlsPartially() {
 
     //disable all controls except start stop button
     $("#dvverlust").find(".form-control").attr("disabled", true);
-    $("#dvmachine").find(".form-control").attr("disabled", true);
+    //$("#dvmachine").find(".form-control").attr("disabled", true);
 
     //disable all start stop button
-    $("button").filter(".start").attr("disabled", true);
-    $("button").filter(".stop").attr("disabled", true);
+    $("button").filter(".start").not("#btnmachinestart").attr("disabled", true);
+    $("button").filter(".stop").not("#btnmachinestop").attr("disabled", true);
 
     
     //set the values to initial
-    $("#dvverlust").find(".form-control").val("");
-    $("#dvmachine").find(".form-control").val("");
+    $("#dvverlust").find(".form-control").not("#verlustart").val("");
+    //$("#dvmachine").find(".form-control").val("");
 
 
     $("#btnwaste").attr("disabled", false);
     
     //Enable only machine stop
-    $("#machinestop").attr("disabled", false);
-    $("#btnmachinestop").attr("disabled", false);
+    //$("#machinestop").attr("disabled", false);
+    //$("#btnmachinestop").attr("disabled", false);
 
 
-    $("#machinestart").attr("disabled", false);
-    $("#btnmachinestart").attr("disabled", false);
+    //$("#machinestart").attr("disabled", false);
+    //$("#btnmachinestart").attr("disabled", false);
 
     //Enable Verlustart,reason,comments,problemreason,preventivemeasure,action
     $("#verlustart").attr("disabled", false);
@@ -534,6 +538,8 @@ function DisableWasteControls() {
     $("#dvmachine").find(".form-control").attr("disabled", true);
     $("button").filter(".start").attr("disabled", true);
     $("button").filter(".stop").attr("disabled", true);
+
+
     //$("#btnwaste").attr("disabled", true);
 }
 
@@ -966,7 +972,7 @@ function MachineStop() {
     var timeinfo = InitiateTime("machinestop", 0)
     $("#machinestop").val(timeinfo.TimeDisplay);
     $("#machinestop").attr("disabled", true);
-    $(this).attr("disabled", true);
+    //$(this).attr("disabled", true);
 
     machinestartstopArry.push(timeinfo);
 
@@ -984,7 +990,8 @@ function MachineStart() {
     var timeinfo = InitiateTime("machinestart", 0)
     $("#machinestart").val(timeinfo.TimeDisplay);
     $("#machinestart").attr("disabled", true);
-    $(this).attr("disabled", true);
+    $("#btnmachinestart").attr("disabled", true);
+    //$(this).attr("disabled", true);
     machinestartstopArry.push(timeinfo);
 }
 
@@ -1019,6 +1026,9 @@ $(document).ready(function () {
         }
         else {
             DisableWasteControlsPartially();
+            EnableMachine();
+            //Enable only machine stop
+            
         }
     })
 
@@ -1125,11 +1135,16 @@ $(document).ready(function () {
     $("#verlustart").change(function () {
 
         var verlustarttext = $("#verlustart option:selected").text();
+        DisableWasteControlsPartially();
         CheckVerlustart(verlustarttext)
         var verlustartid = $(this).val();
         FillReasons(verlustartid);
-        //DisableWasteControlsPartially();
 
+
+
+        
+        $("#btnmachinestop").attr("disabled", $("#machinestop").prop("disabled") == true ? true : false);
+        $("#btnmachinestart").attr("disabled", $("#machinestart").prop("disabled") == true ? true : false);
         //$(this).val($(this).val())
     })
 
@@ -1158,7 +1173,7 @@ $(document).ready(function () {
             }
 
             if (keycode == '120') {//f9
-                if ($("#btnmachinestop").prop("disabled") == false) {
+                if ($("#btnmachinestart").prop("disabled") == false) {
                     MachineStart();
                 }
             }

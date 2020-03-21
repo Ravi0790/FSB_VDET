@@ -13,10 +13,10 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Zeilenname", Description = "Line Name")]
+        [Display(Name = "Line Name", Description = "Line Name")]
         public string LineName { get; set; }
 
-        [Display(Name = "Buchungskreis", Description = "Plant Name")]
+        [Display(Name = "Plant Name", Description = "Plant Name")]
         public int PlantId { get; set; }
         public virtual Plant Plant { get; set; }
         public IList<Location> Locations { get; set; }

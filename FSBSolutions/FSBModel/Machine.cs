@@ -13,7 +13,7 @@ namespace FSBModel
 
         [Required]
         [StringLength(200)]
-        [Display(Name = "Maschinenname", Description = "Machine Name")]
+        [Display(Name = "Machine Name", Description = "Machine Name")]
         public string MachineName { get; set; }
         public bool Status { get; set; }
 

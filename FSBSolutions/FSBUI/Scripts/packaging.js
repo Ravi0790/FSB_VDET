@@ -5,40 +5,38 @@ var setintervalid = 0;
 
 
 /**********Production Time-Start********/
-function CheckProdTime() {
 
-    var endtimeinfo = InitiateTime("prodend", 0)
-    var starttimeinfo = GetTimeInfo("prodstart");
-
-    var strtimeduration = GetTimeDuration(starttimeinfo[0].DateTime, endtimeinfo.DateTime);
-
-
-    $("#prodendtime").text(endtimeinfo.TimeDisplay);
-
-    var timeduration = strtimeduration.split('|')[0];
-    var timedurationmin = strtimeduration.split('|')[1];
-
-    $("#prodduration").text(timeduration);
-
-    $("#proddurationmin").text("(" + timedurationmin + " mins)")
-
-    var speed = selectedproductinfo[0].Speed;
-    var pockets = selectedproductinfo[0].ProductPocket;
-
-    var plannedquantity = parseInt(timedurationmin) * parseInt(speed) * parseInt(pockets);
-    $("#plannedquantity").text(plannedquantity);
-
-}
 
 function CheckProdTimeAfterPending() {
 
-    var endtimeinfo = InitiateTime("prodend", 0)
     var starttimeinfo = new Date(startimeafterpending);
+
+    var endtimeinfo = new Object();
+
+    if ($("#isbakerystopped").val() == "1") { //if bakery time stopped
+        endtimeinfo.DateTime = new Date($("#bakerystoptime").val())        
+
+        var ggendtime = $("#bakerystoptime").val();
+        var gendtime = ggendtime.split('T')[1];
+
+        var nendtime = gendtime.split(':');
+        var endtime = nendtime[0] + ":" + nendtime[1];
+
+        $("#prodendtime").text(endtime); //bakery stop time will be displayed
+    }
+    else {
+        endtimeinfo = InitiateTime("prodend", 0)
+
+        $("#prodendtime").text(endtimeinfo.TimeDisplay);
+    }
+
+    
+    
 
     var strtimeduration = GetTimeDuration(starttimeinfo, endtimeinfo.DateTime);
 
 
-    $("#prodendtime").text(endtimeinfo.TimeDisplay);
+    
 
     var timeduration = strtimeduration.split('|')[0];
     var timedurationmin = strtimeduration.split('|')[1];
@@ -155,7 +153,7 @@ function ShowVolumes() {
 function GetVolumes() {
     ajaxrequest.Type = "GET";
     ajaxrequest.URL = apiurl.ordervolumebyorder + orderid;
-    SendAjaxRequest(ajaxrequest, "getordervolume", hitapi.order);
+    SendAjaxRequest(ajaxrequest, "getordervolume", hitapi.order);//after this ShowVolumesAftePending is called
 }
 
 function UpdateVolume(volumeid,rowid) {
@@ -168,9 +166,18 @@ function UpdateVolume(volumeid,rowid) {
     volumereq.Korbe = $("#korbe" + rowid).html();
     volumereq.Pieces = $("#piece" + rowid).html();
     volumereq.GeplanteMenge = $("#gplant" + rowid).html();
-    volumereq.Efficiency = $("#eff" + rowid).html(); 
 
-    var displayrowid = parseInt(rowid) + 1;
+    var eff = $("#eff" + rowid).html();
+    volumereq.Efficiency = eff.replace("%",""); 
+
+    var displayrowid = -1;
+
+    if (IsPackagingTimeMore(rowid) == false) {
+        displayrowid = parseInt(rowid) + 1;
+    }
+
+
+
     volumereq.DisplayRowId = displayrowid;
     volumereq.OrderId = orderid;
 
@@ -216,11 +223,11 @@ function ShowVolumesAfterPending(volumelist) {
 
         strvoltr += "<tr>"
         strvoltr += "<td class='text-left font-weight-bold pl-4' id='timeslot"+i+"' > " + timeslot + "</td>"
-        strvoltr += "<td class='text-center'><input type='text' class='form-control dollies' " + disabled + " value='" + dollies + "' id='dolly" + i + "' rowid='" + i +"'></td>"
+        strvoltr += "<td class='text-center'><input type='text' class='form-control dollies' " + disabled + " value='" + dollies + "' id='dolly" + i + "' rowid='" + i +"' onfocus='CheckZero(this)' ></td>"
         strvoltr += "<td class='text-center' id='korbe"+i+"'>" + korbe + "</td> "
         strvoltr += "<td class='text-center' id='piece" + i +"'>" + pieces + "</td> "
         strvoltr += "<td class='text-center' id='gplant" + i +"'>" + geplantemenge + "</td> "
-        strvoltr += "<td class='text-center pr-3' id='eff" + i +"'>" + efficiency + "</td> "
+        strvoltr += "<td class='text-center pr-3' id='eff" + i +"'>" + efficiency + "%</td> "
         strvoltr += "<td class='text-right pr-small-1 pr-3'> <button type='button' class='btn btn-primary btn-small btn-orange hvr-float ripple text-uppercase font-weight-bold btnadd' " + disabled + " vid='" + volumeid+"' rowid='"+i+"'>Add</button></td>"	
         strvoltr += "</tr>"
 
@@ -234,12 +241,14 @@ function ShowVolumesAfterPending(volumelist) {
     $("#tblvolume > tbody").append(strvoltr);
 
 
-    //var avgeffperc = parseInt(effperc / displayrowid);
+    
 
     $("#producedquantity").text(producedquantity);
+    //var plannedquantity = $("#plannedquantity").text();
+    //effperc = parseInt((producedquantity / parseInt(plannedquantity)) * 100);    
+    //$("#efficiency").text(effperc + "%");
 
-    GetOrderStatus(CheckOrderStatus);
-    //$("#efficiency").text(avgeffperc + "%");
+    GetOrderStatus(CheckOrderStatus);//check for status of bakery
 
 }
 /***********Volume-End****************/
@@ -361,7 +370,7 @@ function GetOrderById() {
 
 
     ajaxrequest.URL = apiurl.ordercreate + orderid;
-    SendAjaxRequest(ajaxrequest, "getorderinfo", hitapi.order);
+    SendAjaxRequest(ajaxrequest, "getorderinfo", hitapi.order);//after this SetOrderValues is called
 
 
 }
@@ -385,7 +394,7 @@ function SetOrderValues(orderdata) {
 
     $("#shifts").val(orderdata.ShiftId);
 
-    $("#linename").text(orderdata.LineName);
+    $("#linename").text(orderdata.Line.LineName);
 
     
 
@@ -473,7 +482,17 @@ function SetOrderTime(orderstatus) {
         setintervalid = setInterval(CheckProdTimeAfterPending, 2000);
     }
     else {
+        
+
+        $("#prodendtime").addClass("bakery-alert");
+        $("#isbakerystopped").val("1");
+
+        clearInterval(setintervalid)
+
         CheckProdTimeAfterPending();
+
+        //bootbox.alert("Bakery production has been completed");
+
     }
 }
 
@@ -583,7 +602,95 @@ function ShowTeigteileruhr(gcallback) {
 //        });
 //    });
 //}
+function IsPackagingTimeMore(rowid) {
+    var pgtimestatus = false;
 
+    if ($("#isbakerystopped").val() == "1") {
+
+        var bendtime = new Date($("#bakerystoptime").val());
+        var pstarttimeobj = InitiateTimeByHourMin($("#timeslot" + rowid).html().trim())
+        pstarttime = pstarttimeobj.DateTime;
+
+        console.log("bakeryendtime")
+        console.log(bendtime)
+
+        console.log("packaginstarttime")
+        console.log(pstarttime)
+
+
+        pgtimestatus= pstarttime > bendtime ? true : false;
+            
+        
+    }
+
+    console.log("IsPackagingTimeMore")
+    console.log(pgtimestatus)
+
+    return pgtimestatus; 
+}
+
+
+function CalculateVolumeRow(rowid) {
+
+    var dollies = $(".dollies").eq(rowid).val();
+
+
+    if (dollies != "0") {
+
+        var bunpertray = $("#bunpertray").val();
+        var bunperdolly = $("#bunperdolly").val();
+        var pockets = $("#pockets").text();
+        var speed = $("#speed").text();
+        var pieces = parseInt(dollies) * parseInt(bunperdolly);//produced quantity per hour
+        var korbe = parseInt(pieces) / parseInt(bunpertray);//korbe per hour
+
+        /*********Calculate production duration for first hour*********/
+        var productionminute = 60;
+
+        if (rowid == "0") {
+            var endtimeobj = InitiateTimeByHourMin($("#timeslot0").html().trim())
+            console.log(endtimeobj)
+
+            var endtime = endtimeobj.DateTime;
+            var starttime = new Date(startimeafterpending) //start time of the bakery
+
+            var timeduration = GetTimeDuration(starttime, endtime);
+
+            productionminute = timeduration.split('|')[1];
+
+            console.log("first hour prodminute", productionminute)
+
+        }
+
+        
+
+        if (IsPackagingTimeMore(rowid)) { 
+
+            var bendtime = new Date($("#bakerystoptime").val());
+            //var pstarttime = InitiateTimeByHourMin($("#timeslot" + rowid).html().trim())
+
+
+            //var ftimeduration = GetTimeDuration(pstarttime.DateTime, bendtime);
+            //productionminute = ftimeduration.split('|')[1];
+            productionminute = bendtime.getMinutes();
+
+        }
+
+        console.log("volume row duration")
+        console.log(productionminute)
+
+        var geplantemenge = pockets * speed * productionminute;//planned quantity per hour
+        var efficiency = parseInt((pieces / geplantemenge) * 100);//efficiency per hour
+
+
+
+        $("#piece" + rowid).html(pieces);
+        $("#korbe" + rowid).html(korbe);
+        $("#gplant" + rowid).html(geplantemenge);
+        $("#eff" + rowid).html(efficiency + "%");
+
+    }
+}
 
 
 $(document).ready(function () {
@@ -606,14 +713,14 @@ $(document).ready(function () {
 
 
 
-    /******Check for OrderId (checking if the user is coming from pending page*********************/
+    
 
     orderid = $("#orderid").text();
 
     if (orderid != 0) {
 
         //console.log("orderid",orderid)
-        GetOrderById();
+        GetOrderById(); //GetOrderInformation
 
         //Fill Verlustart,Location,Cleaning and Repair Approver
         runFunctionWasteFirstTime(function () {
@@ -621,6 +728,7 @@ $(document).ready(function () {
         });
 
         DisableWasteControlsPartially();
+        EnableMachine();
 
         GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
 
@@ -628,107 +736,19 @@ $(document).ready(function () {
 
     }
     
+             
 
+    //Events
 
+    $(document).on("blur mouseleave", ".dollies", function () {
 
+        $(this).val($(this).val() == "" ? "0" : $(this).val());
 
-
-
-    //Calling product change event
-
-    $("#product").change(function () {
-        var gbakerydetail = JSON.parse(localStorage.getItem("bakeryinfo"));
-        var productid = $(this).val();
-
-
-        selectedproductinfo = gbakerydetail.ProductInfo.filter((product) => product.ProductId == productid);
-
-        SetProductValues(selectedproductinfo[0])
-
-
-    })
-
-    //Calling starttime event
-
-    $("#btnstart").click(function () {
-
-        var ordervalid = ValidateOrder(); //Validate Order Fields
-
-        if (ordervalid) {
-
-
-            var timeinfo = InitiateTime("prodstart", 0)
-
-
-            $("#prodstarttime").text(timeinfo.TimeDisplay);
-            $("#prodendtime").text(timeinfo.TimeDisplay);
-            $("#prodduration").text("00:00");
-            $("#proddurationmin").text("(0 mins)")
-
-            startstoptimeArray.push(timeinfo);
-
-            $(this).addClass("btn-disabled");
-            $(this).attr("disabled", true);
-
-            $("#btnend").removeClass("btn-disabled");
-            $("#btnend").attr("disabled", false);
-
-            $("#dvorder").find(".form-control").attr("disabled", true)
-            $("#product").attr("disabled", true);
-            $("#sapnumber").attr("disabled", true);
-
-            setintervalid = setInterval(CheckProdTime, 2000);
-
-            //ShowVolumes();
-            CreateOrder();
-            //Fill Verlustart,Location,Cleaning and Repair Approver
-            runFunctionWasteFirstTime(function () {
-                console.log("waste first functions called")
-            });
-
-            DisableWasteControlsPartially();
-            $("#dvwastedetail").show()
-        }
-    })
-
-
-    $("#btnend").click(function () {
-
-        ShowTeigteileruhr(function () {
-
-            clearInterval(setintervalid)
-
-            CloseOrder()
-        })
-
-    })
-
-    $(document).on("blur", ".dollies", function () {
         console.log("hello dolly")
-        //console.log($(this).val())
-        var rowid = $(this).attr("rowid");
-        var dollies = $(this).val();
-        var bunpertray = $("#bunpertray").val();
-        var bunperdolly = $("#bunperdolly").val();
-        var pockets = $("#pockets").text();
-        var speed = $("#speed").text();
-        var pieces = parseInt(dollies) * parseInt(bunperdolly);//produced quantity per hour
-        var korbe = parseInt(pieces) / parseInt(bunpertray);//korbe per hour
-
-        var geplantemenge = pockets * speed * 60;//planned quantity per hour
-        var efficiency = parseInt((pieces / geplantemenge) * 100);//efficiency per hour
-
         
+        var rowid = $(this).attr("rowid"); 
 
-        $("#piece" + rowid).html(pieces);
-        $("#korbe" + rowid).html(korbe);
-        $("#gplant" + rowid).html(geplantemenge);
-        $("#eff" + rowid).html(efficiency);
-
-        
-
-
-
+        CalculateVolumeRow(rowid);
     })
 
     $(document).on("click", ".btnadd", function () {
@@ -736,11 +756,19 @@ $(document).ready(function () {
         var volumeid = $(this).attr("vid");
         var rowid = $(this).attr("rowid");
 
+        var dolly = $("#dolly" + rowid).val();
+
+        if (dolly == "0" || dolly=="") {
+            bootbox.alert("Please enter Dollies");
+            return false;
+        }
+
+                          
 
         var rowcount = parseInt(rowid) + 1;
         var prodquantity = 0;
 
-        for (var i = 0; i < rowcount; i++) {
+        for (var i = 0; i <= rowcount; i++) { //max rowcount can be 7
 
             var pieces = $("#piece" + i).html()
 
@@ -752,23 +780,73 @@ $(document).ready(function () {
 
         $("#producedquantity").text(prodquantity);
 
-        var plannedquantity = parseInt($("plannedquantity").text());        
+        var plannedquantity = $("#plannedquantity").text();        
 
-        var effperc = parseInt((prodquantity / plannedquantity) * 100);
+        var effperc = parseInt((prodquantity / parseInt(plannedquantity)) * 100);
 
-        $("#efficiency").text(effperc);
+        //console.log("effperc")
+        //console.log(effperc)
+
+        $("#efficiency").text(effperc + "%");
 
 
 
-        UpdateVolume(volumeid,rowid);
+        
 
         $(this).attr("disabled", true);
         $("#dolly" + rowid).attr("disabled", true);
 
-        var nextrowid = parseInt(rowid) + 1;
+        
 
-        $(".btnadd").eq(nextrowid).attr("disabled", false);
-        $("#dolly" + nextrowid).attr("disabled", false);
+        if (IsPackagingTimeMore(rowid) == false) {
+            var nextrowid = parseInt(rowid) + 1;
+
+            $(".btnadd").eq(nextrowid).attr("disabled", false);
+            $("#dolly" + nextrowid).attr("disabled", false);
+
+            if (rowid == 7) {
+                $("#finalordermodal").modal();
+            }
+        }
+        else {
+
+            var fplannedquantity = $("#plannedquantity").text();
+            var fproducedquantity = $("#producedquantity").text();
+            var fefficiency = $("#efficiency").text();
+
+            $("#forderid").text(orderid);
+            $("#fplannedqauntity").val(fplannedquantity);
+            $("#fproducedquantity").val(fproducedquantity);
+            $("#fefficiency").val(fefficiency);
+
+            $("#finalordermodal").modal();
+
+        }
+
+        UpdateVolume(volumeid, rowid);
+
+        
+    })
+
+
+    $("#btnok").click(function () {
+
+        //alert("orderclose");
+        var orderrequest = new Object();
+
+        orderrequest.ProducedQuantity = $("#producedquantity").text();
+        orderrequest.UserTypeId = usertypeid;
+        orderrequest.OrderId = orderid;
+        orderrequest.Status = 1;
+
+        ajaxrequest.URL = apiurl.ordercreate + "update";
+        ajaxrequest.Type = "POST";
+        ajaxrequest.PData = orderrequest;
+
+        console.log("order request")
+        console.log(ajaxrequest)
+
+        SendAjaxRequest(ajaxrequest, "porderclose", hitapi.order);
     })
 
 })

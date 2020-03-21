@@ -48,25 +48,42 @@ namespace FSBAPI.Controllers
             return objformula;
         }
 
-        [HttpPost]
-        [Route("api/orderformula/status")]
-        public string UpdateOrderStatus(OrderStatus orderstatus)
+
+        public void UpdateOrderFinalStatus(int orderid)
         {
-            var orderinfo = db.OrderInfos.Include(x=>x.OrderDetail).SingleOrDefault(x => x.OrderId == orderstatus.OrderId && x.UserTypeId == orderstatus.UserTypeId);
+            OrderDetail objorder = db.OrderDetails.Include(x => x.OrderInfos).SingleOrDefault(x => x.OrderId == orderid);
+
+            var statuscount = 0;
+            foreach (var item in objorder.OrderInfos)
+            {
+                if (item.OrderStatus == 0)
+                {
+                    statuscount++;
+                }
+            }
+
+            if (statuscount == 0)
+            {
+                objorder.FinalStatus = 1;
+                db.SaveChanges();
+            }
 
             
 
-            orderinfo.OrderStatus = 1;
+        }
 
-            if (orderstatus.UserTypeId != 1)
-            {
-                orderinfo.OrderDetail.FinalStatus = 1;
-            }
+        [HttpPost]
+        [Route("api/orderformula/status")]
+        public string UpdateOrderUserTypeStatus(OrderStatus orderstatus)
+        {
+            var orderinfo = db.OrderInfos.Include(x=>x.OrderDetail).SingleOrDefault(x => x.OrderId == orderstatus.OrderId && x.UserTypeId == orderstatus.UserTypeId);
+
+            orderinfo.OrderStatus = 1;
 
             try
             {
                 db.SaveChanges();
-
+                UpdateOrderFinalStatus(orderstatus.OrderId);
                 return "order status updated";
             }
             catch (Exception ex)
@@ -77,8 +94,9 @@ namespace FSBAPI.Controllers
                         
         }
 
-        // POST: api/OrderDetails/update
+        
 
+        
         [HttpPost]
         [Route("api/orderdetails/update")]
         
@@ -100,13 +118,22 @@ namespace FSBAPI.Controllers
 
             var order = db.OrderDetails.SingleOrDefault(x => x.OrderId == orderDetail.OrderId);
 
-            order.TeigteileruhrStartTime = orderDetail.TeigteileruhrStartTime;
-            order.TeigteileruhrEndTime = orderDetail.TeigteileruhrEndTime;
-            order.TeigteileruhrDurationMin = orderDetail.TeigteileruhrDurationMin;
-            order.PlannedQuantity = orderDetail.PlannedQuantity;
-            order.ProducedQuantity = orderDetail.ProducedQuantity;
-            order.OrderEndTime = orderDetail.OrderEndTime;
-            order.OrderDurationMin = orderDetail.OrderDurationMin;
+            if (orderDetail.UserTypeId != 2)
+            {
+                order.TeigteileruhrStartTime = orderDetail.TeigteileruhrStartTime;
+                order.TeigteileruhrEndTime = orderDetail.TeigteileruhrEndTime;
+                order.TeigteileruhrDurationMin = orderDetail.TeigteileruhrDurationMin;
+                order.OrderEndTime = orderDetail.OrderEndTime;
+                order.OrderDurationMin = orderDetail.OrderDurationMin;
+                order.PlannedQuantity = orderDetail.PlannedQuantity;
+            }
+            else {
+                order.ProducedQuantity = orderDetail.ProducedQuantity;
+            }
+
+
+            
+            
 
             try
             {
@@ -135,7 +162,7 @@ namespace FSBAPI.Controllers
                 objstatus.OrderId = orderDetail.OrderId;
                 objstatus.UserTypeId = orderDetail.UserTypeId;
 
-                UpdateOrderStatus(objstatus);
+                UpdateOrderUserTypeStatus(objstatus);
 
 
                 returnval = "success";
