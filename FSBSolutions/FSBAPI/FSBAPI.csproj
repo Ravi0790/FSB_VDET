@@ -186,6 +186,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FusionCharts\Category.cs" />
+    <Compile Include="Models\FusionCharts\Chart.cs" />
+    <Compile Include="Models\FusionCharts\Charts\GanttChart.cs" />
+    <Compile Include="Models\FusionCharts\dataSource.cs" />
+    <Compile Include="Models\FusionCharts\Process.cs" />
+    <Compile Include="Models\FusionCharts\Task.cs" />
     <Compile Include="Models\OrderFormula.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\OrderVolumeList.cs" />

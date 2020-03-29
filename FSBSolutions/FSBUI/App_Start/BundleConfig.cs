@@ -20,6 +20,12 @@ namespace FSBUI
                         "~/Scripts/bootbox.js"
                         ));
 
+            bundles.Add(new ScriptBundle("~/bundles/fusionscript").Include(
+                        "~/Scripts/fusionchart/fusioncharts.js",
+                        "~/Scripts/fusionchart/fusioncharts.theme.fusion.js",
+                        "~/Scripts/fusionchart/fusioncharts.jqueryplugin.min.js"
+                        ));
+
 
 
             bundles.Add(new ScriptBundle("~/bundles/bakeryscript").Include(

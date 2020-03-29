@@ -72,8 +72,9 @@ namespace FSBAPI.Controllers
             volumeobj.Korbe = producedvolume.Korbe;
             volumeobj.GeplanteMenge = producedvolume.GeplanteMenge;
             volumeobj.Efficiency = producedvolume.Efficiency;
-            
-            
+            volumeobj.Duration = producedvolume.Duration;
+
+
 
             try
             {

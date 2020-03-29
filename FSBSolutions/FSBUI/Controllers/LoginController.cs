@@ -29,9 +29,9 @@ namespace FSBUI.Controllers
             LoginInfo objlogin = new LoginInfo();
             OrderInformation objorderinfo = new OrderInformation();
 
-            User objuser = objlogin.GetLoginInfo(userinfo.User);
+            User objuser = objlogin.GetLoginInfo(userinfo.User);//check if userid and password in correct
 
-            if (objuser!=null)
+            if (objuser!=null)//if yes
             {
                 Session["lineid"] = userinfo.LineId;
                 Session["usertypeid"] = objuser.UserType.UserTypeId;
@@ -39,27 +39,28 @@ namespace FSBUI.Controllers
                 Session["plantid"] = objuser.UserType.Plant.PlantId;
                 FormsAuthentication.SetAuthCookie(objuser.UserName, false);
 
+                //check if there is any order with the line selected and finalstatus=0
                 IList<OrderDetail> orderdetail = objorderinfo.CheckOrderPending(userinfo.LineId);
                 var usertypeid = Convert.ToString(Session["usertypeid"]);
 
-                if (orderdetail.Count > 0)
+                if (orderdetail.Count > 0) //if order is there
                 {                    
                     
                   return RedirectToRoute("orderpending");                           
                 }
-                else
+                else //if order is not created
                 {
-                    if (usertypeid != "2")
+                    if (usertypeid != "2") //if not packaging user
                     {
                         return RedirectToAction(objuser.UserType.LoginActionURL, objuser.UserType.LoginControllerURL);
                     }
-                    else
+                    else //if packaging user
                     {
                         return RedirectToRoute("orderpending");
                     }
                 }
             }
-            else
+            else //if userid or password is wrong
             {
 
                 ViewBag.LineId = new SelectList(db.Lines, "LineId", "LineName",userinfo.LineId);

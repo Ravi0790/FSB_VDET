@@ -148,7 +148,7 @@ function FillParts(componentid) {//Bauteil
     //$("#parts").attr("disabled", false);
 }
 
-function FillWasteTypes() {//Ausschussart
+function FillWasteTypes(callback) {//Ausschussart
 
     console.log("fillwastetypes")
     var dropdowninfo = new Object();
@@ -162,7 +162,7 @@ function FillWasteTypes() {//Ausschussart
 
     ajaxrequest.Type = "GET";
     ajaxrequest.URL = apiurl.wastetypesbyusertype + usertypeid;
-    SendAjaxRequest(ajaxrequest, "dropdownfill", true, dropdowninfo);
+    SendAjaxRequest(ajaxrequest, "dropdownfill", true, dropdowninfo,callback);
 }
 
 function FillReasons(verlustartid) {//Verlustgrund
@@ -180,12 +180,25 @@ function FillReasons(verlustartid) {//Verlustgrund
     SendAjaxRequest(ajaxrequest, "dropdownfill", true, dropdowninfo);
 }
 
+function SetLocationMachine() {
+    //$("#location").val()
+
+    //console.log("setlocatio")
+
+    $('#location option:eq(1)').prop('selected', true);
+
+    var locationid = $("#location").val();
+
+    FillMachine(locationid);
+}
+
+
 function runFunctionWasteFirstTime(callback) {
     FillVerlustart(function () {
         FillLocation(function () {
             FillTechnikApprovers(function () {
                 FillReinigungApprovers(function () {
-                    FillWasteTypes();
+                    FillWasteTypes(SetLocationMachine);
                 });
             });
         });
@@ -261,6 +274,7 @@ function ShowWasteInfo(wastedata) {
     $("#machinestop").val("");
     $("#machinestart").val("");
     $("#verlustart").val("");
+    $('#location option:eq(1)').prop('selected', true);
 }
 
 function ShowWasteInfoAll(wastedata) {
@@ -487,39 +501,28 @@ function EnableWasteControls() {
 }
 
 function DisableWasteControlsPartially() {
-    //$("#chkprodstatus").attr("disabled", false);
+
 
     console.log("enablewastecontrolsp")
-
+    $("#chkprodstatus").attr("disabled", false);
+    $("#chkprodstatus").prop("checked", false);
 
     //disable all controls except start stop button
-    $("#dvverlust").find(".form-control").attr("disabled", true);
-    //$("#dvmachine").find(".form-control").attr("disabled", true);
+    $("#dvverlust").find(".form-control").attr("disabled", true);//disable all verlust div controls
+    $("#dvverlust").find(".form-control").not("#verlustart,#location").val("");//set the control value to default except verlustart and location
 
     //disable all start stop button
     $("button").filter(".start").not("#btnmachinestart").attr("disabled", true);
     $("button").filter(".stop").not("#btnmachinestop").attr("disabled", true);
-
+       
     
-    //set the values to initial
-    $("#dvverlust").find(".form-control").not("#verlustart").val("");
-    //$("#dvmachine").find(".form-control").val("");
-
-
     $("#btnwaste").attr("disabled", false);
     
-    //Enable only machine stop
-    //$("#machinestop").attr("disabled", false);
-    //$("#btnmachinestop").attr("disabled", false);
-
-
-    //$("#machinestart").attr("disabled", false);
-    //$("#btnmachinestart").attr("disabled", false);
-
     //Enable Verlustart,reason,comments,problemreason,preventivemeasure,action
     $("#verlustart").attr("disabled", false);
     $("#wastetype").attr("disabled", false);
     $("#location").attr("disabled", false);
+    $("#machine").attr("disabled", false);
     $("#reasons").attr("disabled", false);
     $("#comments").attr("disabled", false);
     $("#problemreason").attr("disabled", false);
@@ -539,6 +542,8 @@ function DisableWasteControls() {
     $("button").filter(".start").attr("disabled", true);
     $("button").filter(".stop").attr("disabled", true);
 
+    $("#dvverlust").find(".form-control").val("");
+    $("#dvmachine").find(".form-control").val("");
 
     //$("#btnwaste").attr("disabled", true);
 }
@@ -682,6 +687,9 @@ function CheckVerlust(gval) {
 
     //set the values to initial
     $("#dvverlust").find(".form-control").val("");
+    $("#dvverlust").find(".form-control").not("#location").val("");
+    $("#location").attr("disabled", false);
+    $("#machine").attr("disabled", false);
     
 
 
@@ -699,10 +707,14 @@ function CheckVerlust(gval) {
     $("#actiontaken").attr("disabled", false);
     $("#preventiveaction").attr("disabled", false);
 
+    $('#location option:eq(1)').prop('selected', true);
+
+
     if (gval == "Recept/Parameter") {
         $("#verlustart").attr("disabled", true);
         $("#wastetype").attr("disabled", true);
         $("#reasons").attr("disabled", true);
+        $("#machine").attr("disabled", true);
     }
 
 }
@@ -747,7 +759,7 @@ function ValidateWaste() {
 
         if (verlust.val() !="Recept/Parameter") {
             if (verlustart == "--Auswahlen--") {
-                bootbox.alert("Bitte ein Ausschuss auswählen");
+                bootbox.alert("Bitte ein Verlustart auswählen");
                 $("#verlustart").focus()
                 return false;
 
@@ -1042,6 +1054,8 @@ $(document).ready(function () {
         $("#hdverlust").val($(this).text());
 
         CheckVerlust($(this).text())
+
+        
 
         //if ($(this).prop("checked") == true) {
             

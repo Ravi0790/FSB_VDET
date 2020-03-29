@@ -29,29 +29,32 @@ namespace FSBModel
 
         public DateTime OrderStartTime { get; set; }
         public DateTime? OrderEndTime { get; set; }
-        public int? OrderDurationMin { get; set; }
+        public int OrderDurationMin { get; set; }
 
         public int PlannedQuantity { get; set; }
-        public int? ProducedQuantity { get; set; }
+        public int ProducedQuantity { get; set; }
+        [NotMapped]
         public int PremanentEmp { get; set; }
+        [NotMapped]
         public int TemporaryEmp { get; set; }
+        [NotMapped]
         public int ExternalEmp { get; set; }
         public DateTime? TeigteileruhrStartTime { get; set; }
         public DateTime? TeigteileruhrEndTime { get; set; }
-        public int? TeigteileruhrDurationMin { get; set; }
-        public float? PlannedKg { get; set; }
-        public float? ProducedKg { get; set; }
-        public int? BakeryTotalWaste { get; set; }
-        public int? PackageTotalWaste { get; set; }
-        public int? TotalDowntime { get; set; }
-        public int? StillStandMin { get; set; }
-        public int? StillStandPieces { get; set; }
-        public int? TotalWasteKg { get; set; }
-        public int? TotalWastePieces { get; set; }
-        public int? TotalProduction { get; set; }
-        public int? Sollmengen { get; set; }
-        public int? LeerIndexMinute { get; set; }
-        public int? LeerIndexPieces { get; set; }
+        public int TeigteileruhrDurationMin { get; set; }
+        public int PlannedKg { get; set; }
+        public int ProducedKg { get; set; }
+        public int BakeryTotalWaste { get; set; }
+        public int PackageTotalWaste { get; set; }
+        public int TotalDowntime { get; set; }
+        public int StillStandMin { get; set; }
+        public int StillStandPieces { get; set; }
+        public int TotalWasteKg { get; set; }
+        public int TotalWastePieces { get; set; }
+        public int TotalProduction { get; set; }
+        public int Sollmengen { get; set; }
+        public int LeerIndexMinute { get; set; }
+        public int LeerIndexPieces { get; set; }
         public DateTime CreatedDate { get; set; }
 
         public IList<WasteDetail> WasteDetails { get; set; }

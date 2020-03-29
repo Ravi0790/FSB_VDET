@@ -24,7 +24,7 @@ namespace FSBUI.Models
             //DateTime startdate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
             //DateTime enddate = Convert.ToDateTime(DateTime.Now.AddDays(1).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
 
-            DateTime startdate = DateTime.Now;
+            DateTime startdate = DateTime.Now.AddDays(-1);
             DateTime enddate = DateTime.Now.AddDays(1);
 
             IList <OrderDetail> orderdetail = db.OrderDetails
@@ -47,7 +47,7 @@ namespace FSBUI.Models
             //DateTime startdate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
             //DateTime enddate = Convert.ToDateTime(DateTime.Now.AddDays(1).ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
 
-            DateTime startdate = DateTime.Now;
+            DateTime startdate = DateTime.Now.AddDays(-1);
             DateTime enddate = DateTime.Now.AddDays(1);
 
             OrderInformation objinformation = new OrderInformation()

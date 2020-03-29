@@ -23,11 +23,17 @@ namespace FSBAPI.Controllers
             return db.OrderDetails;
         }
 
-        // GET: api/OrderDetails/5
-        [ResponseType(typeof(OrderDetail))]
+        // GET: api/OrderDetails/5  
+        [ResponseType(typeof(OrderDetail))] //get order detail based on orderid
         public IHttpActionResult GetOrderDetail(int id)
         {
-            OrderDetail orderDetail = db.OrderDetails.Include(p=>p.UserType).Include(p=>p.Shift).Include(p=>p.Line).Include(p => p.Product).SingleOrDefault(x=>x.OrderId==id);
+            OrderDetail orderDetail = db.OrderDetails
+                                      //.Include(p=>p.UserType)
+                                      .Include(p=>p.OrderInfos)
+                                      .Include(p=>p.Shift)
+                                      .Include(p=>p.Line)
+                                      .Include(p => p.Product)
+                                      .SingleOrDefault(x=>x.OrderId==id);
             if (orderDetail == null)
             {
                 return NotFound();
@@ -38,7 +44,7 @@ namespace FSBAPI.Controllers
 
         
         [HttpGet]
-        [Route("api/orderformula/{orderid}")]        
+        [Route("api/orderformula/{orderid}")]     //get the order formula based on orderid   
         public OrderFormula GetOrderFormulas(int orderid)
         {
             OrderFormula objformula = new OrderFormula();
@@ -70,15 +76,27 @@ namespace FSBAPI.Controllers
 
             
 
-        }
+        } //update order final status
 
         [HttpPost]
-        [Route("api/orderformula/status")]
-        public string UpdateOrderUserTypeStatus(OrderStatus orderstatus)
+        [Route("api/orderdetails/updateusertype")]
+        public string UpdateOrderUserTypeStatus(OrderStatus orderstatus) //update order info based on usertype
         {
-            var orderinfo = db.OrderInfos.Include(x=>x.OrderDetail).SingleOrDefault(x => x.OrderId == orderstatus.OrderId && x.UserTypeId == orderstatus.UserTypeId);
+
+            //get orderinfo details based on orderid and usertypeid
+            var orderinfo = db.OrderInfos
+                            //.Include(x=>x.OrderDetail)
+                            .SingleOrDefault(x => x.OrderId == orderstatus.OrderId && x.UserTypeId == orderstatus.UserTypeId);
 
             orderinfo.OrderStatus = 1;
+
+            if (orderstatus.UserTypeId == 2)
+            {
+                orderinfo.PremanentEmp = orderstatus.PremanentEmp;
+                orderinfo.ExternalEmp = orderstatus.ExternalEmp;
+                orderinfo.TemporaryEmp = orderstatus.TemporaryEmp;
+            }
+
 
             try
             {
@@ -162,6 +180,14 @@ namespace FSBAPI.Controllers
                 objstatus.OrderId = orderDetail.OrderId;
                 objstatus.UserTypeId = orderDetail.UserTypeId;
 
+                if (orderDetail.UserTypeId == 2) //if packaging  
+                { 
+
+                    objstatus.PremanentEmp = orderDetail.PremanentEmp;
+                    objstatus.ExternalEmp = orderDetail.ExternalEmp;
+                    objstatus.TemporaryEmp = orderDetail.TemporaryEmp;
+                }
+
                 UpdateOrderUserTypeStatus(objstatus);
 
 
@@ -177,7 +203,7 @@ namespace FSBAPI.Controllers
         }
 
         // POST: api/OrderDetails
-        [ResponseType(typeof(OrderDetail))]
+        [ResponseType(typeof(OrderDetail))] //create order
         public IHttpActionResult PostOrderDetail(OrderDetail orderDetail)
         {
             if (!ModelState.IsValid)

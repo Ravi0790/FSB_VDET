@@ -106,49 +106,7 @@ function CreateVolumes(vhour) {
 
 }
 
-function ShowVolumes() {
-    var strvoltr = "";
 
-    var timeinfo = startstoptimeArray.filter(x => x.Type == "prodstart");
-    var currenthour = parseInt(timeinfo[0].Hour);
-
-    var volumhour = [];
-
-    //var i = 1;
-    for (var i = 1; i <= 8; i++) {
-
-
-
-        var nexthour = currenthour + i;
-
-        //currenthour = nexthour == 24 ? 0 : currenthour;
-
-        nexthour = nexthour > 24 ? nexthour - 24 : nexthour;
-
-        nexthour = String(nexthour).length == 1 ? "0" + nexthour : nexthour;
-
-        volumhour.push(nexthour + ":00")
-
-        //console.log("nexthour",nexthour)
-        //console.log("currenthour", currenthour);
-        strvoltr += "<tr>"
-        strvoltr += "<td class='text-left font-weight-bold pl-4' > " + nexthour + ": 00</td>"
-        strvoltr += "<td class='text-center'>-</td> "
-        strvoltr += "<td class='text-center'>-</td> "
-        strvoltr += "<td class='text-center'>-</td> "
-        strvoltr += "<td class='text-center'>-</td> "
-        strvoltr += "<td class='text-center pr-3'>-</td> "
-        strvoltr += "</tr>"
-
-        //i++;
-    }
-
-    $("#tblvolume > tbody").empty();
-
-    $("#tblvolume > tbody").append(strvoltr);
-
-    CreateVolumes(volumhour);
-}
 
 function GetVolumes() {
     ajaxrequest.Type = "GET";
@@ -166,6 +124,7 @@ function UpdateVolume(volumeid,rowid) {
     volumereq.Korbe = $("#korbe" + rowid).html();
     volumereq.Pieces = $("#piece" + rowid).html();
     volumereq.GeplanteMenge = $("#gplant" + rowid).html();
+    volumereq.Duration = $("#hdprodmin" + rowid).val();
 
     var eff = $("#eff" + rowid).html();
     volumereq.Efficiency = eff.replace("%",""); 
@@ -203,6 +162,9 @@ function ShowVolumesAfterPending(volumelist) {
 
     var volumecount = volumelist.length;
 
+    var dollyheading = $("#masterpackunit").val();
+    $("#thdolly").html(dollyheading.toLowerCase().indexOf("pallet") > -1 ? "Pallets" : "Dollies");
+
     for (var i = 0; i < volumecount; i++) {
 
         var timeslot = volumelist[i].TimeSlot;
@@ -213,6 +175,7 @@ function ShowVolumesAfterPending(volumelist) {
         var efficiency = volumelist[i].Efficiency;
         var volumeid = volumelist[i].ProducedVolumeId;
         var displayrowid = volumelist[i].DisplayRowId;
+        var duration = "(" + volumelist[i].Duration + " mins)";
 
         producedquantity += parseInt(pieces);
 
@@ -222,7 +185,7 @@ function ShowVolumesAfterPending(volumelist) {
         
 
         strvoltr += "<tr>"
-        strvoltr += "<td class='text-left font-weight-bold pl-4' id='timeslot"+i+"' > " + timeslot + "</td>"
+        strvoltr += "<td class='text-center font-weight-bold pl-4'><span id='timeslot" + i +"' >"+timeslot+"</span><br/><span id='prodmin"+i+"' style='font-size:12px'>"+duration+"</span><input type='hidden' id='hdprodmin"+i+"'></td>"
         strvoltr += "<td class='text-center'><input type='text' class='form-control dollies' " + disabled + " value='" + dollies + "' id='dolly" + i + "' rowid='" + i +"' onfocus='CheckZero(this)' ></td>"
         strvoltr += "<td class='text-center' id='korbe"+i+"'>" + korbe + "</td> "
         strvoltr += "<td class='text-center' id='piece" + i +"'>" + pieces + "</td> "
@@ -256,114 +219,7 @@ function ShowVolumesAfterPending(volumelist) {
 
 /***********Order-Start****************/
 
-function ValidateOrder() {
-    var product = $("#product");
-    var sapnumber = $("#sapnumber");
-    var shift = $("#shifts")
-    var empperm = $("#empperm");
-    var emptemp = $("#emptemp")
-    var empexternal = $("#empexternal")
 
-    if (product.val() == "") {
-        //toastr.error("Please select Product");
-        bootbox.alert("Bitte Produkt auswählen")
-        product.focus();
-        return false;
-    }
-
-    if (sapnumber.val() == "") {
-        //toastr.error("Please enter SAP Number");
-        bootbox.alert("Bitte geben Sie die SAP-Referenznummer ein")
-        sapnumber.focus();
-        return false;
-    }
-    else {
-        if (!sappatten.test(sapnumber.val())) {
-            bootbox.alert("Ungültige SAP-Referenznummer")
-            sapnumber.focus();
-            return false;
-        }
-    }
-
-
-    if (shift.val() == "") {
-        bootbox.alert("Bitte Schichten auswählen")
-        product.focus();
-        return false;
-    }
-
-
-
-
-    if (empperm.val() == "" || emptemp.val() == "" || empexternal.val() == "") {
-        bootbox.alert("Bitte geben Sie die Anzahl der Mitarbeiter ein")
-        empperm.focus();
-        return false;
-    }
-
-    return true;
-
-}
-
-function CreateOrder() {
-    var timeinfo = startstoptimeArray.filter(x => x.Type == "prodstart");
-    var orderrequest = new Object();
-    var userid = $("#userid").val();
-    var usertypeid = $("#usertypeid").val();
-    var lineid = $("#lineid").val();
-    var productid = $("#product").val();
-    var orderstartime = timeinfo[0].DateTimeFormat;
-    var plannedquantity = 0;
-    var saprefnumber = $("#sapnumber").val();
-    var createddate = timeinfo[0].DateTimeFormat;
-    var shiftid = $("#shifts").val();
-
-
-
-
-
-    orderrequest.SAPReferenceNumber = saprefnumber;
-    orderrequest.UserTypeId = usertypeid;
-    orderrequest.UserId = userid;
-    orderrequest.ShiftId = shiftid;
-    orderrequest.LineId = lineid;
-    orderrequest.ProductId = productid;
-    orderrequest.OrderStartTime = orderstartime;
-    orderrequest.PlannedQuantity = plannedquantity;
-    orderrequest.PremanentEmp = $("#empperm").val();
-    orderrequest.TemporaryEmp = $("#emptemp").val();
-    orderrequest.ExternalEmp = $("#empexternal").val();
-    orderrequest.CreatedDate = createddate;
-
-    //console.log("orderrequest")
-    //console.log(orderrequest)
-
-    ajaxrequest.URL = apiurl.ordercreate;
-    ajaxrequest.Type = "POST";
-    ajaxrequest.PData = orderrequest;
-
-    SendAjaxRequest(ajaxrequest, "ordercreate", hitapi.order);
-
-}
-
-function CreateOrderInfo(gorderid) {
-    var orderinforequest = new Object();
-    orderinforequest.OrderId = gorderid;
-    orderinforequest.UserTypeId = usertypeid;
-    orderinforequest.UserId = userid;
-    orderinforequest.OrderStatus = 0;
-    orderinforequest.LoggedinTime = GetCurrentTime();
-    orderinforequest.UpdatedLoggedinTime = GetCurrentTime();
-
-    //console.log("orderinforequest")
-    //console.log(orderinforequest)
-
-    ajaxrequest.URL = apiurl.orderinfo;
-    ajaxrequest.Type = "POST";
-    ajaxrequest.PData = orderinforequest;
-
-    SendAjaxRequest(ajaxrequest, "orderinfo", hitapi.order);
-}
 
 function GetOrderById() {
     //console.log("orderinfo");
@@ -378,9 +234,9 @@ function GetOrderById() {
 function SetOrderValues(orderdata) {
     SetProductValues(orderdata.Line.Products[0])
 
-    $("#empperm").val(orderdata.PremanentEmp);
-    $("#emptemp").val(orderdata.TemporaryEmp);
-    $("#empexternal").val(orderdata.ExternalEmp);
+    //$("#empperm").val(orderdata.PremanentEmp);
+    //$("#emptemp").val(orderdata.TemporaryEmp);
+    //$("#empexternal").val(orderdata.ExternalEmp);
     $("#sapnumber").text(orderdata.SAPReferenceNumber);
     startimeafterpending = orderdata.OrderStartTime;
 
@@ -411,48 +267,28 @@ function SetOrderValues(orderdata) {
     GetVolumes();
 }
 
-function CloseOrder() {
-    var plannedquantity = $("#plannedquantity").text();
-
-
+function CloseOrder(callback) {
     var orderrequest = new Object();
 
-    var endtimeinfo = InitiateTime("prodend", 0)
-    var starttimeinfo = "";
-
-    var loginstatus = $("#loginstatus").val();
-
-    if (loginstatus == "pending") {
-        starttimeinfo = new Date(startimeafterpending);
-    }
-    else {
-        var timeinfo = startstoptimeArray.filter(x => x.Type == "prodstart");
-        starttimeinfo = timeinfo[0].DateTime;
-    }
-
-    var strtimeduration = GetTimeDuration(starttimeinfo, endtimeinfo.DateTime);
-    var timeduration = strtimeduration.split('|')[0];
-    var timedurationmin = strtimeduration.split('|')[1];
-
-
-    orderrequest.PlannedQuantity = plannedquantity;
-
-    orderrequest.OrderId = orderid;
-    orderrequest.TeigteileruhrDurationMin = $("#ttduration").val() == "" ? 0 : $("#ttduration").val();
+    orderrequest.ProducedQuantity = $("#producedquantity").text();
     orderrequest.UserTypeId = usertypeid;
-    orderrequest.OrderEndTime = endtimeinfo.DateTimeFormat;
-    orderrequest.OrderDurationMin = timedurationmin;
+    orderrequest.OrderId = orderid;
     orderrequest.Status = 1;
+    orderrequest.PremanentEmp = $("#empperm").val();
+    orderrequest.ExternalEmp = $("#emptemp").val();
+    orderrequest.TemporaryEmp = $("#empexternal").val();
 
     ajaxrequest.URL = apiurl.ordercreate + "update";
     ajaxrequest.Type = "POST";
     ajaxrequest.PData = orderrequest;
 
-    SendAjaxRequest(ajaxrequest, "orderclose", hitapi.order);
+    console.log("order request")
+    console.log(ajaxrequest)
+
+    SendAjaxRequest(ajaxrequest, "porderclose", hitapi.order,"",callback);
 
 
 }
-
 
 function GetOrderStatus(callback) {
     ajaxrequest.URL = apiurl.orderinfobyorder + orderid;
@@ -501,31 +337,12 @@ function SetOrderTime(orderstatus) {
 
 /***********Product-Start***********/
 
-function GetProductsByLine(callback) {
 
-    //console.log("productfunc")
-    /************Get Products by Line and UserType -- Start */
-    var dropdowninfo = new Object();
-
-    dropdowninfo.controlobj = $("#product");
-    dropdowninfo.objdata = "";
-    dropdowninfo.dropdowntext = "ProductName";
-    dropdowninfo.dropdownval = "ProductId";
-    dropdowninfo.dropdownname = "";
-    dropdowninfo.selectedval = "";
-
-    ajaxrequest.URL = apiurl.productsbylineusertype + lineid + "/" + usertypeid;
-
-    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.lines, dropdowninfo, callback);
-
-    //callback()
-
-
-}
 
 function SetProductValues(product) {
     //console.log("productid",product.ProductId)
-    $("#product").val(product.ProductId)
+    //$("#product").val(product.ProductId)
+    $("#prodname").text(product.ProductName)
     $("#proddesc").text(product.ProductDesc);
     $("#pockets").text(product.ProductPocket);
 
@@ -539,42 +356,15 @@ function SetProductValues(product) {
     $("#bunpertray").val(product.BunPerTray);
     $("#bunperdolly").val(product.BunPerDolly);
 
+    $("#masterpackunit").val(product.MasterPackUnit);
+
 }
 
 
 /***********Product-End***********/
 
 
-function GetLineById(callback) {
 
-    //console.log("GetLineById")
-
-    ajaxrequest.URL = apiurl.lines + lineid;
-    SendAjaxRequest(ajaxrequest, "linebyid", hitapi.lines, "", callback);
-
-
-}
-
-function GetShiftByPlant(callback) {
-    //console.log("shiftfunc")
-    /************Get Shift by Plant -- Start */
-    var dropdowninfo = new Object();
-
-    dropdowninfo.controlobj = $("#shifts");
-    dropdowninfo.objdata = "";
-    dropdowninfo.dropdowntext = "ShiftName";
-    dropdowninfo.dropdownval = "ShiftId";
-    dropdowninfo.dropdownname = "";
-    dropdowninfo.selectedval = "";
-
-    ajaxrequest.URL = apiurl.shiftsbyplant + plantid;
-
-    SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.shifts, dropdowninfo, callback);
-
-    //callback();
-
-    /************Get Products by Shift -- End */
-}
 
 
 function ShowTeigteileruhr(gcallback) {
@@ -593,35 +383,25 @@ function ShowTeigteileruhr(gcallback) {
 }
 
 
-//function runFunctionAfterPending(callback) {
-//    GetProductsByLine(function () {
-//        GetLineById(function () {
-//            GetShiftByPlant(function () {
-//                GetOrderById()
-//            });
-//        });
-//    });
-//}
-function IsPackagingTimeMore(rowid) {
-    var pgtimestatus = false;
 
-    if ($("#isbakerystopped").val() == "1") {
+function IsPackagingTimeMore(rowid,isbakerystopped) {
+    var pgtimestatus = false;
+    var pstarttimeobj = InitiateTimeByHourMin($("#timeslot" + rowid).html().trim());
+    pstarttime = pstarttimeobj.DateTime;
+
+    
+
+    if (isbakerystopped == 1) {
 
         var bendtime = new Date($("#bakerystoptime").val());
-        var pstarttimeobj = InitiateTimeByHourMin($("#timeslot" + rowid).html().trim())
-        pstarttime = pstarttimeobj.DateTime;
-
-        console.log("bakeryendtime")
-        console.log(bendtime)
-
-        console.log("packaginstarttime")
-        console.log(pstarttime)
-
-
-        pgtimestatus= pstarttime > bendtime ? true : false;
-            
-        
+        pgtimestatus = pstarttime > bendtime ? true : false;
     }
+    else {
+        endtimeinfo = InitiateTime("prodend", 0)
+        pgtimestatus = pstarttime > endtimeinfo.DateTime ? true : false;
+    }
+
+
 
     console.log("IsPackagingTimeMore")
     console.log(pgtimestatus)
@@ -629,6 +409,60 @@ function IsPackagingTimeMore(rowid) {
     return pgtimestatus; 
 }
 
+
+function GetRowDuration(rowid) {//rowid will always start with 1 as zero is calculated with starttime
+    var prevrowid = parseInt(rowid) - 1;
+
+    var bakeryendobj = InitiateTime("bakeryend", 0)
+    var bakeryendtime = bakeryendobj.DateTime;
+
+    if ($("#isbakerystopped").val() == "1") {
+        bakeryendtime = new Date($("#bakerystoptime").val());
+    }
+
+
+    var cpktime = InitiateTimeByHourMin($("#timeslot" + rowid).html().trim())
+    var ppktime = InitiateTimeByHourMin($("#timeslot" + prevrowid).html().trim())
+
+    var cpakagintime = cpktime.DateTime;
+    var ppakagintime = ppktime.DateTime;
+
+    console.log("bakerytime")
+    console.log(bakeryendtime)
+
+    console.log("cpakagintime")
+    console.log(cpakagintime)
+
+    console.log("ppakagintime")
+    console.log(ppakagintime)
+
+    var rowduration = 0;
+
+    if (rowid != 7) {
+        if (bakeryendtime > ppakagintime && bakeryendtime <= cpakagintime) { //bakeryendtime is between
+            var rtimeduration = GetTimeDuration(ppakagintime, bakeryendtime);
+            rowduration = rtimeduration.split('|')[1];
+        }
+        else {
+            rowduration = 60
+        }
+    }
+    else {//if the last row
+        if (bakeryendtime > ppakagintime && bakeryendtime <= cpakagintime) { //bakeryendtime is between
+            var rtimeduration = GetTimeDuration(ppakagintime, bakeryendtime);
+            rowduration = rtimeduration.split('|')[1];
+        }
+        else {
+            var rtimeduration = GetTimeDuration(cpakagintime, bakeryendtime);
+            rowduration = 60 + parseInt(rtimeduration.split('|')[1]);
+        }
+    }
+
+
+   
+    return rowduration;
+    
+}
 
 function CalculateVolumeRow(rowid) {
 
@@ -647,8 +481,10 @@ function CalculateVolumeRow(rowid) {
         /*********Calculate production duration for first hour*********/
         var productionminute = 60;
 
+        
+
         if (rowid == "0") {
-            var endtimeobj = InitiateTimeByHourMin($("#timeslot0").html().trim())
+            var endtimeobj = InitiateTimeByHourMin($("#timeslot0").text().trim())
             console.log(endtimeobj)
 
             var endtime = endtimeobj.DateTime;
@@ -661,19 +497,11 @@ function CalculateVolumeRow(rowid) {
             console.log("first hour prodminute", productionminute)
 
         }
-
-        
-
-        if (IsPackagingTimeMore(rowid)) { 
-
-            var bendtime = new Date($("#bakerystoptime").val());
-            //var pstarttime = InitiateTimeByHourMin($("#timeslot" + rowid).html().trim())
+        else {
 
 
-            //var ftimeduration = GetTimeDuration(pstarttime.DateTime, bendtime);
-            //productionminute = ftimeduration.split('|')[1];
-            productionminute = bendtime.getMinutes();
-
+            productionminute=GetRowDuration(rowid)
+            
         }
 
         console.log("volume row duration")
@@ -683,13 +511,55 @@ function CalculateVolumeRow(rowid) {
         var efficiency = parseInt((pieces / geplantemenge) * 100);//efficiency per hour
 
 
-
+        $("#hdprodmin" + rowid).val(productionminute);
+        $("#prodmin" + rowid).text("("+productionminute + " mins)")
         $("#piece" + rowid).html(pieces);
         $("#korbe" + rowid).html(korbe);
         $("#gplant" + rowid).html(geplantemenge);
         $("#eff" + rowid).html(efficiency + "%");
 
     }
+}
+
+
+function ValidatePackaging() {
+    var empperm = $("#empperm");
+    var emptemp = $("#emptemp")
+    var empexternal = $("#empexternal")
+
+    if (empperm.val() == "" || emptemp.val() == "" || empexternal.val() == "") {
+        bootbox.alert("Bitte geben Sie die Anzahl der Mitarbeiter ein")
+        empperm.focus();
+        return false;
+    }
+
+    return true;
+}
+
+
+function ShowEfficiency(prodquantity) {
+
+    console.log("ShowEfficiency", prodquantity);
+
+    $("#producedquantity").text(prodquantity);
+
+    var plannedquantity = $("#plannedquantity").text();
+
+    var effperc = parseInt((prodquantity / parseInt(plannedquantity)) * 100);
+
+
+    $("#efficiency").text(effperc + "%");
+}
+
+function FillOrderCloseModal() {
+    var fplannedquantity = $("#plannedquantity").text();
+    var fproducedquantity = $("#producedquantity").text();
+    var fefficiency = $("#efficiency").text();
+
+    $("#forderid").text(orderid);
+    $("#fplannedqauntity").val(fplannedquantity);
+    $("#fproducedquantity").val(fproducedquantity);
+    $("#fefficiency").val(fefficiency);
 }
 
 
@@ -748,15 +618,21 @@ $(document).ready(function () {
         
         var rowid = $(this).attr("rowid"); 
 
-        CalculateVolumeRow(rowid);
+
+        if ($(this).prop("disabled") == false) {
+            CalculateVolumeRow(rowid);
+        }
+        
     })
 
     $(document).on("click", ".btnadd", function () {
-        //console.log("hello dolly")
-        var volumeid = $(this).attr("vid");
+        
+        
         var rowid = $(this).attr("rowid");
-
+        var nextrowid = parseInt(rowid) + 1;
         var dolly = $("#dolly" + rowid).val();
+
+        var volumeid = $(this).attr("vid");
 
         if (dolly == "0" || dolly=="") {
             bootbox.alert("Please enter Dollies");
@@ -764,11 +640,9 @@ $(document).ready(function () {
         }
 
                           
-
-        var rowcount = parseInt(rowid) + 1;
         var prodquantity = 0;
 
-        for (var i = 0; i <= rowcount; i++) { //max rowcount can be 7
+        for (var i = 0; i <= rowid; i++) { //max rowid can be 7
 
             var pieces = $("#piece" + i).html()
 
@@ -776,77 +650,107 @@ $(document).ready(function () {
            
         }
 
-        console.log("producedquantity", prodquantity);
-
-        $("#producedquantity").text(prodquantity);
-
-        var plannedquantity = $("#plannedquantity").text();        
-
-        var effperc = parseInt((prodquantity / parseInt(plannedquantity)) * 100);
-
-        //console.log("effperc")
-        //console.log(effperc)
-
-        $("#efficiency").text(effperc + "%");
-
-
-
         
 
-        $(this).attr("disabled", true);
-        $("#dolly" + rowid).attr("disabled", true);
+        ShowEfficiency(prodquantity)  
 
-        
+        FillOrderCloseModal();
 
-        if (IsPackagingTimeMore(rowid) == false) {
-            var nextrowid = parseInt(rowid) + 1;
+        if ($("#isbakerystopped").val() == "1") {
 
-            $(".btnadd").eq(nextrowid).attr("disabled", false);
-            $("#dolly" + nextrowid).attr("disabled", false);
+            if (IsPackagingTimeMore(rowid, 0) == false) {
 
-            if (rowid == 7) {
-                $("#finalordermodal").modal();
+                if (rowid != 7) {
+                    //disable current row
+                    $(this).attr("disabled", true);
+                    $("#dolly" + rowid).attr("disabled", true);
+                    //enable next row
+                    $(".btnadd").eq(nextrowid).attr("disabled", false);
+                    $("#dolly" + nextrowid).attr("disabled", false);
+                    //update volume
+                    UpdateVolume(volumeid, rowid);
+                }
+                else {
+                    if (ValidatePackaging()) {
+
+                        //disable current row
+                        $(this).attr("disabled", true);
+                        $("#dolly" + rowid).attr("disabled", true);
+
+                        //update volume
+                        UpdateVolume(volumeid, rowid);
+
+                        //order close
+                        $("#finalordermodal").modal({ backdrop: "static" });
+                    }
+                }
             }
+            else {
+               
+
+                if (ValidatePackaging()) {
+
+                    //disable current row
+                    $(this).attr("disabled", true);
+                    $("#dolly" + rowid).attr("disabled", true);
+
+                    //update volume
+                    UpdateVolume(volumeid, rowid);
+
+                    //order close
+                    $("#finalordermodal").modal({ backdrop: "static" });
+                }
+            }         
+            
         }
         else {
 
-            var fplannedquantity = $("#plannedquantity").text();
-            var fproducedquantity = $("#producedquantity").text();
-            var fefficiency = $("#efficiency").text();
+            //check if the last row
 
-            $("#forderid").text(orderid);
-            $("#fplannedqauntity").val(fplannedquantity);
-            $("#fproducedquantity").val(fproducedquantity);
-            $("#fefficiency").val(fefficiency);
+            if (IsPackagingTimeMore(rowid, 0) == false) {
 
-            $("#finalordermodal").modal();
+                if (rowid != 7) {
+                    $(this).attr("disabled", true);
+                    $("#dolly" + rowid).attr("disabled", true);
+                    //enable the next row
+                    $(".btnadd").eq(nextrowid).attr("disabled", false);
+                    $("#dolly" + nextrowid).attr("disabled", false);
+                    UpdateVolume(volumeid, rowid);
+                }
+                else {
+                    bootbox.alert("Production is still in process. Kindly wait...")
+                    return false;
+                }
+            }
+            else {
+                bootbox.alert("Production is still in process. Kindly wait...")
+                return false;
+            }
+            
 
         }
+                
 
-        UpdateVolume(volumeid, rowid);
+        
 
         
     })
 
 
-    $("#btnok").click(function () {
+    $("#btnlogout").click(function () {
+        CloseOrder(function () {
 
-        //alert("orderclose");
-        var orderrequest = new Object();
+            location.href = "/login/logout"
+        });        
+    })
 
-        orderrequest.ProducedQuantity = $("#producedquantity").text();
-        orderrequest.UserTypeId = usertypeid;
-        orderrequest.OrderId = orderid;
-        orderrequest.Status = 1;
+    $("#btnnew").click(function () {
 
-        ajaxrequest.URL = apiurl.ordercreate + "update";
-        ajaxrequest.Type = "POST";
-        ajaxrequest.PData = orderrequest;
+        CloseOrder(function () {
 
-        console.log("order request")
-        console.log(ajaxrequest)
-
-        SendAjaxRequest(ajaxrequest, "porderclose", hitapi.order);
+            location.href = "/order/pending"
+        });  
+        
     })
 
 })

@@ -11,25 +11,25 @@ namespace FSBAPI.Models
     {
         private FSBDBContext db = new FSBDBContext();
         public int PlannedQuantity { get; set; }
-        public int? ProducedQuantity { get; set; }
+        public int ProducedQuantity { get; set; }
         public int Speed { get; set; }
         public int Pocket { get; set; }
         public int? BunPerTray { get; set; }
         public int BunPerDolly { get; set; }
         public float BunWeight { get; set; }
-        public float? PlannedKg { get; set; }
-        public float? ProducedKg { get; set; }
-        public int? BakeryTotalWaste { get; set; }
-        public int? PackageTotalWaste { get; set; }
-        public int? TotalDowntime { get; set; }
-        public int? StillStandMin { get; set; }
-        public int? StillStandPieces { get; set; }
-        public int? TotalWasteKg { get; set; }
-        public int? TotalWastePieces { get; set; }
-        public int? TotalProduction { get; set; }
-        public int? Sollmengen { get; set; }
-        public int? LeerIndexMinute { get; set; }
-        public int? LeerIndexPieces { get; set; }
+        public int PlannedKg { get; set; }
+        public int ProducedKg { get; set; }
+        public int BakeryTotalWaste { get; set; }
+        public int PackageTotalWaste { get; set; }
+        public int TotalDowntime { get; set; }
+        public int StillStandMin { get; set; }
+        public int StillStandPieces { get; set; }
+        public int TotalWasteKg { get; set; }
+        public int TotalWastePieces { get; set; }
+        public int TotalProduction { get; set; }
+        public int Sollmengen { get; set; }
+        public int LeerIndexMinute { get; set; }
+        public int LeerIndexPieces { get; set; }
         
 
 
@@ -40,7 +40,8 @@ namespace FSBAPI.Models
                                         .SingleOrDefault(o => o.OrderId == orderid);
 
             var plannedquantity = orderdetail.PlannedQuantity;
-            var producedquantity = orderdetail.ProducedQuantity == null ? 0 : orderdetail.ProducedQuantity;
+            //var producedquantity = orderdetail.ProducedQuantity == null ? 0 : orderdetail.ProducedQuantity;
+            var producedquantity = orderdetail.ProducedQuantity;
             var speed = orderdetail.Product.Speed;
             var pocket = orderdetail.Product.ProductPocket;
             var bunweight = orderdetail.Product.BunWeight;
@@ -89,10 +90,10 @@ namespace FSBAPI.Models
 
 
             //ProducedKg
-            var producedkg = (producedquantity * bunweight) / 1000;
+            var producedkg = Math.Round((producedquantity * bunweight) / 1000);
 
             //PlanneKg
-            var plannedkg = (plannedquantity * bunweight) / 1000;
+            var plannedkg = Math.Round((plannedquantity * bunweight) / 1000);
 
 
             OrderFormula objformula = new OrderFormula();
@@ -115,8 +116,8 @@ namespace FSBAPI.Models
             objformula.StillStandPieces = stillstandpieces;
             objformula.LeerIndexMinute = leerindexminute;
             objformula.LeerIndexPieces = leerindexpiece;
-            objformula.PlannedKg = plannedkg;
-            objformula.ProducedKg = producedkg;
+            objformula.PlannedKg = Convert.ToInt32(plannedkg);
+            objformula.ProducedKg = Convert.ToInt32(producedkg);
            
 
 

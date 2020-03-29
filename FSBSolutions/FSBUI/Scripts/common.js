@@ -86,6 +86,8 @@ function FillDropDown(dropdowninfo) {
     //console.log(stateobj)
     //console.log(statedata)
     //var mstatedata = statedata;
+
+    console.log(dropdowninfo);
     var dropdownobj = dropdowninfo.controlobj;
     dropdownobj.empty();
     var stroptions = "";
@@ -96,7 +98,15 @@ function FillDropDown(dropdowninfo) {
         stroptions += "<option value=''>--Auswahlen " + dropdowninfo.dropdownname + "--</option>";
     }
     for (var i = 0; i < dropdowninfo.objdata.length; i++) {
-        stroptions += "<option  value='" + dropdowninfo.objdata[i][dropdowninfo.dropdownval] + "'>" + dropdowninfo.objdata[i][dropdowninfo.dropdowntext] + "</option>";
+
+        if (dropdowninfo.isconcatetext == 1) {
+            var contactinatedtext = dropdowninfo.objdata[i][dropdowninfo.dropdowntext] + "-" + dropdowninfo.objdata[i][dropdowninfo.concatetext];
+            stroptions += "<option  value='" + dropdowninfo.objdata[i][dropdowninfo.dropdownval] + "'>" + contactinatedtext + "</option>";
+
+        }
+        else {
+            stroptions += "<option  value='" + dropdowninfo.objdata[i][dropdowninfo.dropdownval] + "'>" + dropdowninfo.objdata[i][dropdowninfo.dropdowntext] + "</option>";
+        }
     }
 
     //console.log(strstates);
@@ -249,9 +259,11 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                     ajaxrequest.URL = "packaging/bakerystop/" + orderid;
                     SendAjaxRequest(ajaxrequest, "alertpackaging", true);
 
-                    bootbox.alert("Your order " + orderid+" has been closed", function () {
-                        location.href = "login/logout"
-                    });
+                    $("#closemsg").html("Your order " + orderid + " has been closed");
+                    $("#bakeryclose").modal({ backdrop: "static" });
+                    //bootbox.alert("Your order " + orderid+" has been closed", function () {
+                    //    location.href = "login/logout"
+                    //});
                     
                 }
 
@@ -302,7 +314,8 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
                 if (step == "porderclose") {
 
                     console.log("porderclose")
-                    location.href = "login/logout"
+                    //location.href = "login/logout"
+                    callback();
                     
                     //bootbox.alert("Your order has been closed", function () {
                     //    location.href = "login/logout"

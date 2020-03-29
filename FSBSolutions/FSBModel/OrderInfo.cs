@@ -28,7 +28,9 @@ namespace FSBModel
 
         public DateTime LoggedinTime { get; set; }
 
-        
+        public int PremanentEmp { get; set; }
+        public int TemporaryEmp { get; set; }
+        public int ExternalEmp { get; set; }
 
     }
 

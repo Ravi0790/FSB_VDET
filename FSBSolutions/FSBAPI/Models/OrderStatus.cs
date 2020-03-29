@@ -15,6 +15,12 @@ namespace FSBAPI.Models
 
         public int UserId { get; set; }
 
+        public int PremanentEmp { get; set; }
+
+        public int TemporaryEmp { get; set; }
+
+        public int ExternalEmp { get; set; }
+
         public int Status { get; set; }
     }
 }

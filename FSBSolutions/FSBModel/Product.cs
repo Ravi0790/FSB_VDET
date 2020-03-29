@@ -78,19 +78,19 @@ namespace FSBModel
         public string ProductColor { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Type")]
+        [Display(Name = "Type")] //prod_misc1
         public string ProductType { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(50)]//prod_misc2
         [Display(Name = "Packaging Unit")]
         public string PackagingUnit { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50)]//prod_misc3
         [Display(Name = "Packaging Unit Color")]
         public string PackagingUnitColor { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50)]//prod_misc4
         [Display(Name = "Master Pack Unit")]
         public string MasterPackUnit { get; set; }
 
@@ -137,6 +137,8 @@ namespace FSBModel
         [Display(Name = "Speed Unit")]
         [StringLength(20)]
         public string SpeedUnit { get; set; }
+
+        //public int test1 { get; set; }
 
     }
 }

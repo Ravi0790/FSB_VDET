@@ -115,6 +115,8 @@ function ShowVolumes() {
     var currenthour = parseInt(timeinfo[0].Hour);
 
     var volumhour = [];
+    var dollyheading = $("#masterpackunit").val();
+    $("#thdolly").html(dollyheading.toLowerCase().indexOf("pallet") > -1 ? "Pallets" : "Dollies");
 
     //var i = 1;
     for (var i = 1; i <= 8; i++) {
@@ -166,6 +168,10 @@ function ShowVolumesAfterPending(volumelist) {
 
     var producedquantity = 0;
     var effperc = 0;
+
+    var dollyheading = $("#masterpackunit").val();
+    $("#thdolly").html(dollyheading.toLowerCase().indexOf("pallet") > -1 ? "Pallets" : "Dollies");
+
 
     for (var i = 0; i < volumelist.length; i++) {
 
@@ -280,17 +286,17 @@ function CreateOrder() {
     orderrequest.ProductId = productid;
     orderrequest.OrderStartTime = orderstartime;
     orderrequest.PlannedQuantity = plannedquantity;
-    orderrequest.PremanentEmp = $("#empperm").val();
-    orderrequest.TemporaryEmp = $("#emptemp").val();
-    orderrequest.ExternalEmp = $("#empexternal").val();
+    
     orderrequest.CreatedDate = createddate;
 
-    //console.log("orderrequest")
-    //console.log(orderrequest)
+    console.log("orderrequest")
+    
 
     ajaxrequest.URL = apiurl.ordercreate;
     ajaxrequest.Type = "POST";
     ajaxrequest.PData = orderrequest;
+
+    console.log(ajaxrequest)
 
     SendAjaxRequest(ajaxrequest, "ordercreate", hitapi.order);
 
@@ -304,9 +310,12 @@ function CreateOrderInfo(gorderid) {
     orderinforequest.OrderStatus =0;
     orderinforequest.LoggedinTime = GetCurrentTime();
     orderinforequest.UpdatedLoggedinTime = GetCurrentTime();
+    orderinforequest.PremanentEmp = $("#empperm").val();
+    orderinforequest.TemporaryEmp = $("#emptemp").val();
+    orderinforequest.ExternalEmp = $("#empexternal").val();
     
-    //console.log("orderinforequest")
-    //console.log(orderinforequest)
+    console.log("orderinforequest")
+    console.log(orderinforequest)
 
     ajaxrequest.URL = apiurl.orderinfo;
     ajaxrequest.Type = "POST";
@@ -328,9 +337,12 @@ function GetOrderById() {
 function SetOrderValues(orderdata) {
     SetProductValues(orderdata.Line.Products[0])
 
-    $("#empperm").val(orderdata.PremanentEmp);
-    $("#emptemp").val(orderdata.TemporaryEmp);
-    $("#empexternal").val(orderdata.ExternalEmp);
+    
+    var bakeryinfo = orderdata.OrderInfos.filter(x => x.UserTypeId == 1);
+
+    $("#empperm").val(bakeryinfo[0].PremanentEmp);
+    $("#emptemp").val(bakeryinfo[0].TemporaryEmp);
+    $("#empexternal").val(bakeryinfo[0].ExternalEmp);
     $("#sapnumber").val(orderdata.SAPReferenceNumber);
     startimeafterpending = orderdata.OrderStartTime;
 
@@ -414,12 +426,17 @@ function GetProductsByLine(callback) {
 
     dropdowninfo.controlobj = $("#product");
     dropdowninfo.objdata = "";
-    dropdowninfo.dropdowntext = "ProductName";
+    dropdowninfo.dropdowntext = "ProductName"
     dropdowninfo.dropdownval = "ProductId";
     dropdowninfo.dropdownname = "";
     dropdowninfo.selectedval = "";
+    dropdowninfo.isconcatetext = 1;
+    dropdowninfo.concatetext = "ProductDesc";
 
     ajaxrequest.URL = apiurl.productsbylineusertype + lineid + "/" + usertypeid;
+
+    console.log("product request")
+    console.log(ajaxrequest);
 
     SendAjaxRequest(ajaxrequest, "dropdownfill", hitapi.lines, dropdowninfo, callback);
 
@@ -440,6 +457,8 @@ function SetProductValues(product) {
 
     $("#weightunit").text("(" + product.WeightUnit + ")")
     $("#speedunit").text("(" + product.SpeedUnit + ")")
+
+    $("#masterpackunit").val(product.MasterPackUnit);
 }
 
 
@@ -480,10 +499,23 @@ function GetShiftByPlant(callback) {
 
 function ShowTeigteileruhr(gcallback) {
     bootbox.prompt({
-        title: "Dauer der Teigteileruhr (Minuten)",
+        title: "Dauer der Teigteileruhr (min)",
         centerVertical: true,
+        size: "small",
+        buttons: {
+            cancel: {
+                label: "Cancel",
+                className: 'btn btn-primary mr-3'
+                
+            },
+            confirm: {
+                label: "OK",
+                className: 'btn btn-primary mr-3'
+                
+            }
+        },
         callback: function (result) {
-            
+
             if (result != null) {
                 $("#ttduration").val(result);
                 gcallback()
@@ -643,6 +675,13 @@ $(document).ready(function () {
         
     })
 
+    $("#btnlogout").click(function () {
+        location.href = "login/logout"
+    })
 
+
+    $("#btnnew").click(function () {        
+        location.href = "/bakery"
+    })
    
 })

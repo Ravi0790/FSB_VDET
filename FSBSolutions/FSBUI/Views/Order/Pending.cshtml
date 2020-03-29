@@ -7,12 +7,16 @@
 <div class="minHeight400">
     <div class="row pt-4 pb-4">
         <div class="col-12">
-            <h1 class="fs-regular-20 text-uppercase font-weight-bold">Department - Bakery</h1>
+            <h1 class="fs-regular-20 text-uppercase font-weight-bold">@ViewBag.UserTypeName</h1>
             @{ 
                 var pendingordercount = Model.OrderDetails.Count();
+                var loggeinuser = Convert.ToInt16(Session["userid"]);
+                var bakeryuserid = 0;
+                var packaginguserid = 0;
+
             }
             <p class="font-weight-bold">Pending Orders <span>(@pendingordercount)</span></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consectetur, metus quis efficitur tincidunt, felis magna sagittis ante, ut maximus ex velit nec purus. In vel arcu</p>
+            @*<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse consectetur, metus quis efficitur tincidunt, felis magna sagittis ante, ut maximus ex velit nec purus. In vel arcu</p>*@
         </div>
     </div>
     <div class="w-sm-100">
@@ -39,12 +43,12 @@
                     }
 
                     else
-                    { 
-                
+                    {
+
 
                         foreach (var item in Model.OrderDetails)
                         {
-                            <tr>
+                        <tr>
                             @{
                                 var cdate = item.CreatedDate.ToString("dd MMM yyyy");
                                 var objorderinfo = Model.OrderInfos.Where(x => x.OrderId == item.OrderId);
@@ -53,12 +57,13 @@
                                 var packagingstatus = "";
                                 var usertypeid = Convert.ToString(Session["usertypeid"]);
 
+
                                 if (usercount == 1)
                                 {
                                     var objbakery = objorderinfo.SingleOrDefault(x => x.UserType.UserTypeName.ToLower() == "bakery");
 
                                     bakerystatus = objbakery.OrderStatus == 0 ? "In Process" : "Finished";
-
+                                    bakeryuserid = objbakery.UserId;
 
                                 }
                                 else
@@ -69,7 +74,8 @@
                                     bakerystatus = objbakery.OrderStatus == 0 ? "In Process" : "Finished";
                                     packagingstatus = objpackaging.OrderStatus == 0 ? "In Process" : "Finished";
 
-
+                                    bakeryuserid = objbakery.UserId;
+                                    packaginguserid = objpackaging.UserId;
                                 }
                             }
 
@@ -78,7 +84,7 @@
                                 @{
                                     var controllername = usertypeid == "1" ? "Bakery" : "Packaging";
                                     var formname = "form" + item.OrderId;
-                                    
+
                                 }
 
                                 @using (Html.BeginForm("Index", controllername, FormMethod.Post, new { id = formname }))
@@ -91,7 +97,17 @@
                                     }
                                     else
                                     {
-                                    <a href="javascript:document.getElementById('@formname').submit()" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
+                                        if (loggeinuser == bakeryuserid || loggeinuser == packaginguserid)
+                                        {
+                                            <a href="javascript:document.getElementById('@formname').submit()" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:void" class="font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
+                                        }
+
+
+
                                     }
                                 }
                             </td>
@@ -112,29 +128,53 @@
                                 if (usercount == 1)
                                 {
 
-
-                                    <td class="hide-sm">@bakerystatus</td>
-                                    <td class="hide-sm">Offen</td>
+                                    if (loggeinuser == bakeryuserid)
+                                    {
+                                        <td class="hide-sm">@bakerystatus</td>
+                                        <td class="hide-sm">Offen</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="hide-sm">In Process</td>
+                                        <td class="hide-sm">Offen</td>
+                                    }
                                 }
                                 else
                                 {
-                                   <td class="hide-sm">@bakerystatus</td>
-                                    <td class="hide-sm">@packagingstatus</td>
+
+                                    if (loggeinuser == bakeryuserid)
+                                    {
+
+                                        <td class="hide-sm">@bakerystatus</td>
+                                    }
+                                    else
+                                    {
+                                        <td class="hide-sm">InProcess</td>
+                                    }
+
+                                    if (loggeinuser == packaginguserid)
+                                    {
+                                        <td class="hide-sm">@packagingstatus</td>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="hide-sm">InProcess</td>
+                                        }
+                                    }
+
                                 }
-                            }
+
+                                @{
+
+                                    var finalstatus = item.FinalStatus == 0 ? "Offen" : "Finished";
+
+                                    <td class="hide-sm">&nbsp;@finalstatus</td>
+
+                                }
 
 
-
-                            @{
-
-                                var finalstatus = item.FinalStatus == 0 ? "Offen" : "Finished";
-
-                                <td class="hide-sm">&nbsp;@finalstatus</td>
-
-                            }
-
-
-                        </tr>
+                            </tr>
                 
                         }
                     }
