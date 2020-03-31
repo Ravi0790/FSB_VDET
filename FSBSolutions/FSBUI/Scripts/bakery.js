@@ -181,11 +181,13 @@ function ShowVolumesAfterPending(volumelist) {
         var pieces = volumelist[i].Pieces;
         var geplantemenge = volumelist[i].GeplanteMenge; 
         var efficiency = volumelist[i].Efficiency; 
+        var duration = "(" + volumelist[i].Duration + " mins)";
                      
         producedquantity += parseInt(pieces);
         
         strvoltr += "<tr>"
-        strvoltr += "<td class='text-left font-weight-bold pl-4' > " + timeslot + "</td>"
+        //strvoltr += "<td class='text-left font-weight-bold pl-4' > " + timeslot + "</td>"
+        strvoltr += "<td class='text-center font-weight-bold pl-4'><span>" + timeslot + "</span><br/><span style='font-size:12px'>" + duration + "</span></td>"
         strvoltr += "<td class='text-center'>" + dollies+"</td> "
         strvoltr += "<td class='text-center'>" + korbe+"</td> "
         strvoltr += "<td class='text-center'>" + pieces+"</td> "
@@ -497,6 +499,8 @@ function GetShiftByPlant(callback) {
 }
 
 
+
+
 function ShowTeigteileruhr(gcallback) {
     bootbox.prompt({
         title: "Dauer der Teigteileruhr (min)",
@@ -588,6 +592,7 @@ $(document).ready(function () {
         GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
 
         $("#loginstatus").val("pending");
+        ShowGraphProduction();
         
     }
     else {
@@ -599,6 +604,8 @@ $(document).ready(function () {
         $("#dvwastedetail").hide();//hiding waste information before order is created
         //DisableWasteControls()
         $("#loginstatus").val("firsttime");
+
+        ShowGraphProduction()
     }
 
 

@@ -97,16 +97,7 @@
                                     }
                                     else
                                     {
-                                        if (loggeinuser == bakeryuserid || loggeinuser == packaginguserid)
-                                        {
-                                            <a href="javascript:document.getElementById('@formname').submit()" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="javascript:void" class="font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
-                                        }
-
-
+                                        <a href="javascript:document.getElementById('@formname').submit()" class="redLink font-weight-bold">@Html.DisplayFor(modelItem => item.OrderId)</a>
 
                                     }
                                 }
@@ -128,53 +119,28 @@
                                 if (usercount == 1)
                                 {
 
-                                    if (loggeinuser == bakeryuserid)
-                                    {
-                                        <td class="hide-sm">@bakerystatus</td>
-                                        <td class="hide-sm">Offen</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="hide-sm">In Process</td>
-                                        <td class="hide-sm">Offen</td>
-                                    }
+                                    <td class="hide-sm">@bakerystatus</td>
+                                    <td class="hide-sm">Offen</td>
                                 }
                                 else
                                 {
 
-                                    if (loggeinuser == bakeryuserid)
-                                    {
-
-                                        <td class="hide-sm">@bakerystatus</td>
-                                    }
-                                    else
-                                    {
-                                        <td class="hide-sm">InProcess</td>
-                                    }
-
-                                    if (loggeinuser == packaginguserid)
-                                    {
-                                        <td class="hide-sm">@packagingstatus</td>
-
-                                    }
-                                    else
-                                    {
-                                        <td class="hide-sm">InProcess</td>
-                                        }
-                                    }
-
+                                    <td class="hide-sm">@bakerystatus</td>
+                                    <td class="hide-sm">@packagingstatus</td>
                                 }
 
-                                @{
+                            }
 
-                                    var finalstatus = item.FinalStatus == 0 ? "Offen" : "Finished";
+                            @{
 
-                                    <td class="hide-sm">&nbsp;@finalstatus</td>
+                                var finalstatus = item.FinalStatus == 0 ? "Offen" : "Finished";
 
-                                }
+                                <td class="hide-sm">@finalstatus</td>
+
+                            }
 
 
-                            </tr>
+                        </tr>
                 
                         }
                     }

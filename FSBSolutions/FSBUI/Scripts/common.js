@@ -51,6 +51,7 @@ apiurl.orderinfo = "/services/api/orderinfoes"
 apiurl.orderinfobyorder = "/services/api/orderinfoes/order/"
 apiurl.ordervolume = "/services/api/ordervolumes/"
 apiurl.ordervolumebyorder = "/services/api/ordervolumes/order/"
+apiurl.fusioncharts = "/services/api/fusioncharts/"
 
 
 
@@ -323,6 +324,14 @@ function SendAjaxRequest(arequest, step,isapihit,dropdowninfo,callback) {
 
                 }
 
+                if (step == "graph1") {
+                    console.log("graph data")
+                    console.log(data)
+                    var chartConfigs = data;
+
+                    $("#chart-container").insertFusionCharts(chartConfigs);
+                }
+
 
             }
         },
@@ -528,6 +537,12 @@ function EnableMachine() {
 
     $("#machinestart").attr("disabled", false);
     $("#btnmachinestart").attr("disabled", false);
+}
+
+function ShowGraphProduction() {
+    var pdate = $("#pdate").val();
+    ajaxrequest.URL = apiurl.fusioncharts + "dailyproduction?cdate=" + pdate + "&lineid=" + lineid + "";
+    SendAjaxRequest(ajaxrequest, "graph1", hitapi.order);
 }
 
 

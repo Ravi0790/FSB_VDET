@@ -327,6 +327,7 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Bakery\Index.cshtml" />
     <Content Include="Views\Bakery\Index-old.cshtml" />
+    <Content Include="Views\Shared\_ProductionGraph.cshtml" />
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

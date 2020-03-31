@@ -35,39 +35,7 @@
                 <h1 class="fs-regular-20 text-uppercase font-weight-bold">Verpackungabteilung</h1>
             </div>
         </div>
-        <div class="row mt-1">
-            <div class="col-12">
-                <div class="bg-white shadow rounded">
-                    <div class="heading row of-h p-2"><p class="col-10 float-left fs-regular-16 font-weight-bold text-uppercase mb-0">Letze 3 Tag Produktion </p><p class="col-2 mt-1"><a href="javascipt:void()" class="float-right upperArrow d-block"></a></p></div>
-                    <div class="clearfix"></div>
-
-                    <div class="bakeryAccordionData mobileXscroll pl-3 pr-3 pb-3">
-                        <div class="row">
-                            <div class="col-lg-1 col-md-1">
-                                <span class="lh-40">@DateTime.Now.AddDays(-3).ToString("dd/MM/yyyy")</span>
-                            </div>
-                            <div class="col-lg-11 col-md-11">
-                            <div class="w-25 productionRow1 float-left fs-regular-14 fs-regular-sm-12 fc-grey pl-1 text-wrap d-flex align-center">Hamburger</div>
-                            <div class="w-50 productionRow2 float-left fs-regular-14 fs-regular-sm-12 fc-grey pl-1 text-wrap d-flex align-center">McRib</div>
-                            <div class="w-25 productionRow3 float-left fs-regular-14 fs-regular-sm-12 fc-grey pl-1 text-wrap d-flex align-center">Jerra Brot</div></div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-lg-1 col-md-1">
-                                <span class="lh-40">@DateTime.Now.AddDays(-2).ToString("dd/MM/yyyy")</span>
-                            </div>
-                            <div class="col-lg-11 col-md-11"><div class="w-50 productionRow2 float-left fs-regular-14 fs-regular-sm-12 fc-grey pl-1 text-wrap d-flex align-center">McRib</div><div class="w-50 productionRow1 float-left fs-regular-14 fs-regular-sm-12 fc-grey pl-1 text-wrap d-flex align-center">Hamburger</div></div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-lg-1 col-md-1">
-                                <span class="lh-40">@DateTime.Now.AddDays(-1).ToString("dd/MM/yyyy")</span>
-                            </div>
-                            <div class="col-lg-11 col-md-11"><div class="w-100 productionRow3 float-left fs-regular-14 fs-regular-sm-12 fc-grey pl-1 text-wrap d-flex align-center">Jeera Brot</div></div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        @Html.Partial("_ProductionGraph")
         <input type="hidden" value="@ViewBag.LineId" id="lineid" />
         <input type="hidden" value="@ViewBag.UserTypeId" id="usertypeid" />
         <input type="hidden" value="@ViewBag.UserId" id="userid" />
@@ -98,9 +66,9 @@
                         <form action="">
                             <div class="row pl-3 pr-3 mt-3 sm-mt-0">
                                 <!--<div class="col-lg-2 col-md-2 col-sm-12 col-12 sm-mt-15px"><strong class="fs-regular-14 lh-40">Product</strong></div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-                                    <span class="lh-40 fc-1 font-weight-bold">Hamburger</span>
-                                </div>-->
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                                <span class="lh-40 fc-1 font-weight-bold">Hamburger</span>
+                            </div>-->
 
 
                                 <div class="col-lg-4 col-md-4 col-sm-7 col-7 sm-mt-0">
@@ -166,11 +134,11 @@
                             </div>
                             @*<div class="border-bottom"></div>
 
-                                <div class="text-center pt-3 pl-3 pr-3">
+                            <div class="text-center pt-3 pl-3 pr-3">
 
-                                    <button type="button" id="btnend" class="btn btn-primary btn-disabled ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4" disabled>Finish</button>
-                                </div>
-                                <div class="border-bottom"></div>*@
+                                <button type="button" id="btnend" class="btn btn-primary btn-disabled ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4" disabled>Finish</button>
+                            </div>
+                            <div class="border-bottom"></div>*@
                             <div class="qualityDataWrap">
                                 <div class="row justify-content-between p-2">
                                     <div class="col-auto">Geplannte Menge <span class="font-weight-bold ml-2" id="plannedquantity">0</span></div>
@@ -500,9 +468,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="finalorderRowTitle">Order ID: <span id="forderid"></span></h5>
-                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>*@
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -543,6 +511,9 @@
 {
 
     @Scripts.Render("~/bundles/fsbscript")
+    <script src="~/Scripts/fusionchart/fusioncharts.js"></script>
+    <script src="~/Scripts/fusionchart/fusioncharts.theme.fusion.js"></script>
+    <script src="~/Scripts/fusionchart/fusioncharts.jqueryplugin.min.js"></script>
     @Scripts.Render("~/bundles/packagingscript")
 
     <script>

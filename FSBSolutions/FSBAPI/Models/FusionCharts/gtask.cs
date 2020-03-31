@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FSBAPI.Models.FusionCharts
 {
-    public class Task
+    public class gtask
     {
         public string label { get; set; }
         public string processid { get; set; }

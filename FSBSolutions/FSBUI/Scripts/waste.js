@@ -914,7 +914,7 @@ function ValidateWaste() {
 
         if (wastekg.prop("disabled") == false) {
             if (wastekg.val() == "") {
-                bootbox.alert("Bitte den Ausschussmenge betreten");
+                bootbox.alert("Bitte den Ausschussmenge eingeben");
                 wastekg.focus();
                 return false;
             }

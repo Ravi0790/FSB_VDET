@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FSBAPI.Models.FusionCharts
 {
-    public class Category
+    public class category
     {
         public string start { get; set; }
         public string end { get; set; }

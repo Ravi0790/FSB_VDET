@@ -163,6 +163,7 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
     <Compile Include="Controllers\CountriesController.cs" />
+    <Compile Include="Controllers\FusionChartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LinesController.cs" />
     <Compile Include="Controllers\LocationsController.cs" />
@@ -186,12 +187,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\FusionCharts\Category.cs" />
-    <Compile Include="Models\FusionCharts\Chart.cs" />
+    <Compile Include="Models\FusionCharts\categories.cs" />
+    <Compile Include="Models\FusionCharts\category.cs" />
+    <Compile Include="Models\FusionCharts\chart.cs" />
     <Compile Include="Models\FusionCharts\Charts\GanttChart.cs" />
     <Compile Include="Models\FusionCharts\dataSource.cs" />
-    <Compile Include="Models\FusionCharts\Process.cs" />
-    <Compile Include="Models\FusionCharts\Task.cs" />
+    <Compile Include="Models\FusionCharts\process.cs" />
+    <Compile Include="Models\FusionCharts\processes.cs" />
+    <Compile Include="Models\FusionCharts\gtask.cs" />
+    <Compile Include="Models\FusionCharts\gtasks.cs" />
     <Compile Include="Models\OrderFormula.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\OrderVolumeList.cs" />

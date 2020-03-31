@@ -29,8 +29,8 @@ namespace FSBUI.Models
 
             IList <OrderDetail> orderdetail = db.OrderDetails
                                             //.Include(x => x.OrderInfos)
-                                            //.Where(x=>x.CreatedDate >= startdate && x.CreatedDate <= enddate && x.LineId==lineid && x.FinalStatus==0).ToList();
-                                            .Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.CreatedDate.Day == startdate.Day && o.LineId == lineid && o.FinalStatus==0).ToList();
+                                            .Where(x=>x.CreatedDate >= startdate && x.CreatedDate <= enddate && x.LineId==lineid && x.FinalStatus==0).ToList();
+                                            //.Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.CreatedDate.Day == startdate.Day && o.LineId == lineid && o.FinalStatus==0).ToList();
                                             //.Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.LineId == lineid).ToList();
             //.Where(o=>o.LineId==lineid).ToList();
 
@@ -56,13 +56,15 @@ namespace FSBUI.Models
                                             .Include(o => o.Line)
                                             .Include(o => o.Product)
                                             .Include(o => o.Shift)
-                                            .Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.CreatedDate.Day == startdate.Day && o.LineId == lineid && o.FinalStatus==0)
+                                            .Where(x => x.CreatedDate >= startdate && x.CreatedDate <= enddate && x.LineId == lineid && x.FinalStatus == 0)
+                                            //.Where(o => o.CreatedDate.Year == startdate.Year && o.CreatedDate.Month == startdate.Month && o.CreatedDate.Day == startdate.Day && o.LineId == lineid && o.FinalStatus==0)
                                             .OrderByDescending(x => x.OrderId).ToList(),
 
                 OrderInfos = db.OrderInfos
                                             .Include(o => o.UserType)
                                             .Include(o => o.User)
-                                            .Where(o => o.LoggedinTime.Year == startdate.Year && o.LoggedinTime.Month == startdate.Month && o.LoggedinTime.Day == startdate.Day && o.OrderDetail.LineId == lineid)
+                                            .Where(x => x.LoggedinTime >= startdate && x.LoggedinTime <= enddate && x.OrderDetail.LineId == lineid)
+                                            //.Where(o => o.LoggedinTime.Year == startdate.Year && o.LoggedinTime.Month == startdate.Month && o.LoggedinTime.Day == startdate.Day && o.OrderDetail.LineId == lineid)
                                             .OrderByDescending(x => x.OrderId).ToList()
             };
 

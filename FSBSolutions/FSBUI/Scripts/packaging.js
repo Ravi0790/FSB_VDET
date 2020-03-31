@@ -248,7 +248,7 @@ function SetOrderValues(orderdata) {
 
     $("#prodstarttime").text(startime);
 
-    $("#shifts").val(orderdata.ShiftId);
+    $("#shifts").text(orderdata.Shift.ShiftName);
 
     $("#linename").text(orderdata.Line.LineName);
 
@@ -603,6 +603,7 @@ $(document).ready(function () {
         GetWastesByOrderUserType();//Get Waste Details based on OrderId and UserType
 
         $("#loginstatus").val("pending");
+        ShowGraphProduction();
 
     }
     
@@ -752,5 +753,12 @@ $(document).ready(function () {
         });  
         
     })
+
+
+    $('#finalordermodal').on('hide', function () {
+        console.log('hide');
+    });
+        
+    
 
 })
