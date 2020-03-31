@@ -488,6 +488,18 @@ function CalculateVolumeRow(rowid) {
             console.log(endtimeobj)
 
             var endtime = endtimeobj.DateTime;
+
+            if ($("#isbakerystopped").val() == "1") {
+                bakeryendtime = new Date($("#bakerystoptime").val());                
+                
+
+                if (bakeryendtime < endtimeobj.DateTime) {
+                    endtime = bakeryendtime;
+                }
+            }
+
+            console.log("first row")
+
             var starttime = new Date(startimeafterpending) //start time of the bakery
 
             var timeduration = GetTimeDuration(starttime, endtime);
