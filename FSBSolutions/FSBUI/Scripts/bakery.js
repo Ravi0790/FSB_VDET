@@ -687,8 +687,10 @@ $(document).ready(function () {
     })
 
 
-    $("#btnnew").click(function () {        
+    $("#btnnew").click(function () { 
+        //create new order
         location.href = "/bakery"
+        
     })
    
 })

@@ -671,7 +671,10 @@ $(document).ready(function () {
 
         if ($("#isbakerystopped").val() == "1") {
 
-            if (IsPackagingTimeMore(rowid, 0) == false) {
+            console.log("ispackagingmore")
+            console.log(IsPackagingTimeMore(rowid, 1))
+
+            if (IsPackagingTimeMore(rowid, 1) == false) {
 
                 if (rowid != 7) {
                     //disable current row
@@ -683,7 +686,7 @@ $(document).ready(function () {
                     //update volume
                     UpdateVolume(volumeid, rowid);
                 }
-                else {
+                else { //if last row
                     if (ValidatePackaging()) {
 
                         //disable current row

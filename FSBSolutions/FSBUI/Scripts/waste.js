@@ -1173,6 +1173,8 @@ $(document).ready(function () {
     })
 
     $(document).keydown(function (event) {
+
+        //keydown events
         var keycode = (event.keyCode ? event.keyCode : event.which);
         var prodstatus = $("#chkprodstatus")
 
