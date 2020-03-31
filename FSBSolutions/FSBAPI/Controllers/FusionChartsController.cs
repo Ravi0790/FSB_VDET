@@ -41,7 +41,7 @@ namespace FSBAPI.Controllers
 
             objganttchart.type = "gantt";
             objganttchart.width = "100%";
-            objganttchart.height = "150";
+            objganttchart.height = "120";
             objganttchart.dataFormat = "json";
 
             dataSource objdatasource = new dataSource();
