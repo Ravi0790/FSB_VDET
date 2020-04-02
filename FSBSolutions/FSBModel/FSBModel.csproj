@@ -76,6 +76,7 @@
     <Compile Include="Component.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="DailyProduction.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.cs" />
     <Compile Include="Migrations\202001310057201_AddOrderandWasteDetailTable.Designer.cs">
