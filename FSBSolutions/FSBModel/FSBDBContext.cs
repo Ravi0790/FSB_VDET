@@ -50,7 +50,13 @@ namespace FSBModel
 
         public DbSet<AspNetRoles> AspNetRoles { get; set; }
 
+
+        public DbSet<DailyProduction> DailyProductions { get; set; }
+
+        public DbSet<ContainerWaste> ContainerWastes { get; set; }
         
+
+
 
     }
 }

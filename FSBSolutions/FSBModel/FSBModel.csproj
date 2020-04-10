@@ -74,6 +74,7 @@
     <Compile Include="AspNetUsers.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="Component.cs" />
+    <Compile Include="ContainerWaste.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="DailyProduction.cs" />
@@ -253,6 +254,26 @@
     <Compile Include="Migrations\202003240549397_AddDurationinVolumeTable.cs" />
     <Compile Include="Migrations\202003240549397_AddDurationinVolumeTable.Designer.cs">
       <DependentUpon>202003240549397_AddDurationinVolumeTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004041059053_AddDailyProductionTable.cs" />
+    <Compile Include="Migrations\202004041059053_AddDailyProductionTable.Designer.cs">
+      <DependentUpon>202004041059053_AddDailyProductionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004041113347_ChangeinDailyProduction.cs" />
+    <Compile Include="Migrations\202004041113347_ChangeinDailyProduction.Designer.cs">
+      <DependentUpon>202004041113347_ChangeinDailyProduction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004051916505_DailyProdtableField.cs" />
+    <Compile Include="Migrations\202004051916505_DailyProdtableField.Designer.cs">
+      <DependentUpon>202004051916505_DailyProdtableField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004061249271_addnewfieldsindailyproduction.cs" />
+    <Compile Include="Migrations\202004061249271_addnewfieldsindailyproduction.Designer.cs">
+      <DependentUpon>202004061249271_addnewfieldsindailyproduction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004081121390_AddedContainerWaste.cs" />
+    <Compile Include="Migrations\202004081121390_AddedContainerWaste.Designer.cs">
+      <DependentUpon>202004081121390_AddedContainerWaste.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderInfo.cs" />
@@ -492,6 +513,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003240549397_AddDurationinVolumeTable.resx">
       <DependentUpon>202003240549397_AddDurationinVolumeTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041059053_AddDailyProductionTable.resx">
+      <DependentUpon>202004041059053_AddDailyProductionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004041113347_ChangeinDailyProduction.resx">
+      <DependentUpon>202004041113347_ChangeinDailyProduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004051916505_DailyProdtableField.resx">
+      <DependentUpon>202004051916505_DailyProdtableField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004061249271_addnewfieldsindailyproduction.resx">
+      <DependentUpon>202004061249271_addnewfieldsindailyproduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004081121390_AddedContainerWaste.resx">
+      <DependentUpon>202004081121390_AddedContainerWaste.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

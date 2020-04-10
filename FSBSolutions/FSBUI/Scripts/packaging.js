@@ -577,18 +577,7 @@ function FillOrderCloseModal() {
 
 $(document).ready(function () {
 
-    $(document).ajaxStart(function () {
-        $(".fixedLoaderWrap").show()
-    });
-
-    $(document).ajaxComplete(function () {
-        $(".fixedLoaderWrap").hide()
-    });
-
-
-
-
-    lineid = $("#lineid").val();
+       lineid = $("#lineid").val();
     usertypeid = $("#usertypeid").val();
     plantid = $("#plantid").val();
     userid = $("#userid").val();

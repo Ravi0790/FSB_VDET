@@ -551,16 +551,7 @@ function runFunctionBeforePending(callback) {
 
 $(document).ready(function () {
 
-        $(document).ajaxStart(function () {
-            $(".fixedLoaderWrap").show()
-        });
-
-        $(document).ajaxComplete(function () {
-            $(".fixedLoaderWrap").hide()
-        });
-
-
-    
+            
     
     lineid = $("#lineid").val();
     usertypeid = $("#usertypeid").val();

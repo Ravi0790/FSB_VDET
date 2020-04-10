@@ -545,4 +545,12 @@ function ShowGraphProduction() {
     SendAjaxRequest(ajaxrequest, "graph1", hitapi.order);
 }
 
+$(document).ajaxStart(function () {
+    $(".fixedLoaderWrap").show()
+});
+
+$(document).ajaxComplete(function () {
+    $(".fixedLoaderWrap").hide()
+});
+
 

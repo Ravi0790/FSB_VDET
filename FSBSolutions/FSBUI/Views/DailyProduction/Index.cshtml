@@ -2,8 +2,8 @@
 @model FSBModel.DailyProduction
 
 @{
-    ViewBag.Title = "Create";
-    ViewBag.Heading = "Daily Production Data";
+    ViewBag.Title = "Daily Production";
+    ViewBag.Heading = "Daily Production";
 }
 <div class="container-fluid">
     <div class="row no-gutters">
@@ -13,19 +13,21 @@
                 <div class="border-bottom "></div>
 
                 <div class="row infoTabView justify-content-center">
-                    <a href="daily-production-data.html" class="active text-uppercase text-center">Add</a>
-                    <a href="edit-production-data.html" class="text-uppercase text-center">Edit</a>
+                    <a href="javascript:void(0)" class="active text-uppercase text-center tab" aval="0">Add</a>
+                    <a href="javascript:void(0)" class="text-uppercase text-center tab" aval="1">Edit</a>
                 </div>
 
 
-                <div class="p-5 p-sm-4">
-                    @using (Html.BeginForm())
+                <div class="p-5 p-sm-4 dailyform">
+                    @using (Ajax.BeginForm("Index", new AjaxOptions() { OnSuccess = "fnSuccess", OnFailure = "fnFailure" }))
                     {
                         <div id="dvstart" class="row">
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @*<label for="CountryId">Datum</label>*@
-                                @Html.LabelFor(model => model.CDate)
-                                @Html.EditorFor(model => model.CDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.LabelFor(model => model.PDate)
+                                @*@Html.EditorFor(model => model.PDate, new { htmlAttributes = new { @class = "form-control Datepicker" } })*@
+                                @Html.EditorFor(model => model.PDate, new { htmlAttributes = new { @class = "form-control Datepicker" } })
+                                @Html.ValidationMessageFor(model => model.PDate, "", new { @class = "text-danger" })
 
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
@@ -34,70 +36,269 @@
 
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Line)
-                                @Html.DropDownListFor(model => model.Line, Enumerable.Empty<SelectListItem>(), "--Select Line--", htmlAttributes: new { @class = "form-control", id = "ddlLine" })
+                                @*@Html.DropDownListFor(model => model.Line, Enumerable.Empty<SelectListItem>(), "--Select Line--", htmlAttributes: new { @class = "form-control", id = "line" })*@
+                                @*@Html.DropDownList("Line", null, "--Select Line--", htmlAttributes: new { @class = "form-control", id = "line" })*@
+                                @Html.DropDownListFor(model => model.LineId, null, "--Select Line--", htmlAttributes: new { @class = "form-control", id = "line" })
+                                @Html.ValidationMessageFor(model => model.Line, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Line, new { id = "linename" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.ProductName)
-                                @Html.DropDownListFor(model => model.ProductName, Enumerable.Empty<SelectListItem>(), "--Select Product--", htmlAttributes: new { @class = "form-control", id = "ddlProduct" })
+                                @Html.DropDownListFor(model => model.ProductId, Enumerable.Empty<SelectListItem>(), "--Select Product--", htmlAttributes: new { @class = "form-control", id = "product" })
+                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.ProductName, new { id = "productname" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.ProductDesc)
-                                <span class="fs-regular-16">Hamburger</span>
+                                <span class="fs-regular-16" id="proddesc"></span>
+                                @Html.HiddenFor(model => model.ProductDesc, new { id = "hdproddesc" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.ProductCountry)
-                                <span class="fs-regular-16">India</span>
+                                <span class="fs-regular-16" id="prodcountry"></span>
+                                @Html.HiddenFor(model => model.ProductCountry, new { id = "hdprodcountry" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.StartTime)
-                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control timepicker" } })
+                                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.EndTime)
-                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+
+                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control timepicker" } })
+                                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Umrusten)
                                 @Html.EditorFor(model => model.Umrusten, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Umrusten, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Reinigung)
                                 @Html.EditorFor(model => model.Reinigung, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Reinigung, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Technische)
                                 @Html.EditorFor(model => model.Technische, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Technische, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Produktion)
-                                @Html.EditorFor(model => model.CDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Produktion, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Produktion, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Menge)
                                 @Html.EditorFor(model => model.Menge, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Menge, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Auschuss)
                                 @Html.EditorFor(model => model.Auschuss, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Auschuss, "", new { @class = "text-danger" })
                             </div>
                             <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
                                 @Html.LabelFor(model => model.Brötchen)
                                 @Html.EditorFor(model => model.Brötchen, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Brötchen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="mt-3 text-center">
+                            <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 w-sm-100" id="btndailyprod">Speichern</button>
+                        </div>
+                    }
+
+
+                </div>
+
+                <div class="p-5 p-sm-4 dailyform" style="display:none">
+
+                    <!--Set1 Starts-->
+                    @using (Ajax.BeginForm("Edit", new AjaxOptions() { OnSuccess = "fnSuccessEdit", OnFailure = "fnFailureEdit" }))
+                    {
+                        <div class="row p-2 pt-sm-0 pb-sm-1 sm-mt-1 justify-content-lg-center justify-content-md-center">
+                            <div class="col-lg-1 col-md-1 col-sm-12 col-12 align-self-end sm-mt-2"><p class="fs-regular-14"><strong>Datum</strong></p></div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-12 sm-mt-0">
+                                @Html.EditorFor(model => model.CDate, new { htmlAttributes = new { @class = "form-control Datepicker" } })
+                                @Html.ValidationMessageFor(model => model.CDate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-12 align-self-end sm-mt-2">
+                                <div class="text-center"><button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 w-sm-100" id="editsearch">Search</button></div>
                             </div>
                         </div>
                     }
-                    <div class="mt-3 text-center">
-                        <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 w-sm-100">Speichern</button>
+                    <div class="border-bottom "></div>
+                    <!--Set1 Ends-->
+                    <!--Set2 Starts-->
+                    <div class="w-sm-100 mt-4 gridlist" style="display:none">
+                        <table class="table tableType1 table-sm table-bordered shadow w-sm-100" id="tblDaily" style="cursor:">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Datum</th>
+                                    <th scope="col">Auftrag Nr.</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col" class="hide-sm">Product Description</th>
+                                    <th scope="col" class="hide-sm">Kunde</th>
+                                    <th scope="col">Linie</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
+                    <br>
+                    <div class="border-bottom "></div>
+                    <br>
+                    <!--Set2 Ends-->
+                    <!--Set3 Starts-->
+                    @using (Ajax.BeginForm("EditEmp", new AjaxOptions() { OnSuccess = "fnSuccessEditEmp", OnFailure = "fnFailureEditEmp" }))
+                    {
+                        <div id="dvedit" class="row editform">
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="CountryId">Datum</label>
+                                @*<input type="text" class="form-control" id="txtDate">*@
+                                @Html.EditorFor(model => model.PDate, new { htmlAttributes = new { @class = "form-control Datepicker", id = "txtDate" } })
+                                @Html.ValidationMessageFor(model => model.PDate, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtId">Auftrag Nr.</label>
+                                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", id = "txtId", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="ddlLine">Linie</label>
+                                @Html.DropDownListFor(model => model.LineId, null, "--Select Line--", htmlAttributes: new { @class = "form-control", id = "ddlLine" })
+                                @Html.ValidationMessageFor(model => model.Line, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Line, new { id = "linename1" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="ddlProduct">Product</label>
+                                @Html.DropDownListFor(model => model.ProductId, Enumerable.Empty<SelectListItem>(), htmlAttributes: new { @class = "form-control", id = "ddlProduct" })
+                                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.ProductName, new { id = "productname1" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtProddesc">Product Description</label><br>
+                                <span class="fs-regular-16" id="txtProddesc"></span>
+                                @Html.HiddenFor(model => model.ProductDesc, new { id = "hdproddescedit" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtProdcount">Kunde</label><br>
+                                @Html.HiddenFor(model => model.ProductCountry, new { id = "hdprodcountryedit" })
+                                <span class="fs-regular-16" id="txtProdcount"></span>
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtStarttime">Start Time</label>
+                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control ", id = "txtStarttime" } })
+                                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtEndtime">End Time</label>
+                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control ", id = "txtEndtime" } })
+                                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtUmrusten">Umrusten(mins)</label>
+                                @Html.EditorFor(model => model.Umrusten, new { htmlAttributes = new { @class = "form-control ", id = "txtUmrusten" } })
+                                @Html.ValidationMessageFor(model => model.Umrusten, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtReinigung">Reinigung(mins)</label>
+                                @Html.EditorFor(model => model.Reinigung, new { htmlAttributes = new { @class = "form-control ", id = "txtReinigung" } })
+                                @Html.ValidationMessageFor(model => model.Reinigung, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtTechnische">Technische(mins)</label>
+                                @Html.EditorFor(model => model.Technische, new { htmlAttributes = new { @class = "form-control ", id = "txtTechnische" } })
+                                @Html.ValidationMessageFor(model => model.Technische, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtProduktion">Produktion(mins)</label>
+                                @Html.EditorFor(model => model.Produktion, new { htmlAttributes = new { @class = "form-control", id = "txtProduktion" } })
+                                @Html.ValidationMessageFor(model => model.Produktion, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtMenge">Menge(pcs)</label>
+                                @Html.EditorFor(model => model.Menge, new { htmlAttributes = new { @class = "form-control", id = "txtMenge" } })
+                                @Html.ValidationMessageFor(model => model.Menge, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtAuschuss">Auschuss - Teig(kg)</label>
+                                @Html.EditorFor(model => model.Auschuss, new { htmlAttributes = new { @class = "form-control", id = "txtAuschuss" } })
+                                @Html.ValidationMessageFor(model => model.Auschuss, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group col-lg-6 col-md-4 col-sm-12 col-12">
+                                <label for="txtBrotchen">Auschuss - Brötchen(kg)</label>
+                                @Html.EditorFor(model => model.Brötchen, new { htmlAttributes = new { @class = "form-control", id = "txtBrotchen" } })
+                                @Html.ValidationMessageFor(model => model.Brötchen, "", new { @class = "text-danger" })
+                            </div>
 
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button type="submit" class="btn btn-primary hvr-float ripple text-uppercase font-weight-bold pl-5 pr-5 plr-sm-4 w-sm-100 editform">Speichern</button>
+                        </div>
+                    }
+                    <!--Set3 Ends-->
                 </div>
+
 
             </div>
         </div>
     </div>
 </div>
+<link href="~/Content/wickedpicker.min.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
 @section Scripts {
 
 
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/fsbscript")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/fsbui.js"></script>
+    <script src="~/Scripts/wickedpicker.js"></script>
+
+
+    <script>
+        var options = {
+            //now: "12:35", //hh:mm 24 hour format only, defaults to current time
+            twentyFour: true,  //Display 24 hour format, defaults to false
+            upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS
+            downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS
+            close: 'wickedpicker__close', //The close class selector to use, for custom CSS
+            hoverState: 'hover-state', //The hover state class to use, for custom CSS
+            title: 'Timepicker', //The Wickedpicker's title,
+            showSeconds: false, //Whether or not to show seconds,
+            timeSeparator: ' : ', // The string to put in between hours and minutes (and seconds)
+            secondsInterval: 1, //Change interval for seconds, defaults to 1,
+            minutesInterval: 1, //Change interval for minutes, defaults to 1
+            beforeShow: null, //A function to be called before the Wickedpicker is shown
+            afterShow: null, //A function to be called after the Wickedpicker is closed/hidden
+            show: null, //A function to be called when the Wickedpicker is shown
+            clearable: false, //Make the picker's input clearable (has clickable "x")
+        };
+        $('.timepicker').wickedpicker(options);
+    </script>
+
+
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script>
+        $(function () {
+            $(".Datepicker").datepicker({ maxDate: new Date() });
+        });
+        $(document).ready(function () {
+            $(".Datepicker").datepicker({
+                dateFormat: "mm/dd/yy",
+                changeMonth: true,
+                changeYear: true
+
+            });
+        });
+    </script>
 }
