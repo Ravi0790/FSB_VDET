@@ -145,6 +145,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BakeryController.cs" />
+    <Compile Include="Controllers\DailyProductionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -328,6 +329,7 @@
     <Content Include="Views\Bakery\Index.cshtml" />
     <Content Include="Views\Bakery\Index-old.cshtml" />
     <Content Include="Views\Shared\_ProductionGraph.cshtml" />
+    <Content Include="Views\DailyProduction\Index.cshtml" />
     <None Include="Web.Staging.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
